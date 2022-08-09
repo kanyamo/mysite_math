@@ -1,0 +1,12 @@
+.env/
+venv_mysite/
+*.log
+*.pot
+*.pyc
+.python-version
+__pychache__/
+db-volumes/
+logs/
+media/
+staticfiles/
+db.sqlite3
