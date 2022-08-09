@@ -12,15 +12,16 @@ class Article(models.Model):
     thumbnail = models.ImageField('サムネイル画像', upload_to='thumbnails/%Y/%m/%d/', default='default/default_thumbnail.png')
     pub_date = models.DateTimeField('投稿日', default=timezone.now)
     renew_date = models.DateTimeField('更新日', default=timezone.now)
-    title = models.CharField('タイトル')
+    title = models.CharField('タイトル', max_length=200)
 
 class Content(models.Model):
     list_number = models.IntegerField('順番')
     article = models.ForeignKey(Article, on_delete=models.CASCADE)
 
 class Headline(models.Model):
-    text = models.CharField('見出し')
-    size = models.IntegerChoices('階層')
+    text = models.CharField('見出し', max_length=200)
+    CHOICE_SIZE = ((1, 2), (2, 3), (3, 4), (4, 5), (5, 6))
+    size = models.IntegerField('階層', choices=CHOICE_SIZE)
     content = models.OneToOneField(Content, on_delete=models.CASCADE)
 
 class Paragraph(models.Model):
