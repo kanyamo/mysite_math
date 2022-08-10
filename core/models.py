@@ -13,6 +13,7 @@ class Article(models.Model):
     pub_date = models.DateTimeField('投稿日', default=timezone.now)
     renew_date = models.DateTimeField('更新日', default=timezone.now)
     title = models.CharField('タイトル', max_length=200)
+    view_count = models.IntegerField('PV数', default=0)  # 約21億が上限。さすがにそこまではいかないだろう
 
 class Content(models.Model):
     list_number = models.IntegerField('順番')
