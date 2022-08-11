@@ -1,15 +1,51 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'core/css/styles.css' %}">
     <title>
         {% block title %}{% endblock %} | 感覚の数学
     </title>
 </head>
 <body>
-    {% block contents %}
-    {% endblock %}
+    <header>
+        <nav>
+            <a href="{% url 'index' %}">感覚の数学</a>
+            <a href="{% url 'index' %}">直観的数学</a>
+            <a href="{% url 'index' %}">数学問題</a>
+            <a href="{% url 'index' %}">裏技</a>
+        </nav>
+        サイト内検索
+    </header>
+    <div class="wrapper">
+        <div class="container">
+            <div class="column1">
+                {% block contents %}
+                {% endblock %}
+            </div>
+            <div class="column2">
+                人気の記事<br>
+                {% for article in popular_articles %}
+                    <a href="{% url 'detail' article.pk %}">
+                        <div class="article-link-container">
+                            <div class="article-link-thumbnail">
+                                <img src="{{article.thumbnail.url}}" alt="{{article.thumbnail.alt}}">
+                            </div>
+                            <div class="article-link-description">
+                                {{ article.title }}
+                            </div>
+                        </div>
+                    </a><br>
+                {% endfor %}
+                新着記事<br>
+                {% for article in new_articles %}
+                    <a href="{% url 'detail' article.pk %}">{{ article.title }}</a><br>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
 </body>
 </html>

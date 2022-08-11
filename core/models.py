@@ -27,7 +27,7 @@ class Content(models.Model):
 
 class Headline(models.Model):
     text = models.CharField('見出し', max_length=200)
-    CHOICE_SIZE = ((1, 2), (2, 3), (3, 4), (4, 5), (5, 6))
+    CHOICE_SIZE = ((2, 2), (3, 3), (4, 4), (5, 5), (6, 6))
     size = models.IntegerField('階層', choices=CHOICE_SIZE)
     content = models.OneToOneField(Content, on_delete=models.CASCADE)
 
