@@ -6,8 +6,8 @@ from .models import MyUser, Article, Content, Headline, Paragraph, Image
 class BaseTemplateView(generic.TemplateView):  # base.htmlで使うコンテキストを取得
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['popular_articles'] = Article.objects.all().order_by('view_count')[:3]  # 人気記事上位3件を取得
-        context['new_articles'] = Article.objects.all().order_by('pub_date')[:3]  # 最新記事3件を取得
+        context['popular_articles'] = Article.objects.all().order_by('view_count').reverse()[:3]  # 人気記事上位3件を取得
+        context['new_articles'] = Article.objects.all().order_by('pub_date').reverse()[:3]  # 最新記事3件を取得
         return context
 
 class IndexView(BaseTemplateView):  # ホーム表示

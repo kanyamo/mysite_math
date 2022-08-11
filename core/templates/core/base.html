@@ -51,22 +51,13 @@
                 {% endblock %}
             </div>
             <div class="column2">
-                人気の記事<br>
+                <h2>人気記事</h2>
                 {% for article in popular_articles %}
-                    <a href="{% url 'detail' article.pk %}">
-                        <div class="article-link-container">
-                            <div class="article-link-thumbnail">
-                                <img src="{{article.thumbnail.url}}" alt="{{article.thumbnail.alt}}">
-                            </div>
-                            <div class="article-link-description">
-                                {{ article.title }}
-                            </div>
-                        </div>
-                    </a><br>
+                    {% include "core/article_link.html" with article=article %}
                 {% endfor %}
-                新着記事<br>
+                <h2>新着記事</h2>
                 {% for article in new_articles %}
-                    <a href="{% url 'detail' article.pk %}">{{ article.title }}</a><br>
+                    {% include "core/article_link.html" with article=article %}
                 {% endfor %}
             </div>
         </div>

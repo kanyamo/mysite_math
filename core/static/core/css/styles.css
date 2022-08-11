@@ -4,12 +4,13 @@
 
 body {
     margin: 0;
+    background-color: #f0f0f0;
 }
 
 nav {
     width: 100%;
     height: 70px;
-    background-color: black;
+    background-image: linear-gradient(to left, #2af598 0%, #009efd 100%);
 }
 
 .navbar-list {
@@ -52,24 +53,34 @@ a.navbar-nav {
     margin: auto;
 }
 
-h1 {
-    color: red;
-}
-
 .column1 {
-    background-color: #FFDDFF;
-    width: 70%;
+    background-color: #fff;
+    width: 67%;
+    margin:0 1%;
     padding: 1em;
+    border-radius: 6px;
 }
 
 .column2 {
-    background-color: #FFFFDD;
+    background-color: #fff;
     width: 30%;
     padding: 1em;
+    margin:0 1%;
+    border-radius: 6px;
 }
 
 .container {
     display: flex;
+    margin: 1em 0;
+}
+
+.article-view-count {
+    float: left;  /* 後続を右側に回り込ませる */
+}
+
+.article-pub-date {
+    text-align: right;
+    float: right;
 }
 
 .article-link-container {
@@ -82,8 +93,35 @@ h1 {
 
 .article-link-description {
     width: 50%;
+    padding-left: 1%;
 }
 
 img {
     width: 100%;
+    border-radius: 6px;
+}
+
+h1 {
+    padding: 1em 2em;
+    background-image: linear-gradient(to left, #2af598 0%, #009efd 100%);
+    border-radius: 6px;
+    color: #fff;
+}
+
+h2 {
+    position: relative;
+    padding: 1rem .5rem;
+}
+
+h2:after {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 6px;
+    content: '';
+    border-radius: 3px;
+    background-image: -webkit-gradient(linear, right top, left top, from(#2af598), to(#009efd));
+    background-image: -webkit-linear-gradient(right, #2af598 0%, #009efd 100%);
+    background-image: linear-gradient(to left, #2af598 0%, #009efd 100%);
 }

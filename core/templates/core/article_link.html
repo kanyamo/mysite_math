@@ -1,0 +1,10 @@
+<a href="{% url 'detail' article.pk %}">
+    <div class="article-link-container">
+        <div class="article-link-thumbnail">
+            <img src="{{article.thumbnail.url}}" alt="{{article.thumbnail.alt}}">
+        </div>
+        <div class="article-link-description">
+            {{ article.title }}
+        </div>
+    </div>
+</a>
