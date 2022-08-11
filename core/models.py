@@ -15,9 +15,15 @@ class Article(models.Model):
     title = models.CharField('タイトル', max_length=200)
     view_count = models.IntegerField('PV数', default=0)  # 約21億が上限。さすがにそこまではいかないだろう
 
+    def __str__(self):
+        return self.title
+
 class Content(models.Model):
     list_number = models.IntegerField('順番')
     article = models.ForeignKey(Article, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.article}({self.list_number})'
 
 class Headline(models.Model):
     text = models.CharField('見出し', max_length=200)
@@ -25,11 +31,24 @@ class Headline(models.Model):
     size = models.IntegerField('階層', choices=CHOICE_SIZE)
     content = models.OneToOneField(Content, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return f'{self.content}:{self.text}'
+
 class Paragraph(models.Model):
     paragraph = models.TextField('文章')
     content = models.OneToOneField(Content, on_delete=models.CASCADE)
 
+    def __str__(self):
+        paragraph = self.paragraph
+        if len(paragraph) > 20:
+            paragraph = paragraph[:20] + '...'
+        return f'{self.content}:{paragraph}'
+
 class Image(models.Model):
     image = models.ImageField('画像', upload_to='images/%Y/%m/%d/', default='default/default_image.png')
     content = models.OneToOneField(Content, on_delete=models.CASCADE)
+    alt = models.CharField('説明', max_length=200, default='画像')
+
+    def __str__(self):
+        return f'{self.content}:{self.alt}'
 

@@ -1,5 +1,5 @@
 {% extends "core/base.html" %}
-{% block title %}詳細表示{% endblock %}
+{% block title %}{{article.title}}{% endblock %}
 {% block contents %}
 <h1>{{article.title}}</h1>
 {{article.view_count}} views<br>
