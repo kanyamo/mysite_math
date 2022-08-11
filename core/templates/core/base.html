@@ -13,12 +13,36 @@
 <body>
     <header>
         <nav>
-            <a href="{% url 'index' %}">感覚の数学</a>
-            <a href="{% url 'index' %}">直観的数学</a>
-            <a href="{% url 'index' %}">数学問題</a>
-            <a href="{% url 'index' %}">裏技</a>
+            <ul class="navbar-list">
+                <li class="navbar-list-item">
+                    <a class="navbar-nav" href="{% url 'index' %}">
+                        <div class="navbar-nav-title">感覚の数学</div>
+                    </a>
+                </li>
+                <li class="navbar-list-item">
+                    <a class="navbar-nav" href="{% url 'index' %}">
+                        <div class="navbar-nav-title">直観的数学</div>
+                    </a>
+                </li>
+                <li class="navbar-list-item">
+                    <a class="navbar-nav" href="{% url 'index' %}">
+                        <div class="navbar-nav-title">数学問題</div>
+                    </a>
+                </li>
+                <li class="navbar-list-item">
+                    <a class="navbar-nav" href="{% url 'index' %}">
+                        <div class="navbar-nav-title">裏技</div>
+                    </a>
+                </li>
+                <li class="navbar-list-item navbar-list-item__right">
+                    <a class="navbar-nav" href="">
+                        <div class="navbar-nav-title">
+                            サイト内検索
+                        </div>
+                    </a>
+                </li>
+            </ul>
         </nav>
-        サイト内検索
     </header>
     <div class="wrapper">
         <div class="container">

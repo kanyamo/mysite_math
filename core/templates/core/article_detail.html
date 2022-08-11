@@ -1,17 +1,21 @@
 {% extends "core/base.html" %}
 {% block title %}{{article.title}}{% endblock %}
 {% block contents %}
-    <h1>{{article.title}}</h1>
+    <h1 id="content0">{{article.title}}</h1>
     {{article.view_count}} views<br>
     投稿日:{{article.pub_date.year}}/{{article.pub_date.month}}/{{article.pub_date.day}}, 更新日:{{article.renew_date.year}}/{{article.renew_date.month}}/{{article.renew_date.day}}
     <img src="{{article.thumbnail.url}}" alt="{{article.title}}">
     {% for content in article.content_set.all|dictsort:"list_number" %}
         {% if content.headline %}
-            <h{{content.headline.size}}>{{content.headline.text}}</h{{content.headline.size}}>
+            <h{{content.headline.size}} id="content{{content.list_number}}">
+                {{content.headline.text}}
+            </h{{content.headline.size}}>
         {% elif content.paragraph %}
-            <p>{{content.paragraph.paragraph}}</p>
+            <p id="content{{content.list_number}}">
+                {{content.paragraph.paragraph}}
+            </p>
         {% elif content.image %}
-            <img src="{{content.image.image.url}}">
+            <img src="{{content.image.image.url}}" id="content{{content.list_number}}">
         {% endif %}
     {% endfor %}
 {% endblock %}
