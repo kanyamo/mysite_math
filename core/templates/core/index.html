@@ -1,5 +1,13 @@
 {% extends "core/base.html" %}
 {% block title %}トップページ{% endblock %}
+{% block extra-style %}
+<link rel="stylesheet" href="{% static 'core/css/index.css' %}">
+{% endblock %}
+{% block extra-header %}
+<div class="site-thumbnail-container">
+    <img class="site-thumbnail" src="{% static 'core/image/site-thumbnail.png' %}" alt="">
+</div>
+{% endblock %}
 {% block contents %}
     数あるサイトの中から当サイトをご覧いただきありがとうございます。
     このサイトは数学の直観力を中心とし、おもしろい数学問題、定理などを紹介しています。

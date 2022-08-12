@@ -75,7 +75,7 @@ a.navbar-nav {
 }
 
 .article-view-count {
-    float: left;  /* 後続を右側に回り込ませる */
+    float: left;  /* 浮き上がって左による */
 }
 
 .article-pub-date {
