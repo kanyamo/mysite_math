@@ -3,22 +3,31 @@ from django.contrib.auth.models import AbstractUser
 from django.utils import timezone
 from django.core.validators import RegexValidator
 
-alphanumeric = RegexValidator(r'^[0-9a-zA-Z]*$', 'Only alphanumeric characters are allowed.')  # 内部カテゴリ名として半角英数字しか使えないようにする
+alphanumeric = RegexValidator(r'^[0-9a-zA-Z_]*$', '半角英数字とアンダースコアのみ使用可能です。')  # 内部カテゴリ名として半角英数字とアンダースコアしか使えないようにする
 
 # Create your models here.
 class MyUser(AbstractUser):
     # usernameとemailはすでにAbstractUserで定義済み,passwordはすでにAbstractBaseUserで定義済み
     icon = models.ImageField('アイコン画像', upload_to='icons/', default='default/default_user_icon.png')
     pub_date = models.DateTimeField('登録日', default=timezone.now)
+    display_name = models.CharField('表示名', max_length=100)
+
 
 class Category(models.Model):
     upper = models.ForeignKey('self', on_delete=models.CASCADE, blank=True, null=True)
-    name = models.CharField('カテゴリ名', max_length=100)
-    inner_name = models.CharField('内部的カテゴリ名', max_length=100, validators=[alphanumeric])
+    name = models.CharField('カテゴリ名', max_length=100, unique=True)
+    inner_name = models.CharField('内部的カテゴリ名', max_length=100, validators=[alphanumeric], unique=True)
 
     def __str__(self):
         return self.name
 
+def get_home_category():
+    category = Category.objects.get(inner_name='home')
+    return category
+
+def get_admin_user():
+    user = Category.objects.get(username='admin')  # usernameはuniqueなので問題なし
+    return user
 
 class Article(models.Model):
     length = models.IntegerField('長さ')
@@ -27,8 +36,8 @@ class Article(models.Model):
     renew_date = models.DateTimeField('更新日', default=timezone.now)
     title = models.CharField('タイトル', max_length=200)
     view_count = models.IntegerField('PV数', default=0)  # 約21億が上限。さすがにそこまではいかないだろう
-    # category = models.ForeignKey(Category, on_delete=models.SET_DEFAULT, default=Category.objects.get(inner_name='home'))  # もしカテゴリーが削除されると、HOMEカテゴリに強制的に属させる
-    # author = models.ForeignKey(MyUser, on_delete=models.SET_DEFAULT, default=MyUser.objects.get(username='admin'))  # 作者が削除されると、記事はすべて管理者のものになる
+    category = models.ForeignKey(Category, on_delete=models.SET_DEFAULT, default=get_home_category)  # もしカテゴリーが削除されると、HOMEカテゴリに強制的に属させる
+    author = models.ForeignKey(MyUser, on_delete=models.SET_DEFAULT, default=get_admin_user)  # 作者が削除されると、記事はすべて管理者のものになる
 
     def __str__(self):
         return self.title
