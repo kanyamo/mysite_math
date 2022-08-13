@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import MyUser, Article, Content, Headline, Paragraph, Image
+from .models import MyUser, Article, Content, Headline, Paragraph, Image, Category
 
 # Register your models here.
 admin.site.register(MyUser)
@@ -8,3 +8,4 @@ admin.site.register(Content)
 admin.site.register(Headline)
 admin.site.register(Paragraph)
 admin.site.register(Image)
+admin.site.register(Category)
