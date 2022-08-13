@@ -10,7 +10,7 @@ class MyUser(AbstractUser):
     # usernameとemailはすでにAbstractUserで定義済み,passwordはすでにAbstractBaseUserで定義済み
     icon = models.ImageField('アイコン画像', upload_to='icons/', default='default/default_user_icon.png')
     pub_date = models.DateTimeField('登録日', default=timezone.now)
-    display_name = models.CharField('表示名', max_length=100)
+    display_name = models.CharField('表示名', max_length=100, default='表示名')
 
 
 class Category(models.Model):
@@ -21,13 +21,6 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
-def get_home_category():
-    category = Category.objects.get(inner_name='home')
-    return category
-
-def get_admin_user():
-    user = Category.objects.get(username='admin')  # usernameはuniqueなので問題なし
-    return user
 
 class Article(models.Model):
     length = models.IntegerField('長さ')
@@ -36,8 +29,8 @@ class Article(models.Model):
     renew_date = models.DateTimeField('更新日', default=timezone.now)
     title = models.CharField('タイトル', max_length=200)
     view_count = models.IntegerField('PV数', default=0)  # 約21億が上限。さすがにそこまではいかないだろう
-    category = models.ForeignKey(Category, on_delete=models.SET_DEFAULT, default=get_home_category)  # もしカテゴリーが削除されると、HOMEカテゴリに強制的に属させる
-    author = models.ForeignKey(MyUser, on_delete=models.SET_DEFAULT, default=get_admin_user)  # 作者が削除されると、記事はすべて管理者のものになる
+    category = models.ForeignKey(Category, on_delete=models.SET_DEFAULT, default=1)  # もしカテゴリーが削除されると、HOMEカテゴリ(id=1)に強制的に属させる
+    author = models.ForeignKey(MyUser, on_delete=models.SET_DEFAULT, default=1)  # 作者が削除されると、記事はすべて管理者(id=1)のものになる
 
     def __str__(self):
         return self.title
