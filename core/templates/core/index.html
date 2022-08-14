@@ -1,13 +1,11 @@
-{% extends "core/article_base.html" %}
+{% extends "core/base/two_column_base.html" %}
 {% load static %}  <!-- このタグは継承先で再度述べる必要がある -->
 {% block title %}トップページ{% endblock %}
 {% block extra-style %}
 <link rel="stylesheet" href="{% static 'core/css/index.css' %}">
 {% endblock %}
 {% block extra-header %}
-<div class="site-thumbnail-container">
-    <img class="site-thumbnail" src="{% static 'core/image/site-thumbnail.png' %}" alt="">
-</div>
+<img class="site-thumbnail" src="{% static 'core/image/site-thumbnail.png' %}" alt="">
 {% endblock %}
 {% block column2-1 %}
     <p>
