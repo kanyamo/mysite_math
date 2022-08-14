@@ -72,7 +72,7 @@ a.navbar-nav {
 .container {
     display: flex;
     margin: 1em 0;
-    min-height: 100vh;
+    min-height: 80vh;
 }
 
 .article-view-count {
@@ -84,17 +84,23 @@ a.navbar-nav {
     float: right;
 }
 
+a.article-link {
+    text-decoration: none;
+    color: black;
+}
+
 .article-link-container {
     display: flex;
 }
 
 .article-link-thumbnail-container {
-    width: 50%;
+    width: 49%;
 }
 
 .article-link-description {
-    width: 50%;
-    padding-left: 1%;
+    width: 49%;
+    margin-left: 2%;
+
 }
 
 .article-link-thumbnail, .content-image, .thumbnail-image {
@@ -147,4 +153,9 @@ h2:after {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+.return-to-top {
+    text-decoration: none;
+    color: white;
 }

@@ -14,7 +14,7 @@ class MyUser(AbstractUser):
 
 
 class Category(models.Model):
-    upper = models.ForeignKey('self', on_delete=models.CASCADE, blank=True, null=True)
+    upper = models.ForeignKey('self', verbose_name='上位カテゴリ', on_delete=models.CASCADE, blank=True, null=True)
     name = models.CharField('カテゴリ名', max_length=100, unique=True)
     inner_name = models.CharField('内部的カテゴリ名', max_length=100, validators=[alphanumeric], unique=True)
 
@@ -29,15 +29,15 @@ class Article(models.Model):
     renew_date = models.DateTimeField('更新日', default=timezone.now)
     title = models.CharField('タイトル', max_length=200)
     view_count = models.IntegerField('PV数', default=0)  # 約21億が上限。さすがにそこまではいかないだろう
-    category = models.ForeignKey(Category, on_delete=models.SET_DEFAULT, default=1)  # もしカテゴリーが削除されると、HOMEカテゴリ(id=1)に強制的に属させる
-    author = models.ForeignKey(MyUser, on_delete=models.SET_DEFAULT, default=1)  # 作者が削除されると、記事はすべて管理者(id=1)のものになる
+    category = models.ForeignKey(Category, verbose_name='カテゴリ', on_delete=models.SET_DEFAULT, default=1)  # もしカテゴリーが削除されると、HOMEカテゴリ(id=1)に強制的に属させる
+    author = models.ForeignKey(MyUser, verbose_name='作者', on_delete=models.SET_DEFAULT, default=1)  # 作者が削除されると、記事はすべて管理者(id=1)のものになる
 
     def __str__(self):
         return self.title
 
 class Content(models.Model):
     list_number = models.IntegerField('順番')
-    article = models.ForeignKey(Article, on_delete=models.CASCADE)
+    article = models.ForeignKey(Article, verbose_name='記事', on_delete=models.CASCADE)
 
     def __str__(self):
         return f'{self.article}({self.list_number})'
@@ -46,14 +46,14 @@ class Headline(models.Model):
     text = models.CharField('見出し', max_length=200)
     CHOICE_SIZE = ((2, 2), (3, 3), (4, 4), (5, 5), (6, 6))
     size = models.IntegerField('階層', choices=CHOICE_SIZE)
-    content = models.OneToOneField(Content, on_delete=models.CASCADE)
+    content = models.OneToOneField(Content, verbose_name='コンテンツ', on_delete=models.CASCADE)
 
     def __str__(self):
         return f'{self.content}:{self.text}'
 
 class Paragraph(models.Model):
     paragraph = models.TextField('文章')
-    content = models.OneToOneField(Content, on_delete=models.CASCADE)
+    content = models.OneToOneField(Content, verbose_name='コンテンツ', on_delete=models.CASCADE)
 
     def __str__(self):
         paragraph = self.paragraph
@@ -63,7 +63,7 @@ class Paragraph(models.Model):
 
 class Image(models.Model):
     image = models.ImageField('画像', upload_to='images/%Y/%m/%d/', default='default/default_image.png')
-    content = models.OneToOneField(Content, on_delete=models.PROTECT)  # 下位カテゴリがあると削除できない
+    content = models.OneToOneField(Content, verbose_name='コンテンツ', on_delete=models.PROTECT)  # 下位カテゴリがあると削除できない
     alt = models.CharField('説明', max_length=200, default='画像')
 
     def __str__(self):
