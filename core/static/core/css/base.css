@@ -53,15 +53,15 @@ a.navbar-nav {
     margin: auto;
 }
 
-.column1 {
+.column2-1 {
     background-color: #fff;
-    width: 67%;
+    width: 66%;
     margin:0 1%;
     padding: 1em;
     border-radius: 6px;
 }
 
-.column2 {
+.column2-2 {
     background-color: #fff;
     width: 30%;
     padding: 1em;
@@ -128,8 +128,6 @@ h2:after {
     height: 6px;
     content: '';
     border-radius: 3px;
-    background-image: -webkit-gradient(linear, right top, left top, from(#2af598), to(#009efd));
-    background-image: -webkit-linear-gradient(right, #2af598 0%, #009efd 100%);
     background-image: linear-gradient(to left, #2af598 0%, #009efd 100%);
 }
 

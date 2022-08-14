@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views import generic
-from .models import MyUser, Article, Content, Headline, Paragraph, Image
+from .models import Article
 
 # Create your views here.
 class BaseTemplateView(generic.TemplateView):  # base.htmlで使うコンテキストを取得

@@ -16,27 +16,27 @@
         <nav>
             <ul class="navbar-list">
                 <li class="navbar-list-item">
-                    <a class="navbar-nav" href="{% url 'index' %}">
+                    <a class="navbar-nav" href="{% url 'core:index' %}">
                         <div class="navbar-nav-title">感覚の数学</div>
                     </a>
                 </li>
                 <li class="navbar-list-item">
-                    <a class="navbar-nav" href="{% url 'index' %}">
+                    <a class="navbar-nav" href="{% url 'core:index' %}">
                         <div class="navbar-nav-title">直観的数学</div>
                     </a>
                 </li>
                 <li class="navbar-list-item">
-                    <a class="navbar-nav" href="{% url 'index' %}">
+                    <a class="navbar-nav" href="{% url 'core:index' %}">
                         <div class="navbar-nav-title">数学問題</div>
                     </a>
                 </li>
                 <li class="navbar-list-item">
-                    <a class="navbar-nav" href="{% url 'index' %}">
+                    <a class="navbar-nav" href="{% url 'core:index' %}">
                         <div class="navbar-nav-title">裏技</div>
                     </a>
                 </li>
                 <li class="navbar-list-item">
-                    <a class="navbar-nav" href="{% url 'index' %}">
+                    <a class="navbar-nav" href="{% url 'core:index' %}">
                         <div class="navbar-nav-title">その他</div>
                     </a>
                 </li>
@@ -53,20 +53,8 @@
     </header>
     <div class="wrapper">
         <div class="container">
-            <div class="column1">
-                {% block contents %}
-                {% endblock %}
-            </div>
-            <div class="column2">
-                <h2>人気記事</h2>
-                {% for article in popular_articles %}
-                    {% include "core/article_link.html" with article=article %}
-                {% endfor %}
-                <h2>新着記事</h2>
-                {% for article in new_articles %}
-                    {% include "core/article_link.html" with article=article %}
-                {% endfor %}
-            </div>
+            {% block contents %}
+            {% endblock %}
         </div>
     </div>
     <footer>
@@ -78,7 +66,7 @@
             </div>
             <div class="footer-item-outer">
                 <div class="footer-item-inner">
-                    管理者用ログイン
+                    <a href="{{ url 'account_login'}}}" >管理者用ログイン</a>
                 </div>
             </div>
             <div class="footer-item-outer">

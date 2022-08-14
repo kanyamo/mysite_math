@@ -26,7 +26,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [os.getenv('ALLOWED_HOSTS')]
 
 
 # Application definition
@@ -38,7 +38,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'core',
+    'core.apps.CoreConfig',
+    'accounts.apps.AccountsConfig',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
 ]
 
 MIDDLEWARE = [
@@ -128,3 +132,30 @@ AUTH_USER_MODEL = 'core.MyUser'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+# allauth関係の設定
+
+SITE_ID = 1
+AUTHENTICATION_BACKENDS = (
+    'allauth.account.auth_backends.AuthenticationBackend',  # 一般ユーザー用
+    'django.contrib.auth.backends.ModelBackend',  # 管理サイト用
+)
+
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_USERNAME_REQUIRED = False
+
+# サインアップにメールアドレス確認をはさむよう設定
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+ACCOUNT_EMAIL_REQUIRED = True
+
+LOGIN_REDIRECT_URL = 'core:index'
+ACCOUNT_LOGOUT_REDIRECT_URL = 'core:index'
+
+# ボタン一発でログアウトする設定
+ACCOUNT_LOGOUT_ON_GET = True
+
+# django-allauthが送信するメールの件名に自動付与される接頭辞をブランクにする
+ACCOUNT_EMAIL_SUBJECT_PREFIX = ''
+
+# デフォルトのメール送信元
+DEFAULT_FROM_EMAIL = os.getenv('FROM_EMAIL')
