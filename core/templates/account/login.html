@@ -1,4 +1,9 @@
 {% extends "core/base/one_column_base.html" %}
 {% block column1-1 %}
 これがログインページです。
+<form method="post" action="{% url 'account_login' %}">
+    {% csrf_token %}
+    {{ form }}
+    <button type="submit">Log In</button>
+</form>
 {% endblock %}

@@ -1,6 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -71,6 +71,11 @@
                     {% else %}
                     <a href="{% url 'account_login' %}" >管理者用ログイン</a>
                     {% endif %}
+                </div>
+            </div>
+            <div class="footer-item-outer">
+                <div class="footer-item-inner">
+                    <a href="{% url 'core:create' %}">記事作成</a>
                 </div>
             </div>
             <div class="footer-item-outer">

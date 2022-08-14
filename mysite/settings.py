@@ -158,3 +158,5 @@ ACCOUNT_EMAIL_SUBJECT_PREFIX = ''
 
 # デフォルトのメール送信元
 DEFAULT_FROM_EMAIL = os.getenv('FROM_EMAIL')
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

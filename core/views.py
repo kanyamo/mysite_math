@@ -30,4 +30,9 @@ class ArticleDetailView(BaseTemplateView):
         context['article'] = article
         return context
 
+class ArticleCreateView(BaseTemplateView):
+    template_name = 'core/article_edit.html'
+
+class ArticleEditView(BaseTemplateView):
+    template_name = 'core/article_edit.html'
 
