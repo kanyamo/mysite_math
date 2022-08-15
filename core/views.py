@@ -1,6 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.views import generic
 from .models import Article
+from .forms import create_article_edit_form
+
 
 # Create your views here.
 class BaseTemplateView(generic.TemplateView):  # base.htmlで使うコンテキストを取得
@@ -32,7 +34,22 @@ class ArticleDetailView(BaseTemplateView):
 
 class ArticleCreateView(BaseTemplateView):
     template_name = 'core/article_edit.html'
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        form = create_article_edit_form()
+        context['form'] = form
+        return context
 
-class ArticleEditView(BaseTemplateView):
+    def post(self, request, *args, **kwargs):
+        length = request.POST.get('length', default=0)
+        count = 1
+        while request.POST.get(f'content{count}'):
+            pass
+        return redirect('index')
+
+class ArticleEditView(BaseTemplateView):  # CreateViewと違い、オブジェクトの情報を取得してからそれをコンテキストに渡す
     template_name = 'core/article_edit.html'
+
+    def get_context_data(self, **kwargs):
+        pk = self.kwargs.get('pk')
 
