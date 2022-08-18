@@ -1,15 +1,21 @@
 from django.shortcuts import redirect, render
 from django.views import generic
+from django.views.decorators.csrf import requires_csrf_token
+from django.core.files.storage import FileSystemStorage
+from django.http import JsonResponse
+from django.conf import settings
 from .models import Article
-from .forms import create_article_edit_form
+from .forms import ArticleEditForm
+from django.utils import timezone
+import os
 
 
-# Create your views here.
 class BaseTemplateView(generic.TemplateView):  # base.htmlで使うコンテキストを取得
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['popular_articles'] = Article.objects.all().order_by('view_count').reverse()[:3]  # 人気記事上位3件を取得
         context['new_articles'] = Article.objects.all().order_by('pub_date').reverse()[:3]  # 最新記事3件を取得
+        context['base_url'] = os.getenv('BASE_URL')  # ローカルでは127.0.0.1:8000, デプロイ環境ではhttps://math.kanyamo.com
         return context
 
 class IndexView(BaseTemplateView):  # ホーム表示
@@ -34,22 +40,44 @@ class ArticleDetailView(BaseTemplateView):
 
 class ArticleCreateView(BaseTemplateView):
     template_name = 'core/article_edit.html'
+
+    def post(self, request):
+        form = ArticleEditForm(request.POST, request.FILES)
+        if form.is_valid:
+            post = form.save(commit=False)
+            post.pub_date = timezone.now()
+            post.renew_date = timezone.now()
+            post.view_count = 0
+            post.author = request.user
+            post.save()
+            return redirect('core:index')
+    
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        form = create_article_edit_form()
-        context['form'] = form
+        context['form'] = ArticleEditForm()
         return context
 
-    def post(self, request, *args, **kwargs):
-        length = request.POST.get('length', default=0)
-        count = 1
-        while request.POST.get(f'content{count}'):
-            pass
-        return redirect('index')
+@requires_csrf_token
+def upload_image_view(request):
+    f = request.FILES['image']
+    fs = FileSystemStorage(location=settings.MEDIA_ROOT + f'/images/{timezone.now().year}/{timezone.now().month}/{timezone.now().day}/')
+    filename = str(f)
+    file = fs.save(filename, f)
+    file_url = fs.url(file)
+    return JsonResponse({'success': 1, 'file': {'url': file_url}})
 
-class ArticleEditView(BaseTemplateView):  # CreateViewと違い、オブジェクトの情報を取得してからそれをコンテキストに渡す
-    template_name = 'core/article_edit.html'
-
-    def get_context_data(self, **kwargs):
-        pk = self.kwargs.get('pk')
-
+@requires_csrf_token
+def upload_file_view(request):
+    f = request.FILES['file']
+    fs = FileSystemStorage(location=settings.MEDIA_ROOT + f'/files/{timezone.now().year}/{timezone.now().month}/')
+    filename = str(f)
+    file = fs.save(filename, f)
+    file_url = fs.url(file)
+    return JsonResponse({
+        'success': 1,
+        'file': {
+            'url': file_url,
+            'size': fs.size(filename),
+            'name': str(f)
+            }
+        })

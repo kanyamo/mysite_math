@@ -1,8 +1,7 @@
 from django import forms
+from .models import Article
 
-class ArticleEditForm(forms.Form):
-    pass
-
-def create_article_edit_form():
-    form =  ArticleEditForm()
-    return form
+class ArticleEditForm(forms.ModelForm):
+    class Meta:
+        model = Article
+        fields = ['title', 'thumbnail', 'content']

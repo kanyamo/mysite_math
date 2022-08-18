@@ -1,4 +1,5 @@
 {% extends "core/base/two_column_base.html" %}
+{% load static %}
 {% block title %}{{article.title}}{% endblock %}
 {% block column2-1 %}
     <h1 id="content0">{{article.title}}</h1>
@@ -7,17 +8,79 @@
         <p class="article-pub-date">投稿日:{{article.pub_date.year}}/{{article.pub_date.month}}/{{article.pub_date.day}}, 更新日:{{article.renew_date.year}}/{{article.renew_date.month}}/{{article.renew_date.day}}</p>
     </div>
     <img class="thumbnail-image" src="{{article.thumbnail.url}}" alt="{{article.title}}">
-    {% for content in article.content_set.all|dictsort:"list_number" %}
-        {% if content.headline %}
-            <h{{content.headline.size}} id="content{{content.list_number}}">
-                {{content.headline.text}}
-            </h{{content.headline.size}}>
-        {% elif content.paragraph %}
-            <p id="content{{content.list_number}}">
-                {{content.paragraph.paragraph}}
-            </p>
-        {% elif content.image %}
-            <img class="content-image" src="{{content.image.image.url}}" id="content{{content.list_number}}">
-        {% endif %}
-    {% endfor %}
+    {{ article.snippet }}
+    {{ article.content }}
+    <!-- {{ article.content }}でJSONを展開 -->
+    <div id="article-content"></div> <!-- このidはjsで使う -->
+{% endblock %}
+{% block scripts %}
+{{ block.super }}
+<script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', () => {
+    const articleContent = document.getElementById('article-content');
+    let content = JSON.parse('{{ article.content|escapejs }}');
+    let blocks = content.blocks;
+    for (let index = 0; index < blocks.length; index++ ){
+        switch(blocks[index].type){  // JSONファイルを展開し、そのブロックの各タイプごとに分解
+            case 'Header':
+                let head = document.createElement(`h${blocks[index].data.level}`);
+                head.textContent = blocks[index].data.text;
+                articleContent.appendChild(head);
+                break;
+            case 'Image':
+                let image_div = document.createElement('div');
+                let image = document.createElement('img');
+                let caption = document.createElement('h5');
+                image.classList.add('content-image');
+                caption.classList.add('content-image-caption');
+                image.src = `{{ base_url }}${blocks[index].data.file.url}`;  // base_urlは.envで定義済み
+                caption.textContent = blocks[index].data.caption;
+                image_div.appendChild(image);
+                image_div.appendChild(caption);
+                articleContent.appendChild(div);
+                break;
+            case 'paragraph':
+                let p = document.createElement('p');
+                p.textContent = blocks[index].data.text;
+                articleContent.appendChild(p);
+                break;
+            case 'list':
+                if (blocks[index].data.style == 'unordered') {
+                    list = document.createElement('ul');
+                } else {
+                    list = document.createElement('ol');
+                }
+                for (const item in blocks[index].data.items) {
+                    let li = document.createElement('li');
+                    li.textContent = blocks[index].data.items[item];
+                    list.appendChild(li);
+                }
+                articleContent.appendChild(list);
+                break;
+            case 'Raw':
+                let blockquote = document.createElement('blockquote');
+                let code = document.createElement('code');
+                let pre = document.createElement('pre');
+                pre.textContent = blocks[index].data.html;
+                pre.style.background = '#131313';
+                pre.style.color = '#dddddd';
+                pre.style.padding = '15px';
+                code.appendChild(pre);
+                blockquote.appendChild(code);
+                articleContent.appendChild(blockquote);
+                break;
+            case 'Attaches':
+                let a_div = document.createElement('div');
+                let a = document.createElement('a');
+                a_div.classList.add('file_link_container');
+                a.href = `{{ base_url }}${blocks[index].data.file.url}`  // base_urlは.envで定義済み
+                a.textContent = `${blocks[index].data.file.title}をダウンロード`
+                a.div.classlist.add('file_link');
+                a_div.appendChild(a);
+                articleContent.appendChild('a_div');
+                
+        }
+    }
+});
+</script>
 {% endblock %}

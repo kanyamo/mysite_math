@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'core/css/base.css' %}">
-    {% block extra-style %}{% endblock %}
+    {% block extra-styles %}{% endblock %}
     <title>
         {% block title %}{% endblock %} | 感覚の数学
     </title>
@@ -85,5 +85,8 @@
             </div>
         </div>
     </footer>
+    {% block scripts %}
+    <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    {% endblock %}
 </body>
 </html>

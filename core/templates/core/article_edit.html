@@ -1,6 +1,41 @@
 {% extends 'core/base/one_column_base.html' %}
+{% load static %}
 {% block title %}記事作成・編集{% endblock %}
+{% block extra-styles %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'core/css/article_edit.css' %}">
+{% endblock %}
 {% block column1-1 %}
 <h1>記事作成・編集</h1>
-<p class="test">この文字列で調整できるか？</p>
+{% if user.is_authenticated %}
+<form method="post" action="{% url 'core:create' %}" enctype="multipart/form-data">
+    {% csrf_token %}
+    <h2>基本情報</h2>
+    <table>
+        <tr>
+            <td><label for="title">タイトル：</label></td>
+            <td>{{ form.title }}</td>
+        </tr>
+        <tr>
+            <td><label for="thumbnail">サムネイル画像：</label></td>
+            <td>{{ form.thumbnail }}</td>
+        </tr>
+        <tr>
+            <td>作者表示名：</td>
+            <td>{{ user.display_name }}</td>
+        </tr>
+    </table>
+    ※ほかの作者で編集する場合は、一度ログアウトし、そのアカウントでログインしなおしてください。
+    <h2>内容</h2>
+    ※タイトルとサムネイル画像の後の本文から書いてください。
+    {{ form.media }}
+    {{ form.content }}
+    <button type="submit">完了</button>
+</form>
+{% else %}
+<p>現在ログイン中でないので、ここに表示する内容はありません。</p>
+{% endif %}
+{% endblock %}
+{% block scripts %}
+{{ block.super }}
 {% endblock %}
