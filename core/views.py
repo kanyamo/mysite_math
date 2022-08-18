@@ -60,7 +60,8 @@ class ArticleCreateView(BaseTemplateView):
 @requires_csrf_token
 def upload_image_view(request):
     f = request.FILES['image']
-    fs = FileSystemStorage(location=settings.MEDIA_ROOT + f'/images/{timezone.now().year}/{timezone.now().month}/{timezone.now().day}/')
+    path_string = f'images/{timezone.localtime(timezone.now()).year}/{str(timezone.localtime(timezone.now()).month).zfill(2)}/{str(timezone.localtime(timezone.now()).day).zfill(2)}'
+    fs = FileSystemStorage(location=os.path.join(settings.MEDIA_ROOT, path_string), base_url=os.path.join(settings.MEDIA_URL, path_string))
     filename = str(f)
     file = fs.save(filename, f)
     file_url = fs.url(file)
@@ -69,7 +70,8 @@ def upload_image_view(request):
 @requires_csrf_token
 def upload_file_view(request):
     f = request.FILES['file']
-    fs = FileSystemStorage(location=settings.MEDIA_ROOT + f'/files/{timezone.now().year}/{timezone.now().month}/')
+    path_string = f'files/{str(timezone.localtime(timezone.now()).year).zfill(2)}/{str(timezone.localtime(timezone.now()).month).zfill(2)}'
+    fs = FileSystemStorage(location=os.path.join(settings.MEDIA_ROOT, path_string), base_url=os.path.join(settings.MEDIA_URL, path_string))
     filename = str(f)
     file = fs.save(filename, f)
     file_url = fs.url(file)

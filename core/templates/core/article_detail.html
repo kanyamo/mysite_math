@@ -37,14 +37,14 @@
                 caption.textContent = blocks[index].data.caption;
                 image_div.appendChild(image);
                 image_div.appendChild(caption);
-                articleContent.appendChild(div);
+                articleContent.appendChild(image_div);
                 break;
             case 'paragraph':
                 let p = document.createElement('p');
                 p.textContent = blocks[index].data.text;
                 articleContent.appendChild(p);
                 break;
-            case 'list':
+            case 'List':
                 if (blocks[index].data.style == 'unordered') {
                     list = document.createElement('ul');
                 } else {
@@ -74,10 +74,10 @@
                 let a = document.createElement('a');
                 a_div.classList.add('file_link_container');
                 a.href = `{{ base_url }}${blocks[index].data.file.url}`  // base_urlは.envで定義済み
-                a.textContent = `${blocks[index].data.file.title}をダウンロード`
-                a.div.classlist.add('file_link');
+                a.textContent = `${blocks[index].data.file.name} (${blocks[index].data.file.size} Byte)`
+                a_div.classList.add('file_link');
                 a_div.appendChild(a);
-                articleContent.appendChild('a_div');
+                articleContent.appendChild(a_div);
                 
         }
     }

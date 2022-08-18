@@ -6,11 +6,13 @@ from django_editorjs import EditorJsField
 
 alphanumeric = RegexValidator(r'^[0-9a-zA-Z_]*$', '半角英数字とアンダースコアのみ使用可能です。')  # 内部カテゴリ名として半角英数字とアンダースコアしか使えないようにする
 
-# Create your models here.
+def local_now():
+    return timezone.localtime(timezone.now())
+
 class MyUser(AbstractUser):
     # usernameとemailはすでにAbstractUserで定義済み,passwordはすでにAbstractBaseUserで定義済み
     icon = models.ImageField('アイコン画像', upload_to='icons/', default='default/default_user_icon.png')
-    pub_date = models.DateTimeField('登録日', default=timezone.now)
+    pub_date = models.DateTimeField('登録日', default=local_now)
     display_name = models.CharField('表示名', max_length=100, default='表示名')
 
 
@@ -25,8 +27,8 @@ class Category(models.Model):
 
 class Article(models.Model):
     thumbnail = models.ImageField('サムネイル画像', upload_to='thumbnails/%Y/%m/%d/', default='default/default_thumbnail.png')
-    pub_date = models.DateTimeField('投稿日', default=timezone.now)
-    renew_date = models.DateTimeField('更新日', default=timezone.now)
+    pub_date = models.DateTimeField('投稿日', default=local_now)
+    renew_date = models.DateTimeField('更新日', default=local_now)
     title = models.CharField('タイトル', max_length=200)
     view_count = models.IntegerField('PV数', default=0)  # 約21億が上限。さすがにそこまではいかないだろう
     category = models.ForeignKey(Category, verbose_name='カテゴリ', on_delete=models.SET_DEFAULT, default=1)  # もしカテゴリーが削除されると、HOMEカテゴリ(id=1)に強制的に属させる
