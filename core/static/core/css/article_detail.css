@@ -3,3 +3,12 @@
     color: gray;
     font-size: 14px;
 }
+
+.article-info {
+    display: flex;
+    margin: 1em 0;
+}
+
+.article-pub-date {
+    margin-left: auto;
+}

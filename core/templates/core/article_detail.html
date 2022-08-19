@@ -2,12 +2,14 @@
 {% load static %}
 {% block title %}{{article.title}}{% endblock %}
 {% block extra-styles %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'core/css/article_detail.css' %}">
 {% endblock %}
 {% block column2-1 %}
     <h1 id="content0">{{article.title}}</h1>
     <div class="article-info">
-        <p class="article-view-count">{{article.view_count}} views</p>
-        <p class="article-pub-date">投稿日:{{article.pub_date.year}}/{{article.pub_date.month}}/{{article.pub_date.day}}, 更新日:{{article.renew_date.year}}/{{article.renew_date.month}}/{{article.renew_date.day}}</p>
+        <div class="article-view-count">{{article.view_count}} views</div>
+        <div class="article-pub-date">投稿日:{{article.pub_date.year}}/{{article.pub_date.month}}/{{article.pub_date.day}}, 更新日:{{article.renew_date.year}}/{{article.renew_date.month}}/{{article.renew_date.day}}</div>
     </div>
     <img class="thumbnail-image" src="{{article.thumbnail.url}}" alt="{{article.title}}">
     作者：{{ article.author.display_name }}
@@ -81,7 +83,7 @@
                 a_div.classList.add('file_link_container');
                 a.href = `{{ base_url }}${blocks[index].data.file.url}`  // base_urlは.envで定義済み
                 a.textContent = `${blocks[index].data.file.name} (${blocks[index].data.file.size} Byte)`
-                a_div.classList.add('file_link');
+                a.classList.add('file_link');
                 a_div.appendChild(a);
                 articleContent.appendChild(a_div);
                 

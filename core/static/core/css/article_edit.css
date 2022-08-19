@@ -1,0 +1,24 @@
+div[data-editorjs-wrapper] {
+    display: block;
+    border-radius: 6px;
+    margin: 1rem auto;
+}
+
+body .codex-editor h2.ce-header {
+    margin-bottom: 0.5em;
+    padding-bottom: 0.5em;
+}
+
+.article-post-button {
+    display: block;
+    margin: auto;
+    background-color: #009efd;
+    color: white;
+    border-radius: 6px;
+    padding: 1em;
+    border: 0;
+}
+
+.hidden { /*JSONデータのテキストエリアを表示させないため */
+    display: none;
+}

@@ -92,15 +92,6 @@ a.navbar-nav {
     margin: 0;
 }
 
-.article-view-count {
-    float: left;  /* 浮き上がって左による */
-}
-
-.article-pub-date {
-    text-align: right;
-    float: right;
-}
-
 a.article-link {
     text-decoration: none;
     color: black;
