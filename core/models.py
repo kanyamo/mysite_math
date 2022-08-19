@@ -49,11 +49,11 @@ class Article(models.Model):
                     'endpoint': '/fileUPLoad/'
                 }
             },
-            'header': {
-                'class': 'Header',
+            'Header': {
                 'config': {
                     'placeholder': '見出しを入力...',
-                    'levels': [2, 3, 4, 5, 6]
+                    'levels': [2, 3, 4, 5, 6],
+                    'defaultLevel': 2
                 }
             }
         }

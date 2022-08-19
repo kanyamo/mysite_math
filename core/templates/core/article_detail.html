@@ -1,6 +1,8 @@
 {% extends "core/base/two_column_base.html" %}
 {% load static %}
 {% block title %}{{article.title}}{% endblock %}
+{% block extra-styles %}
+{% endblock %}
 {% block column2-1 %}
     <h1 id="content0">{{article.title}}</h1>
     <div class="article-info">
@@ -14,8 +16,8 @@
     {% endif %}
     {{ article.snippet }}
     {{ article.content }}
-    <!-- {{ article.content }}でJSONを展開 -->
-    <div id="article-content"></div> <!-- このidはjsで使う -->
+    <!-- article.content でJSONを展開 -->
+    <div id="article-content" class="article-content"></div> <!-- このidはjsで使う -->
 {% endblock %}
 {% block scripts %}
 {{ block.super }}
@@ -34,7 +36,7 @@
             case 'Image':
                 let image_div = document.createElement('div');
                 let image = document.createElement('img');
-                let caption = document.createElement('h5');
+                let caption = document.createElement('p');
                 image.classList.add('content-image');
                 caption.classList.add('content-image-caption');
                 image.src = `{{ base_url }}${blocks[index].data.file.url}`;  // base_urlは.envで定義済み
