@@ -1,4 +1,4 @@
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
 from django.views import generic
 from django.views.decorators.csrf import requires_csrf_token
 from django.core.files.storage import FileSystemStorage
@@ -45,8 +45,8 @@ class ArticleCreateView(BaseTemplateView):
         form = ArticleEditForm(request.POST, request.FILES)
         if form.is_valid:
             post = form.save(commit=False)
-            post.pub_date = timezone.now()
-            post.renew_date = timezone.now()
+            post.pub_date = timezone.localtime(timezone.now())
+            post.renew_date = timezone.localtime(timezone.now())
             post.view_count = 0
             post.author = request.user
             post.save()
@@ -55,8 +55,32 @@ class ArticleCreateView(BaseTemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['form'] = ArticleEditForm()
+        context['creating_new'] = True  # テンプレートを共有しているので必要になってくる
         return context
 
+class ArticleEditView(BaseTemplateView):
+    template_name = 'core/article_edit.html'
+
+    def post(self, request, pk):
+        article=Article.objects.get(pk=pk)
+        form = ArticleEditForm(request.POST, request.FILES, instance=article)
+        if form.is_valid():
+            article.title = form.cleaned_data['title']
+            if form.cleaned_data['thumbnail']:
+                article.thumbnail = form.cleaned_data['thumbnail']
+            article.content = form.cleaned_data['content']
+            article.renew_date = timezone.localtime(timezone.now())  # 更新時には投稿日やビュー数、著者は更新しない
+            article.save()
+            return redirect('core:detail', pk=article.pk)
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        article = get_object_or_404(Article, pk=self.kwargs.get('pk'))
+        context['pk'] = article.pk
+        context['form'] = ArticleEditForm(instance=article)
+        context['creating_new'] = False  # テンプレートを共有しているので必要になってくる
+        return context
+    
 @requires_csrf_token
 def upload_image_view(request):
     f = request.FILES['image']

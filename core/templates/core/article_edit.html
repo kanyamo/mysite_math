@@ -1,14 +1,18 @@
 {% extends 'core/base/one_column_base.html' %}
 {% load static %}
-{% block title %}記事作成・編集{% endblock %}
+{% block title %}記事{% if creating_new %}新規作成{% else %}編集{% endif %}{% endblock %}
 {% block extra-styles %}
 {{ block.super }}
 <link rel="stylesheet" href="{% static 'core/css/article_edit.css' %}">
 {% endblock %}
 {% block column1-1 %}
-<h1>記事作成・編集</h1>
+<h1>記事{% if creating_new %}新規作成{% else %}編集{% endif %}</h1>
 {% if user.is_authenticated %}
+{% if creating_new %}
 <form method="post" action="{% url 'core:create' %}" enctype="multipart/form-data">
+{% else %}
+<form method="post" action="{% url 'core:edit' pk %}" enctype="multipart/form-data">
+{% endif %}
     {% csrf_token %}
     <h2>基本情報</h2>
     <table>

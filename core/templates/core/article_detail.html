@@ -8,6 +8,10 @@
         <p class="article-pub-date">投稿日:{{article.pub_date.year}}/{{article.pub_date.month}}/{{article.pub_date.day}}, 更新日:{{article.renew_date.year}}/{{article.renew_date.month}}/{{article.renew_date.day}}</p>
     </div>
     <img class="thumbnail-image" src="{{article.thumbnail.url}}" alt="{{article.title}}">
+    作者：{{ article.author.display_name }}
+    {% if user.id == article.author.id %}
+    <a href="{% url 'core:edit' article.pk %}">この記事を編集する</a>
+    {% endif %}
     {{ article.snippet }}
     {{ article.content }}
     <!-- {{ article.content }}でJSONを展開 -->
