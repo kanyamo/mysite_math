@@ -9,24 +9,15 @@ from .forms import ArticleEditForm
 from django.utils import timezone
 import os
 
-
-class BaseTemplateView(generic.TemplateView):  # base.htmlで使うコンテキストを取得
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['popular_articles'] = Article.objects.all().order_by('view_count').reverse()[:3]  # 人気記事上位3件を取得
-        context['new_articles'] = Article.objects.all().order_by('pub_date').reverse()[:3]  # 最新記事3件を取得
-        context['base_url'] = os.getenv('BASE_URL')  # ローカルでは127.0.0.1:8000, デプロイ環境ではhttps://math.kanyamo.com
-        return context
-
-class IndexView(BaseTemplateView):  # ホーム表示
+class IndexView(generic.TemplateView):  # ホーム表示
     template_name = 'core/index.html'
 
-class ArticleDetailView(BaseTemplateView):
+class ArticleDetailView(generic.TemplateView):
     template_name = 'core/article_detail.html'
 
     def get(self, request, *args, **kwargs):
         pk = self.kwargs.get('pk')
-        obj = Article.objects.get(pk=pk)
+        obj = get_object_or_404(Article, pk=pk)
         obj.view_count += 1
         obj.save()
         return super().get(request, *args, **kwargs)
@@ -34,11 +25,11 @@ class ArticleDetailView(BaseTemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         pk = self.kwargs.get('pk')
-        article = Article.objects.get(pk=pk)
+        article = get_object_or_404(Article, pk=pk)
         context['article'] = article
         return context
 
-class ArticleCreateView(BaseTemplateView):
+class ArticleCreateView(generic.TemplateView):
     template_name = 'core/article_edit.html'
 
     def post(self, request):
@@ -60,7 +51,7 @@ class ArticleCreateView(BaseTemplateView):
         context['creating_new'] = True  # テンプレートを共有しているので必要になってくる
         return context
 
-class ArticleEditView(BaseTemplateView):
+class ArticleEditView(generic.TemplateView):
     template_name = 'core/article_edit.html'
 
     def post(self, request, pk):
