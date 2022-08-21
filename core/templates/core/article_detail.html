@@ -6,20 +6,32 @@
 <link rel="stylesheet" href="{% static 'core/css/article_detail.css' %}">
 {% endblock %}
 {% block column2-1 %}
-    <h1 id="content0">{{article.title}}</h1>
+    <div class="breadcrumb_list">
+        {% for category in category_list %}
+        {{ category.name }} > 
+        {% endfor %}
+        {{ article.title }}
+    </div>
+    <h1 class="title">{{article.title}}</h1>
     <div class="article-info">
         <div class="article-view-count">{{article.view_count}} views</div>
         <div class="article-pub-date">投稿日:{{article.pub_date.year}}/{{article.pub_date.month}}/{{article.pub_date.day}}, 更新日:{{article.renew_date.year}}/{{article.renew_date.month}}/{{article.renew_date.day}}</div>
     </div>
     <img class="thumbnail-image" src="{{article.thumbnail.url}}" alt="{{article.title}}">
-    作者：{{ article.author.display_name }}
-    {% if user.id == article.author.id %}
-    <a href="{% url 'core:edit' article.pk %}">この記事を編集する</a>
-    {% endif %}
+    作者：{{ article.author.display_name }}<br>
     {{ article.snippet }}
     {{ article.content }}
     <!-- article.content でJSONを展開 -->
     <div id="article-content" class="article-content"></div> <!-- このidはjsで使う -->
+    {% if user.id == article.author.id %}
+    <div class="article-edit-button__outer">
+        <a href="{% url 'core:edit' article.pk %}" class="article-edit-link">
+            <div class="article-edit-button">
+                この記事を編集する
+            </div>
+        </a>
+    </div>
+    {% endif %}
 {% endblock %}
 {% block scripts %}
 {{ block.super }}

@@ -4,7 +4,7 @@ from django.views.decorators.csrf import requires_csrf_token
 from django.core.files.storage import FileSystemStorage
 from django.http import JsonResponse
 from django.conf import settings
-from .models import Article
+from .models import Article, Category
 from .forms import ArticleEditForm
 from django.utils import timezone
 import os
@@ -27,6 +27,14 @@ class ArticleDetailView(generic.TemplateView):
         pk = self.kwargs.get('pk')
         article = get_object_or_404(Article, pk=pk)
         context['article'] = article
+        # 親が存在しない地点までさかのぼってカテゴリーのリストを作成する
+        category = article.category
+        category_list = []
+        while not category is None:
+            category_list.append(category)
+            category = category.upper
+        category_list.reverse()  # 上位カテゴリを後ろに加えていったので最後にreverse
+        context['category_list'] = category_list
         return context
 
 class ArticleCreateView(generic.TemplateView):

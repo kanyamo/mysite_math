@@ -17,7 +17,7 @@ class MyUser(AbstractUser):
 
 
 class Category(models.Model):
-    upper = models.ForeignKey('self', verbose_name='上位カテゴリ', on_delete=models.CASCADE, blank=True, null=True)
+    upper = models.ForeignKey('self', verbose_name='上位カテゴリ', on_delete=models.CASCADE, blank=True, null=True, related_name='lowers')
     name = models.CharField('カテゴリ名', max_length=100, unique=True)
     inner_name = models.CharField('内部的カテゴリ名', max_length=100, validators=[alphanumeric], unique=True)
 
@@ -31,7 +31,7 @@ class Article(models.Model):
     renew_date = models.DateTimeField('更新日', default=local_now)
     title = models.CharField('タイトル', max_length=200)
     view_count = models.IntegerField('PV数', default=0)  # 約21億が上限。さすがにそこまではいかないだろう
-    category = models.ForeignKey(Category, verbose_name='カテゴリ', on_delete=models.SET_DEFAULT, default=1)  # もしカテゴリーが削除されると、HOMEカテゴリ(id=1)に強制的に属させる
+    category = models.ForeignKey(Category, verbose_name='カテゴリ', on_delete=models.SET_DEFAULT, default=1)  # もし属するカテゴリーが削除されると、HOMEカテゴリ(id=1)に強制的に属させる
     author = models.ForeignKey(MyUser, verbose_name='作者', on_delete=models.SET_DEFAULT, default=1)  # 作者が削除されると、記事はすべて管理者(id=1)のものになる
     content = EditorJsField(verbose_name='内容', editorjs_config={
         'tools': {
