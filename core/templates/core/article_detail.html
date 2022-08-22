@@ -6,11 +6,11 @@
 <link rel="stylesheet" href="{% static 'core/css/article_detail.css' %}">
 {% endblock %}
 {% block column2-1 %}
-    <div class="breadcrumb_list">
+    <div class="breadcrumb-list">
         {% for category in category_list %}
-        {{ category.name }} > 
+        <a class="crumb-list-item" href="{% url 'core:category' category.inner_name %}">{{ category.name }}</a> >  
         {% endfor %}
-        {{ article.title }}
+        <a class="crumb-list-item" href="#">{{ article.title }}</a>
     </div>
     <h1 class="title">{{article.title}}</h1>
     <div class="article-info">
