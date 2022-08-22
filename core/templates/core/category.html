@@ -1,0 +1,14 @@
+{% extends 'core/base/two_column_base.html' %}
+{% load static %}
+{% block title %}{{ category.name }}{% endblock %}
+{% block column2-1 %}
+<h1>カテゴリ：{{ category.name }}</h1>
+<h2>{{ category.name }}カテゴリの記事一覧</h2>
+{% for article in articles %}
+{% include 'core/article_link.html' with article=article %}
+{% endfor %}
+<h2>{{ category.name }}カテゴリの下位カテゴリ一覧</h2>
+{% for lower_category in lower_categories %}
+{{ lower_category.name }}
+{% endfor %}
+{% endblock %}

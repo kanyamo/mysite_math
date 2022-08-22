@@ -9,5 +9,6 @@ urlpatterns = [
     path('fileUPLoad/', csrf_exempt(views.upload_file_view)),
     path('imageUPLoad/', csrf_exempt(views.upload_image_view)),
     path('create/', views.ArticleCreateView.as_view(), name='create'),
-    path('edit/<int:pk>', views.ArticleEditView.as_view(), name='edit')
+    path('edit/<int:pk>', views.ArticleEditView.as_view(), name='edit'),
+    path('category/<str:category_name>', views.CategoryListView.as_view(), name='category'),
 ]

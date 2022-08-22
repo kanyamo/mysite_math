@@ -12,6 +12,20 @@ import os
 class IndexView(generic.TemplateView):  # ホーム表示
     template_name = 'core/index.html'
 
+class CategoryListView(generic.TemplateView):
+    template_name = 'core/category.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        category_name = self.kwargs.get('category_name')  # 内部カテゴリ名をurlのサブディレクトリとして用いる
+        category = get_object_or_404(Category, inner_name=category_name)
+        context['category'] = category
+        context['lower_categories'] = category.lowers.all()
+        context['articles'] = category.article_set.all()
+        print(context['lower_categories'])
+        print(context['articles'])
+        return context
+
 class ArticleDetailView(generic.TemplateView):
     template_name = 'core/article_detail.html'
 
