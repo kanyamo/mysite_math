@@ -58,15 +58,19 @@ a.navbar-nav {
 .wrapper {
     width: min(1250px, 100vw);
     margin: 0 auto;
-    padding: 1em 0;
+    padding: 0;
     flex: 1;
 }
 
+.container {
+    display: flex;
+    margin: 0;
+}
 
 .column1-1 {
     background-color: #fff;
     width: 98%;
-    margin:0 1%;
+    margin:1em 1%;
     padding: 1em;
     border-radius: 6px;
 }
@@ -74,7 +78,7 @@ a.navbar-nav {
 .column2-1 {
     background-color: #fff;
     width: 66%;
-    margin:0 1%;
+    margin:1em 1%;
     padding: 1em;
     border-radius: 6px;
 }
@@ -83,14 +87,27 @@ a.navbar-nav {
     background-color: #fff;
     width: 30%;
     padding: 1em;
-    margin:0 1%;
+    margin:1em 1%;
     border-radius: 6px;
 }
 
-.container {
-    display: flex;
-    margin: 0;
+
+@media (max-width: 1000px){
+    .container {
+        flex-direction: column;
+    }
+
+    .column2-1 {
+        width: 98%;
+    }
+
+    .column2-2 {
+        width: 98%;
+        margin-top: 0;
+    }
 }
+
+
 
 a.article-link {
     text-decoration: none;

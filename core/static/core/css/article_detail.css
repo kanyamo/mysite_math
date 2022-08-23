@@ -11,6 +11,7 @@
 
 .article-pub-date {
     margin-left: auto;
+    text-align: right;
 }
 
 .article-edit-button__outer {
@@ -29,4 +30,8 @@
     text-decoration: none;
     color: white;
     display: inline;
+}
+
+mjx-container {
+    overflow-x: scroll;
 }
