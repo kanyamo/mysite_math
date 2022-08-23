@@ -33,5 +33,16 @@
 }
 
 mjx-container {
-    overflow-x: scroll;
+    overflow-x: scroll;  /* 長い数式をスクロールできるようにするため */
+}
+
+.article-table {
+    margin: auto;
+    border-collapse: collapse;
+}
+
+.article-table td {
+    padding: 0.5em 1em;
+    border-bottom: 1px #888 solid;
+    border-top: 1px #888 solid;
 }

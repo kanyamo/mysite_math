@@ -24,6 +24,10 @@
     <!-- article.content でJSONを展開 -->
     <div id="article-content" class="article-content"></div> <!-- このidはjsで使う -->
     {% if user.id == article.author.id %}
+    <hr>
+    以下の内容は作者としてログイン中のため表示されています。
+    <h2>このページのJSONデータ</h2>
+    {{ article.content }}<br>
     <div class="article-edit-button__outer">
         <a href="{% url 'core:edit' article.pk %}" class="article-edit-link">
             <div class="article-edit-button">
@@ -92,12 +96,30 @@
                 case 'Attaches':
                     let a_div = document.createElement('div');
                     let a = document.createElement('a');
-                    a_div.classList.add('file_link_container');
+                    a_div.classList.add('file-link-container');
                     a.href = `{{ base_url }}${blocks[index].data.file.url}`  // base_urlは.envで定義済み
                     a.textContent = `${blocks[index].data.file.name} (${blocks[index].data.file.size} Byte)`
-                    a.classList.add('file_link');
+                    a.classList.add('file-link');
                     a_div.appendChild(a);
                     articleContent.appendChild(a_div);
+                case 'Table':
+                    let table = document.createElement('table');
+                    let data = blocks[index].data.content;
+                    table.classList.add('article-table');
+                    console.log(data);
+                    let trs = [];
+                    let tds = [];
+                    for (let row = 0; row < data.length; row++){
+                        tds = [];
+                        trs.push(document.createElement('tr'));
+                        for (let column = 0; column < data.length; column++){
+                            tds.push(document.createElement('td'));
+                            tds[column].textContent = data[row][column];
+                            trs[row].appendChild(tds[column]);
+                        table.appendChild(trs[row]);
+                    }
+                    articleContent.appendChild(table);
+                    }
             }
         }
         var mj = document.createElement('script');
