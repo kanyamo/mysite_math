@@ -20,6 +20,7 @@ class Category(models.Model):
     upper = models.ForeignKey('self', verbose_name='上位カテゴリ', on_delete=models.CASCADE, blank=True, null=True, related_name='lowers')
     name = models.CharField('カテゴリ名', max_length=100, unique=True)
     inner_name = models.CharField('内部的カテゴリ名', max_length=100, validators=[alphanumeric], unique=True)
+    description = models.TextField('カテゴリの説明文', blank=False, null=False, default='これがカテゴリの説明文です。')
 
     def __str__(self):
         return self.name
