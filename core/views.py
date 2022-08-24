@@ -96,29 +96,3 @@ class ArticleEditView(generic.TemplateView):
         context['creating_new'] = False  # テンプレートを共有しているので必要になってくる
         return context
     
-@requires_csrf_token
-def upload_image_view(request):
-    f = request.FILES['image']
-    path_string = f'images/{timezone.localtime(timezone.now()).year}/{str(timezone.localtime(timezone.now()).month).zfill(2)}/{str(timezone.localtime(timezone.now()).day).zfill(2)}'
-    fs = FileSystemStorage(location=os.path.join(settings.MEDIA_ROOT, path_string), base_url=os.path.join(settings.MEDIA_URL, path_string))
-    filename = str(f)
-    file = fs.save(filename, f)
-    file_url = fs.url(file)
-    return JsonResponse({'success': 1, 'file': {'url': file_url}})
-
-@requires_csrf_token
-def upload_file_view(request):
-    f = request.FILES['file']
-    path_string = f'files/{str(timezone.localtime(timezone.now()).year).zfill(2)}/{str(timezone.localtime(timezone.now()).month).zfill(2)}'
-    fs = FileSystemStorage(location=os.path.join(settings.MEDIA_ROOT, path_string), base_url=os.path.join(settings.MEDIA_URL, path_string))
-    filename = str(f)
-    file = fs.save(filename, f)
-    file_url = fs.url(file)
-    return JsonResponse({
-        'success': 1,
-        'file': {
-            'url': file_url,
-            'size': fs.size(filename),
-            'name': str(f)
-            }
-        })

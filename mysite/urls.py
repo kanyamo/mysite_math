@@ -22,7 +22,8 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include("core.urls")),
-    path('accounts/', include('allauth.urls'))
+    path('accounts/', include('allauth.urls')),
+    path('editorjs/', include('django_editorjs_fields.urls')),
 ]
 if settings.DEBUG:
     urlpatterns += staticfiles_urlpatterns()

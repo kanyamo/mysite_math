@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'allauth',
     'allauth.account',
-    'django_editorjs',
+    'django_editorjs_fields',
 ]
 
 MIDDLEWARE = [
@@ -163,3 +163,7 @@ ACCOUNT_EMAIL_SUBJECT_PREFIX = ''
 DEFAULT_FROM_EMAIL = os.getenv('FROM_EMAIL')
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# EditorJSの画像アップロード先の設定
+EDITORJS_IMAGE_UPLOAD_PATH = 'images/'
+EDITORJS_IMAGE_UPLOAD_PATH_DATE = '%Y/%m/%d/'

@@ -1,4 +1,4 @@
-div[data-editorjs-wrapper] {
+div[data-editorjs-holder] {
     display: block;
     border-radius: 6px;
     margin: 1rem auto;

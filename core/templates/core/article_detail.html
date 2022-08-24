@@ -1,5 +1,6 @@
 {% extends "core/base/two_column_base.html" %}
 {% load static %}
+{% load editorjs %}
 {% block title %}{{article.title}}{% endblock %}
 {% block extra-styles %}
 {{ block.super }}
@@ -20,12 +21,13 @@
     </div>
     <img class="thumbnail-image" src="{{article.thumbnail.url}}" alt="{{article.title}}">
     作者：{{ article.author.display_name }}<br>
-    {{ article.snippet }}
     <!-- article.content でJSONを展開 -->
-    <div id="article-content" class="article-content"></div> <!-- このidはjsで使う -->
+    <div id="article-content" class="article-content">
+        {{ article.content | editorjs}}
+    </div> <!-- このidはjsで使う -->
     {% if user.id == article.author.id %}
     <hr>
-    以下の内容は作者としてログイン中のため表示されています。
+    <p style="text-align: center;">※以下の内容は作者としてログイン中のため表示されています。</p>
     <h2>このページのJSONデータ</h2>
     {{ article.content }}<br>
     <div class="article-edit-button__outer">
@@ -38,90 +40,9 @@
     {% endif %}
 {% endblock %}
 {% block scripts %}
-<script type="text/javascript">
+<!-- <script type="text/javascript">
     console.log('記事本文が読み込まれました');
     document.addEventListener('DOMContentLoaded', () => {
-        const articleContent = document.getElementById('article-content');
-        let content = JSON.parse('{{ article.content|escapejs }}');
-        let blocks = content.blocks;
-        for (let index = 0; index < blocks.length; index++ ){
-            switch(blocks[index].type){  // JSONファイルを展開し、そのブロックの各タイプごとに分解
-                case 'Header':
-                    let head = document.createElement(`h${blocks[index].data.level}`);
-                    head.textContent = blocks[index].data.text;
-                    articleContent.appendChild(head);
-                    break;
-                case 'Image':
-                    let image_div = document.createElement('div');
-                    let image = document.createElement('img');
-                    let caption = document.createElement('p');
-                    image.classList.add('content-image');
-                    caption.classList.add('content-image-caption');
-                    image.src = `{{ base_url }}${blocks[index].data.file.url}`;  // base_urlは.envで定義済み
-                    caption.textContent = blocks[index].data.caption;
-                    image_div.appendChild(image);
-                    image_div.appendChild(caption);
-                    articleContent.appendChild(image_div);
-                    break;
-                case 'paragraph':
-                    let p = document.createElement('p');
-                    p.innerHTML = blocks[index].data.text.replace(/\\begin\{tikzpicture\}.*\\end\{tikzpicture\}/g, '<script type=\"text/tikz\">$&<\/script>');
-                    articleContent.appendChild(p);
-                    break;
-                case 'List':
-                    if (blocks[index].data.style == 'unordered') {
-                        list = document.createElement('ul');
-                    } else {
-                        list = document.createElement('ol');
-                    }
-                    for (const item in blocks[index].data.items) {
-                        let li = document.createElement('li');
-                        li.textContent = blocks[index].data.items[item];
-                        list.appendChild(li);
-                    }
-                    articleContent.appendChild(list);
-                    break;
-                case 'Raw':
-                    let blockquote = document.createElement('blockquote');
-                    let code = document.createElement('code');
-                    let pre = document.createElement('pre');
-                    pre.textContent = blocks[index].data.html;
-                    pre.style.background = '#131313';
-                    pre.style.color = '#dddddd';
-                    pre.style.padding = '15px';
-                    code.appendChild(pre);
-                    blockquote.appendChild(code);
-                    articleContent.appendChild(blockquote);
-                    break;
-                case 'Attaches':
-                    let a_div = document.createElement('div');
-                    let a = document.createElement('a');
-                    a_div.classList.add('file-link-container');
-                    a.href = `{{ base_url }}${blocks[index].data.file.url}`  // base_urlは.envで定義済み
-                    a.textContent = `${blocks[index].data.file.name} (${blocks[index].data.file.size} Byte)`
-                    a.classList.add('file-link');
-                    a_div.appendChild(a);
-                    articleContent.appendChild(a_div);
-                case 'Table':
-                    let table = document.createElement('table');
-                    let data = blocks[index].data.content;
-                    table.classList.add('article-table');
-                    console.log(data);
-                    let trs = [];
-                    let tds = [];
-                    for (let row = 0; row < data.length; row++){
-                        tds = [];
-                        trs.push(document.createElement('tr'));
-                        for (let column = 0; column < data.length; column++){
-                            tds.push(document.createElement('td'));
-                            tds[column].textContent = data[row][column];
-                            trs[row].appendChild(tds[column]);
-                        table.appendChild(trs[row]);
-                    }
-                    articleContent.appendChild(table);
-                    }
-            }
-        }
         var mj = document.createElement('script');
         mj.type = 'text/javascript';
         mj.async = true;
@@ -134,6 +55,6 @@
         tz.src = 'https://tikzjax.com/v1/tikzjax.js';
         document.head.appendChild(tz);  // TikZJax遅延読み込み
     });
-</script>
+</script> -->
 {{ block.super }}
 {% endblock %}

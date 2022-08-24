@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.utils import timezone
 from django.core.validators import RegexValidator
-from django_editorjs import EditorJsField
+from django_editorjs_fields import EditorJsJSONField
 
 alphanumeric = RegexValidator(r'^[0-9a-zA-Z_]*$', '半角英数字とアンダースコアのみ使用可能です。')  # 内部カテゴリ名として半角英数字とアンダースコアしか使えないようにする
 
@@ -34,31 +34,26 @@ class Article(models.Model):
     view_count = models.IntegerField('PV数', default=0)  # 約21億が上限。さすがにそこまではいかないだろう
     category = models.ForeignKey(Category, verbose_name='カテゴリ', on_delete=models.SET_DEFAULT, default=1)  # もし属するカテゴリーが削除されると、HOMEカテゴリ(id=1)に強制的に属させる
     author = models.ForeignKey(MyUser, verbose_name='作者', on_delete=models.SET_DEFAULT, default=1)  # 作者が削除されると、記事はすべて管理者(id=1)のものになる
-    content = EditorJsField(verbose_name='内容', editorjs_config={
-        'tools': {
-            'Image': {
-                'config': {
-                    'endpoints': {
-                        'byFile': '/imageUPLoad/',
-                        'byUrl': '/imageUPLoad/',
-                    },
-                    'additionalRequestHeaders': [{'Content-Type': 'multipart/form-data'}]
-                }
-            },
-            'Attaches': {
-                'config': {
-                    'endpoint': '/fileUPLoad/'
-                }
-            },
-            'Header': {
-                'config': {
-                    'placeholder': '見出しを入力...',
-                    'levels': [2, 3, 4, 5, 6],
-                    'defaultLevel': 2
+    content = EditorJsJSONField(plugins=[
+            "@editorjs/image",
+            "@editorjs/header",
+            "editorjs-github-gist-plugin",
+            "@editorjs/code@2.6.0",  # version allowed :)
+            "@editorjs/list@latest",
+            "@editorjs/inline-code",
+            "@editorjs/table",
+        ],
+        tools={
+            "Image": {
+                'class': 'ImageTool',
+                "config": {
+                    "endpoints": {
+                        # Your custom backend file uploader endpoint
+                        "byFile": "/editorjs/image_upload/"
+                    }
                 }
             }
-        }
-    })
+        },)
 
     def __str__(self):
         return self.title
