@@ -37,12 +37,12 @@ mjx-container {
     overflow-y: hidden;
 }
 
-.article-table {
+#article-content table {
     margin: auto;
     border-collapse: collapse;
 }
 
-.article-table td {
+#article-content table td {
     padding: 0.5em 1em;
     border-bottom: 1px #888 solid;
     border-top: 1px #888 solid;

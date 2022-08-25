@@ -1,4 +1,4 @@
-.env/
+.env
 venv_mysite/
 *.log
 *.pot
