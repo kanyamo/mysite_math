@@ -65,6 +65,7 @@ a.navbar-nav {
 .container {
     display: flex;
     margin: 0;
+    word-wrap: break-word;
 }
 
 .column1-1 {

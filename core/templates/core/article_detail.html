@@ -43,7 +43,7 @@
 <script type="text/javascript">
     document.addEventListener('DOMContentLoaded', () => {
         const articleContent = document.getElementById('article-content');
-        let content = JSON.parse('{{ article.content|escapejs }}'.replaceAll('\'', '\"'));
+        let content = JSON.parse('{{ article.content|escapejs }}');
         let blocks = content.blocks;
         for (let index = 0; index < blocks.length; index++ ){
             switch(blocks[index].type){  // JSONファイルを展開し、そのブロックの各タイプごとに分解
