@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.utils import timezone
 from django.core.validators import RegexValidator
-from django_editorjs_fields import EditorJsJSONField
+from django_editorjs_fields import EditorJsTextField
 
 alphanumeric = RegexValidator(r'^[0-9a-zA-Z_]*$', '半角英数字とアンダースコアのみ使用可能です。')  # 内部カテゴリ名として半角英数字とアンダースコアしか使えないようにする
 
@@ -34,7 +34,7 @@ class Article(models.Model):
     view_count = models.IntegerField('PV数', default=0)  # 約21億が上限。さすがにそこまではいかないだろう
     category = models.ForeignKey(Category, verbose_name='カテゴリ', on_delete=models.SET_DEFAULT, default=1)  # もし属するカテゴリーが削除されると、HOMEカテゴリ(id=1)に強制的に属させる
     author = models.ForeignKey(MyUser, verbose_name='作者', on_delete=models.SET_DEFAULT, default=1)  # 作者が削除されると、記事はすべて管理者(id=1)のものになる
-    content = EditorJsJSONField(plugins=[
+    content = EditorJsTextField(plugins=[
             "@editorjs/image",
             "@editorjs/header",
             "editorjs-github-gist-plugin",

@@ -10,3 +10,4 @@ logs/
 media/
 staticfiles/
 db.sqlite3
+migrations/

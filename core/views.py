@@ -44,7 +44,7 @@ class ArticleDetailView(generic.TemplateView):
         # 親が存在しない地点までさかのぼってカテゴリーのリストを作成する
         category = article.category
         category_list = []
-        while not category is None:
+        while category is not None:
             category_list.append(category)
             category = category.upper
         category_list.reverse()  # 上位カテゴリを後ろに加えていったので最後にreverse
