@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 import os
+from django.urls import reverse_lazy
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -167,3 +168,61 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # EditorJSの画像アップロード先の設定
 EDITORJS_IMAGE_UPLOAD_PATH = 'images/'
 EDITORJS_IMAGE_UPLOAD_PATH_DATE = '%Y/%m/%d/'
+
+EDITORJS_DEFAULT_PLUGINS = (
+    '@editorjs/paragraph',
+    '@editorjs/image',
+    '@editorjs/header',
+    '@editorjs/list',
+    '@editorjs/checklist',
+    '@editorjs/quote',
+    '@editorjs/raw',
+    '@editorjs/code',
+    '@editorjs/inline-code',
+    '@editorjs/embed',
+    '@editorjs/delimiter',
+    '@editorjs/warning',
+    '@editorjs/link',
+    '@editorjs/marker',
+    '@editorjs/table',
+    'editorjs-math',
+)
+
+EDITORJS_DEFAULT_CONFIG_TOOLS = {
+    'Image': {
+        'class': 'ImageTool',
+        'inlineToolbar': True,
+        "config": {
+            "endpoints": {
+                "byFile": reverse_lazy('editorjs_image_upload'),
+                "byUrl": reverse_lazy('editorjs_image_by_url')
+            }
+        },
+    },
+    'Header': {
+        'class': 'Header',
+        'inlineToolbar': True,
+        'config': {
+            'placeholder': 'Enter a header',
+            'levels': [2, 3, 4, 5, 6],
+            'defaultLevel': 2,
+        }
+    },
+    'Checklist': {'class': 'Checklist', 'inlineToolbar': True},
+    'List': {'class': 'List', 'inlineToolbar': True},
+    'Quote': {'class': 'Quote', 'inlineToolbar': True},
+    'Raw': {'class': 'RawTool'},
+    'Code': {'class': 'CodeTool'},
+    'InlineCode': {'class': 'InlineCode'},
+    'Embed': {'class': 'Embed'},
+    'Delimiter': {'class': 'Delimiter'},
+    'Warning': {'class': 'Warning', 'inlineToolbar': True},
+    'LinkTool': {
+        'class': 'LinkTool',
+        'config': {
+            'endpoint': reverse_lazy('editorjs_linktool'),
+        }
+    },
+    'Marker': {'class': 'Marker', 'inlineToolbar': True},
+    'Table': {'class': 'Table', 'inlineToolbar': True},
+}

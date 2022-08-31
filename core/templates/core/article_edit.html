@@ -10,41 +10,52 @@
     <h1>記事{% if creating_new %}新規作成{% else %}編集{% endif %}</h1>
     {% if user.is_authenticated %}
     {% if creating_new %}
-    <form method="post" action="{% url 'core:create' %}" enctype="multipart/form-data">
-    {% else %}
-    <form method="post" action="{% url 'core:edit' pk %}" enctype="multipart/form-data">
-    {% endif %}
-        {% csrf_token %}
-        <h2>基本情報</h2>
-        <table>
-            <tr>
-                <td><label for="title">カテゴリ：</label></td>
-                <td>{{ form.category }}</td>
-            </tr>
-            <tr>
-                <td><label for="title">タイトル：</label></td>
-                <td>{{ form.title }}</td>
-            </tr>
-            <tr>
-                <td><label for="thumbnail">サムネイル画像：</label></td>
-                <td>{{ form.thumbnail }}</td>
-            </tr>
-            <tr>
-                <td>作者表示名：</td>
-                <td>{{ user.display_name }}</td>
-            </tr>
-        </table>
-        ※ほかの作者で編集する場合は、一度ログアウトし、そのアカウントでログインしなおしてください。
-        <!-- {{form.media}} -->
-        <h2>内容</h2>
-        ※タイトルとサムネイル画像の後の本文から書いてください。<br>
-        {{ form.content }}
-        <button type="submit" class="article-post-button">この内容で投稿</button>
-    </form>
+        <form method="post" action="{% url 'core:create' %}" enctype="multipart/form-data">
+        {% else %}
+        <form method="post" action="{% url 'core:edit' pk %}" enctype="multipart/form-data">
+        {% endif %}
+            {% csrf_token %}
+            <h2>基本情報</h2>
+            <table>
+                <tr>
+                    <td><label for="title">カテゴリ：</label></td>
+                    <td>{{ form.category }}</td>
+                </tr>
+                <tr>
+                    <td><label for="title">タイトル：</label></td>
+                    <td>{{ form.title }}</td>
+                </tr>
+                <tr>
+                    <td><label for="thumbnail">サムネイル画像：</label></td>
+                    <td>{{ form.thumbnail }}</td>
+                </tr>
+                <tr>
+                    <td>作者表示名：</td>
+                    <td>{{ user.display_name }}</td>
+                </tr>
+            </table>
+            ※ほかの作者で編集する場合は、一度ログアウトし、そのアカウントでログインしなおしてください。
+            <h2>内容</h2>
+            ※タイトルとサムネイル画像の後の本文から書いてください。<br>
+            {{ form.content }}
+            <button type="submit" class="article-post-button">この内容で投稿</button>
+        </form>
     {% else %}
         <p>現在ログイン中でないので、ここに表示する内容はありません。</p>
     {% endif %}
 {% endblock %}
 {% block scripts %}
+<script type="text/javascript">  // &のエスケープを戻す
+    document.addEventListener('DOMContentLoaded', () => {
+        setTimeout(() => {
+            let inputs = document.querySelectorAll('input.text-node');
+            console.log(inputs);
+            inputs.forEach((input) => {
+                console.log(input);
+                input.value = input.value.replaceAll('&amp;', '&');
+            });
+        }, 1000);
+    })
+</script>
 {{ block.super }}
 {% endblock %}

@@ -38,11 +38,11 @@ class Article(models.Model):
         plugins=[
             "@editorjs/image",
             "@editorjs/header",
-            "editorjs-github-gist-plugin",
             "@editorjs/code@2.6.0",  # version allowed :)
             "@editorjs/list@latest",
             "@editorjs/inline-code",
             "@editorjs/table",
+            "editorjs-math",
         ],
         tools={
             "Image": {
@@ -53,7 +53,7 @@ class Article(models.Model):
                         "byFile": "/editorjs/image_upload/"
                     }
                 }
-            },
+            }
         },)
 
     def __str__(self):

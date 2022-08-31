@@ -40,6 +40,10 @@
     {% endif %}
 {% endblock %}
 {% block scripts %}
+<!-- The loading of KaTeX is deferred to speed up page rendering -->
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/katex.min.js" integrity="sha384-Qsn9KnoKISj6dI8g7p1HBlNpVx0I8p1SvlwOldgi3IorMle61nQy4zEahWYtljaz" crossorigin="anonymous"></script>
+<!-- To automatically render math in text elements, include the auto-render extension: -->
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
 <script type="text/javascript">
     document.addEventListener('DOMContentLoaded', () => {
         const articleContent = document.getElementById('article-content');
@@ -63,6 +67,12 @@
                     image_div.appendChild(image);
                     image_div.appendChild(caption);
                     articleContent.appendChild(image_div);
+                    break;
+                case 'math':
+                    let div = document.createElement('div');
+                    div.classList.add('equation-container');
+                    div.innerHTML = '\\[' + blocks[index].data.text + '\\]';
+                    articleContent.appendChild(div);
                     break;
                 case 'paragraph':
                     let p = document.createElement('p');
@@ -124,12 +134,11 @@
             }
         }
         console.log('記事本文が読み込まれました');
-        var mj = document.createElement('script');
-        mj.type = 'text/javascript';
-        mj.async = true;
-        mj.id = 'MathJax-script';
-        mj.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
-        document.head.appendChild(mj);  // mathjax遅延読み込み
+
+        renderMathInElement(document.body, {delimiters: [
+            {left: "\\[", right: "\\]", display: true},
+            {left: "$", right: "$", display: false}
+        ]});  // KaTeX読み込み
 
         var tz = document.createElement('script');
         tz.type = 'text/javascript';

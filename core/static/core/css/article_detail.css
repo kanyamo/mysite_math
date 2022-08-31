@@ -32,7 +32,7 @@
     display: inline;
 }
 
-mjx-container {
+.katex-html {
     overflow-x: auto;  /* 長い数式をスクロールできるようにするため */
     overflow-y: hidden;
 }
