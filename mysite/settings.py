@@ -186,6 +186,7 @@ EDITORJS_DEFAULT_PLUGINS = (
     '@editorjs/marker',
     '@editorjs/table',
     'editorjs-math',
+    '@editorjs/attaches@latest',
 )
 
 EDITORJS_DEFAULT_CONFIG_TOOLS = {
@@ -199,11 +200,11 @@ EDITORJS_DEFAULT_CONFIG_TOOLS = {
             }
         },
     },
-    'Header': {
-        'class': 'Header',
-        'inlineToolbar': True,
-        'config': {
-            'placeholder': 'Enter a header',
+    "Header": {
+        "class": "Header",
+        "inlineToolbar": True,
+        "config": {
+            "placeholder": "見出しを入力...",
             'levels': [2, 3, 4, 5, 6],
             'defaultLevel': 2,
         }
@@ -225,4 +226,11 @@ EDITORJS_DEFAULT_CONFIG_TOOLS = {
     },
     'Marker': {'class': 'Marker', 'inlineToolbar': True},
     'Table': {'class': 'Table', 'inlineToolbar': True},
+    "Math": {'class': 'MathTex'},
+    'Attaches': {
+        'class': 'AttachesTool',
+        'config': {
+            'endpoint': '/file_upload/'
+        }
+    }
 }

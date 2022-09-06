@@ -68,7 +68,7 @@
                     image_div.appendChild(caption);
                     articleContent.appendChild(image_div);
                     break;
-                case 'math':
+                case 'Math':
                     let div = document.createElement('div');
                     div.classList.add('equation-container');
                     div.innerHTML = '\\[' + blocks[index].data.text + '\\]';
@@ -76,7 +76,7 @@
                     break;
                 case 'paragraph':
                     let p = document.createElement('p');
-                    p.innerHTML = blocks[index].data.text.replace(/\\begin\{tikzpicture\}.*\\end\{tikzpicture\}/g, '<script type=\"text/tikz\">$&<\/script>');
+                    p.innerHTML = blocks[index].data.text;
                     articleContent.appendChild(p);
                     break;
                 case 'List':
@@ -87,22 +87,26 @@
                     }
                     for (const item in blocks[index].data.items) {
                         let li = document.createElement('li');
-                        li.textContent = blocks[index].data.items[item];
+                        li.innerHTML = blocks[index].data.items[item];
                         list.appendChild(li);
                     }
                     articleContent.appendChild(list);
                     break;
-                case 'Raw':
+                case 'Code':
                     let blockquote = document.createElement('blockquote');
-                    let code = document.createElement('code');
                     let pre = document.createElement('pre');
-                    pre.textContent = blocks[index].data.html;
-                    pre.style.background = '#131313';
-                    pre.style.color = '#dddddd';
-                    pre.style.padding = '15px';
-                    code.appendChild(pre);
-                    blockquote.appendChild(code);
+                    let code = document.createElement('code');
+                    code.textContent = blocks[index].data.code;
+                    code.classList.add('code');
+                    pre.appendChild(code);
+                    blockquote.appendChild(pre);
                     articleContent.appendChild(blockquote);
+                    break;
+                case 'Raw':
+                    let container = document.createElement('div');
+                    container.classList.add('raw_html_container');
+                    container.innerHTML = blocks[index].data.html;
+                    articleContent.append(container);
                     break;
                 case 'Attaches':
                     let a_div = document.createElement('div');
@@ -117,7 +121,6 @@
                     let table = document.createElement('table');
                     let data = blocks[index].data.content;
                     table.classList.add('article-table');
-                    console.log(data);
                     let trs = [];
                     let tds = [];
                     for (let row = 0; row < data.length; row++){
@@ -133,7 +136,6 @@
                     }
             }
         }
-        console.log('記事本文が読み込まれました');
 
         renderMathInElement(document.body, {delimiters: [
             {left: "\\[", right: "\\]", display: true},
