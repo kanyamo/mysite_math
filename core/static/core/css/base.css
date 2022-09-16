@@ -56,7 +56,7 @@ a.navbar-nav {
 }
 
 .wrapper {
-    width: min(1250px, 100vw);
+    width: min(1250px, 100%);
     margin: 0 auto;
     padding: 0;
     flex: 1;

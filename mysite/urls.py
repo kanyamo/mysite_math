@@ -25,6 +25,7 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('editorjs/', include('django_editorjs_fields.urls')),
 ]
+# テスト環境では以下の場所から取得、本番環境はnginxから返す
 if settings.DEBUG:
     urlpatterns += staticfiles_urlpatterns()
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

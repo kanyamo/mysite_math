@@ -71,3 +71,49 @@ code.inline-code {
     border: solid 1px rgba(0,0,0,.1);
     border-radius: 2px;
 }
+
+pre.article-json-data {
+    overflow-x: auto;
+}
+
+ul.checklist {
+    border: solid 2px #009efd;
+    padding: 0.5em 1em 0.5em 2.3em;
+    position: relative;
+}
+
+ul.checklist li {
+    list-style-type: none;
+    line-height: 1.5;
+    padding: 0.5em 0;
+}
+
+ul.checklist li:before {
+    font-family: "Font Awesome 5 Free";
+    position: absolute;
+    left : 1em; /*左端からアイコンまで*/
+    color: #009efd; /*アイコン色*/
+}
+
+ul.checklist li[checked='true']:before {
+    content: "\f14a";
+    font-weight: 900;
+}
+
+ul.checklist li[checked='false']:before {
+    content: "\f0c8";
+    font-weight: 400;
+}
+
+hr.delimiter {
+    border:none;
+    height: 8px;
+    background-image: repeating-linear-gradient(45deg, #ccc 0, #ccc 1px, transparent 0, transparent 50%);
+    background-size: 8px 8px;
+}
+
+blockquote.quote {
+    border-left: 2px solid #888;
+    color: #555;
+    padding: 1em 0 1em 1em;
+}
