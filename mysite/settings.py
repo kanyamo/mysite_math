@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'django_editorjs_fields',
+    'fontawesomefree',
 ]
 
 MIDDLEWARE = [
@@ -230,7 +231,7 @@ EDITORJS_DEFAULT_CONFIG_TOOLS = {
     'Attaches': {
         'class': 'AttachesTool',
         'config': {
-            'endpoint': '/file_upload/'
+            'endpoint': reverse_lazy('core:file-upload')
         }
     }
 }

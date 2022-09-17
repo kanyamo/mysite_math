@@ -60,13 +60,13 @@
                 case 'Image':
                     let image_div = document.createElement('div');
                     let image = document.createElement('img');
-                    let caption = document.createElement('p');
+                    let image_caption = document.createElement('p');
                     image.classList.add('content-image');
-                    caption.classList.add('content-image-caption');
+                    image_caption.classList.add('content-image-caption');
                     image.src = `{{ base_url }}${blocks[index].data.file.url}`;  // base_urlは.envで定義済み
-                    caption.textContent = blocks[index].data.caption;
+                    image_caption.textContent = blocks[index].data.caption;
                     image_div.appendChild(image);
-                    image_div.appendChild(caption);
+                    image_div.appendChild(image_caption);
                     articleContent.appendChild(image_div);
                     break;
                 case 'Math':
@@ -149,14 +149,36 @@
                     break;
                 case 'Delimiter':
                     let hr = document.createElement('hr');
-                    hr.classList.add('delimiter')
+                    hr.classList.add('delimiter');
                     articleContent.appendChild(hr);
                     break;
                 case 'Quote':
+                    let blockQuote_container = document.createElement('div');
                     let blockQuote = document.createElement('blockquote');
+                    let quote_caption = document.createElement('p');
                     blockQuote.classList.add('quote');
-                    blockQuote.innerText = blocks[index].data.text
-                    articleContent.appendChild(blockQuote);
+                    quote_caption.classList.add('quote-caption');
+                    blockQuote.innerHTML = blocks[index].data.text;
+                    quote_caption.innerHTML = blocks[index].data.caption;
+                    blockQuote_container.appendChild(blockQuote);
+                    blockQuote_container.appendChild(quote_caption);
+                    articleContent.appendChild(blockQuote_container);
+                    break;
+                case 'Warning':
+                    let warning_div = document.createElement('div');
+                    warning_div.classList.add('warning-container');
+                    let warning_title = document.createElement('p');
+                    warning_title.classList.add('warning-title');
+                    let warning_i = document.createElement('i');
+                    warning_i.classList.add("fa-solid", "fa-triangle-exclamation");
+                    let warning_message = document.createElement('p');
+                    warning_message.classList.add('warning-message');
+                    warning_title.innerHTML = " " + blocks[index].data.title;
+                    warning_message.innerHTML = blocks[index].data.message;
+                    warning_title.prepend(warning_i);
+                    warning_div.appendChild(warning_title);
+                    warning_div.appendChild(warning_message);
+                    articleContent.appendChild(warning_div);
 
             }
         }
@@ -174,7 +196,9 @@
         // パースしたJSONデータを文字列化し、preタグの中に入れ込む
         // KaTeX読み込みより遅くすることで数式化を防ぐ
         let pre = document.getElementById("article-json-data");
-        pre.innerText = JSON.stringify(content, undefined, 4);
+        if (pre != null){
+            pre.innerText = JSON.stringify(content, undefined, 4);
+        }
     });
 </script>
 {{ block.super }}

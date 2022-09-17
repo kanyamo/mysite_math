@@ -1,4 +1,4 @@
-.content-image-caption {
+.content-image-caption, .quote-caption {
     text-align: center;
     color: gray;
     font-size: 14px;
@@ -89,18 +89,18 @@ ul.checklist li {
 }
 
 ul.checklist li:before {
-    font-family: "Font Awesome 5 Free";
+    font-family: "Font Awesome 6 Free";
     position: absolute;
     left : 1em; /*左端からアイコンまで*/
     color: #009efd; /*アイコン色*/
 }
 
-ul.checklist li[checked='true']:before {
+ul.checklist li[checked="true"]:before {
     content: "\f14a";
     font-weight: 900;
 }
 
-ul.checklist li[checked='false']:before {
+ul.checklist li[checked="false"]:before {
     content: "\f0c8";
     font-weight: 400;
 }
@@ -108,12 +108,20 @@ ul.checklist li[checked='false']:before {
 hr.delimiter {
     border:none;
     height: 8px;
-    background-image: repeating-linear-gradient(45deg, #ccc 0, #ccc 1px, transparent 0, transparent 50%);
+    background-image: repeating-linear-gradient(45deg, #aaa 0, #aaa 1px, transparent 0, transparent 50%);
     background-size: 8px 8px;
+    margin: 2em 0;
 }
 
 blockquote.quote {
     border-left: 2px solid #888;
     color: #555;
     padding: 1em 0 1em 1em;
+}
+
+.warning-container {
+    border: 2px solid #cc0;
+    margin: 1em 0;
+    padding-left: 1em;
+    background-color: #ffc;
 }
