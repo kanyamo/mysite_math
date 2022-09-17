@@ -187,7 +187,7 @@ EDITORJS_DEFAULT_PLUGINS = (
     '@editorjs/marker',
     '@editorjs/table',
     'editorjs-math',
-    '@editorjs/attaches@latest',
+    '@editorjs/attaches',
 )
 
 EDITORJS_DEFAULT_CONFIG_TOOLS = {
@@ -198,7 +198,8 @@ EDITORJS_DEFAULT_CONFIG_TOOLS = {
             "endpoints": {
                 "byFile": reverse_lazy('editorjs_image_upload'),
                 "byUrl": reverse_lazy('editorjs_image_by_url')
-            }
+            },
+            "additionalRequestHeaders": [{"Content-Type": "multipart/form-data"}]
         },
     },
     "Header": {
@@ -231,7 +232,8 @@ EDITORJS_DEFAULT_CONFIG_TOOLS = {
     'Attaches': {
         'class': 'AttachesTool',
         'config': {
-            'endpoint': reverse_lazy('core:file-upload')
+            'endpoint': '/file_upload/',
+            "additionalRequestHeaders": [{"Content-Type": "multipart/form-data"}]
         }
     }
 }

@@ -111,6 +111,7 @@ def file_upload_view(request):
             'url': file_url,
             'size': fs.size(filename),
             'name': filename,
-            'extension': extension
-        }
+            'extension': extension,
+        },
+        'title': filename
     })
