@@ -109,15 +109,6 @@
                     container.innerHTML = blocks[index].data.html;
                     articleContent.append(container);
                     break;
-                case 'Attaches':
-                    let a_div = document.createElement('div');
-                    let a = document.createElement('a');
-                    a_div.classList.add('file-link-container');
-                    a.href = `{{ base_url }}${blocks[index].data.file.url}`  // base_urlは.envで定義済み
-                    a.textContent = `${blocks[index].data.file.name} (${blocks[index].data.file.size} Byte)`
-                    a.classList.add('file-link');
-                    a_div.appendChild(a);
-                    articleContent.appendChild(a_div);
                 case 'Table':
                     let table = document.createElement('table');
                     let data = blocks[index].data.content;
