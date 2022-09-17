@@ -187,7 +187,6 @@ EDITORJS_DEFAULT_PLUGINS = (
     '@editorjs/marker',
     '@editorjs/table',
     'editorjs-math',
-    '@editorjs/attaches',
 )
 
 EDITORJS_DEFAULT_CONFIG_TOOLS = {
@@ -229,11 +228,4 @@ EDITORJS_DEFAULT_CONFIG_TOOLS = {
     'Marker': {'class': 'Marker', 'inlineToolbar': True},
     'Table': {'class': 'Table', 'inlineToolbar': True},
     "Math": {'class': 'MathTex'},
-    'Attaches': {
-        'class': 'AttachesTool',
-        'config': {
-            'endpoint': '/file_upload/',
-            "additionalRequestHeaders": [{"Content-Type": "multipart/form-data"}]
-        }
-    }
 }

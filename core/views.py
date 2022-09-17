@@ -95,23 +95,3 @@ class ArticleEditView(generic.TemplateView):
         context['form'] = ArticleEditForm(instance=article)
         context['creating_new'] = False  # テンプレートを共有しているので必要になってくる
         return context
-    
-@requires_csrf_token
-def file_upload_view(request):
-    f = request.FILES['file']
-    path_string = f'files/{str(timezone.localtime(timezone.now()).year).zfill(2)}/{str(timezone.localtime(timezone.now()).month).zfill(2)}'
-    fs = FileSystemStorage(location=os.path.join(settings.MEDIA_ROOT, path_string), base_url=os.path.join(settings.MEDIA_URL, path_string))
-    filename = str(f)
-    extension = filename.split('.')[-1]  # ドットで区切って、その最後の要素を取得
-    file = fs.save(filename, f)
-    file_url = fs.url(file)
-    return JsonResponse({
-        'success': 1,
-        'file': {
-            'url': file_url,
-            'size': fs.size(filename),
-            'name': filename,
-            'extension': extension,
-        },
-        'title': filename
-    })
