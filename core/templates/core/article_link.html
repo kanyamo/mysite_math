@@ -4,7 +4,8 @@
             <img class="article-link-thumbnail" src="{{article.thumbnail.url}}" alt="{{article.thumbnail.alt}}">
         </div>
         <div class="article-link-description">
-            {{ article.title }}
+            <p class="article-link-title">{{ article.title|truncatechars:15 }}</p>
+            <p class="article-link-lead">{{ article.lead|truncatechars:32 }}</p>
         </div>
     </div>
 </a>

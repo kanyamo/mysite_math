@@ -16,47 +16,33 @@ body {
 
 nav {
     width: 100%;
-    height: 70px;
     background-image: linear-gradient(to left, #2af598 0%, #009efd 100%);
 }
 
 .navbar-list {
-    display:flex;
     margin: 0;
     padding: 0;
-    height: 100%;
 }
 
 li.navbar-list-item {
+    display: inline-block;
     list-style: none;
-    color: white;
 }
 
-.navbar-list-item__right {
-    margin-left: auto;
-}
-
-a.navbar-nav {
-    display:block;
+.navbar-nav {
     text-decoration: none;
     margin: 0;
     color: white;
-    height: 100%;
-    width: 10vw;
-    position: relative;
 }
 
 .navbar-nav-title {
-    position: absolute;
-    text-align: center;
-    width: 100%;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%)
+    padding: 1.5em;
+    margin: 0;
 }
 
 .wrapper {
-    width: min(1250px, 100%);
+    width: 100%;
+    max-width: 1250px;
     margin: 0 auto;
     padding: 0;
     flex: 1;
@@ -120,13 +106,21 @@ a.article-link {
 }
 
 .article-link-thumbnail-container {
-    width: 49%;
+    width: calc(50% - 0.5em);
 }
 
 .article-link-description {
-    width: 49%;
-    margin-left: 2%;
+    width: calc(50% + 0.5em);
+    padding: 0 0.5em;
+}
 
+.article-link-title {
+    margin: 0.5em 0;
+}
+
+.article-link-lead {
+    margin-bottom: 0;
+    font-size: 80%;
 }
 
 .article-link-thumbnail, .content-image, .thumbnail-image {
@@ -135,7 +129,7 @@ a.article-link {
 }
 
 h1 {
-    padding: 1em 2em;
+    padding: 1em;
     background-image: linear-gradient(to left, #2af598 0%, #009efd 100%);
     border-radius: 6px;
     color: #fff;
@@ -159,37 +153,31 @@ h2:after {
 
 footer {
     width: 100%;
-}
-
-.footer-container {
-    width: 100%;
     background-image: linear-gradient(to left, #2af598 0%, #009efd 100%);
-    height: 70px;
-    display: flex;
 }
 
-.footer-item-outer {
-    position: relative;
-    width: 100%;
-    height: 100%;
+.footer-list {
+    margin: 0;
+    padding: 0;
 }
 
-.footer-item-inner {
-    position: absolute;
-    text-align: center;
+.footer-list-item {
+    display: inline-block;
+    list-style: none;
+}
+
+.footer-list-item a {
     color: white;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-footer > div > div > div > a {
     text-decoration: none;
-    color: white;
+}
+
+.footer-list-item a p {
+    margin: 0;
+    padding: 1.5em;
 }
 
 .breadcrumb-list, .crumb-list-item {
-    color: #333;
+    color: black;
 }
 
 .crumb-list-item {

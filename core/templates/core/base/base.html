@@ -21,16 +21,16 @@
             <ul class="navbar-list">
                 <li class="navbar-list-item">
                     <a class="navbar-nav" href="{% url 'core:index' %}">
-                        <div class="navbar-nav-title">感覚の数学</div>
+                        <p class="navbar-nav-title">感覚の数学</p>
                     </a>
                 </li>
-                <li class="navbar-list-item navbar-list-item__right">
-                    <a class="navbar-nav" href="">
-                        <div class="navbar-nav-title">
-                            サイト内検索
-                        </div>
+                {% for category in root_categories %}
+                <li class="navbar-list-item">
+                    <a class="navbar-nav" href="{% url 'core:category' category.inner_name %}">
+                        <p class="navbar-nav-title">{{ category.name }}</p>
                     </a>
                 </li>
+                {% endfor %}
             </ul>
         </nav>
         {% block extra-header %}{% endblock %}
@@ -42,32 +42,34 @@
         </div>
     </div>
     <footer>
-        <div class="footer-container">
-            <div class="footer-item-outer">
-                <div class="footer-item-inner">
-                    作者
-                </div>
-            </div>
-            <div class="footer-item-outer">
-                <div class="footer-item-inner">
-                    {% if request.user.is_authenticated %}
-                    <a href="{% url 'account_logout' %}">ログアウト</a>
-                    {% else %}
-                    <a href="{% url 'account_login' %}" >管理者用ログイン</a>
-                    {% endif %}
-                </div>
-            </div>
-            <div class="footer-item-outer">
-                <div class="footer-item-inner">
-                    <a href="{% url 'core:create' %}">記事作成</a>
-                </div>
-            </div>
-            <div class="footer-item-outer">
-                <div class="footer-item-inner">
-                    <a href="#" class="return-to-top">トップに戻る</a>
-                </div>
-            </div>
-        </div>
+        <ul class="footer-list">
+            <li class="footer-list-item">
+                <a>
+                    <p>作者</p>
+                </a>
+            </li>
+            <li class="footer-list-item">
+                {% if request.user.is_authenticated %}
+                <a href="{% url 'account_logout' %}">
+                    <p>ログアウト</p>
+                </a>
+                {% else %}
+                <a href="{% url 'account_login' %}" >
+                    <p>管理者用ログイン</p>
+                </a>
+                {% endif %}
+            </li>
+            <li class="footer-list-item">
+                <a href="{% url 'core:create' %}">
+                    <p>記事作成</p>
+                </a>
+            </li>
+            <li class="footer-list-item">
+                <a href="#">
+                    <p>トップに戻る</p>
+                </a>
+            </li>
+        </ul>
     </footer>
     {% block scripts %}
     {% endblock %}

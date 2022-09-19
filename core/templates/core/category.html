@@ -11,8 +11,9 @@
             HOME
         </a>
         {% for category in category_list %}
-        &nbsp;>&nbsp;<a class="crumb-list-item" href="{% url 'core:category' category.inner_name %}">{{ category.name }}</a>
+        >&nbsp;<a class="crumb-list-item" href="{% url 'core:category' category.inner_name %}">{{ category.name }}</a>
         {% endfor %}
+        <!-- htmlの改行でスペースがひとつ入ってしまうのでそれを見越して省略する -->
     </div>
     <h1>カテゴリ：{{ category.name }}</h1>
     <p class="category-description">
