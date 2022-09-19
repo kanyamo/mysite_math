@@ -9,6 +9,9 @@
 <img class="site-thumbnail" src="{% static 'core/image/site-thumbnail.png' %}" alt="">
 {% endblock %}
 {% block column2-1 %}
+    <div class="breadcrumb-list">
+        <a class="crumb-list-item" href="{% url 'core:index' %}">HOME</a>
+    </div>
     <p>
         数あるサイトの中から当サイトをご覧いただきありがとうございます。このサイトは数学の直観力を中心とし、おもしろい数学問題、定理などを紹介しています。
     </p>

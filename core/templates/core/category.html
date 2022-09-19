@@ -5,6 +5,12 @@
     <link rel="stylesheet" href="{% static 'core/css/category.css' %}">
 {% endblock %}
 {% block column2-1 %}
+    <div class="breadcrumb-list">
+        <a class="crumb-list-item" href="{% url 'core:index' %}">HOME</a>
+        {% for category in category_list %}
+        &nbsp;>&nbsp;<a class="crumb-list-item" href="{% url 'core:category' category.inner_name %}">{{ category.name }}</a>
+        {% endfor %}
+    </div>
     <h1>カテゴリ：{{ category.name }}</h1>
     <p class="category-description">
         {{ category.description }}

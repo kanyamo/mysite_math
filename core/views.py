@@ -1,13 +1,8 @@
 from django.shortcuts import redirect, render, get_object_or_404
 from django.views import generic
-from django.views.decorators.csrf import requires_csrf_token
-from django.core.files.storage import FileSystemStorage
-from django.http import JsonResponse
-from django.conf import settings
 from .models import Article, Category
 from .forms import ArticleEditForm
 from django.utils import timezone
-import os
 
 class IndexView(generic.TemplateView):  # ホーム表示
     template_name = 'core/index.html'
@@ -22,8 +17,12 @@ class CategoryListView(generic.TemplateView):
         context['category'] = category
         context['lower_categories'] = category.lowers.all()
         context['articles'] = category.article_set.all()
-        print(context['lower_categories'])
-        print(context['articles'])
+        category_list = []
+        while category is not None:
+            category_list.append(category)
+            category = category.upper
+        category_list.reverse()  # 上位カテゴリを後ろに加えていったので最後にreverse
+        context['category_list'] = category_list
         return context
 
 class ArticleDetailView(generic.TemplateView):

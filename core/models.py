@@ -22,6 +22,7 @@ class Category(models.Model):
     name = models.CharField('カテゴリ名', max_length=100, unique=True)
     inner_name = models.CharField('内部的カテゴリ名', max_length=100, validators=[alphanumeric], unique=True)
     description = models.TextField('カテゴリの説明文', blank=False, null=False, default='これがカテゴリの説明文です。')
+    is_root = models.BooleanField('ルートカテゴリかどうか', default=False)  # ルートカテゴリはもっとも上位のカテゴリであることを示す
 
     def __str__(self):
         return self.name

@@ -9,10 +9,11 @@
 {% endblock %}
 {% block column2-1 %}
     <div class="breadcrumb-list">
+        <a class="crumb-list-item" href="{% url 'core:index' %}">HOME</a>
         {% for category in category_list %}
-        <a class="crumb-list-item" href="{% url 'core:category' category.inner_name %}">{{ category.name }}</a> >  
+        &nbsp;>&nbsp;<a class="crumb-list-item" href="{% url 'core:category' category.inner_name %}">{{ category.name }}</a>
         {% endfor %}
-        <a class="crumb-list-item" href="#">{{ article.title }}</a>
+        &nbsp;>&nbsp;<a class="crumb-list-item" href="#">{{ article.title }}</a>
     </div>
     <h1 class="title">{{article.title}}</h1>
     <div class="article-info">
@@ -170,7 +171,27 @@
                     warning_div.appendChild(warning_title);
                     warning_div.appendChild(warning_message);
                     articleContent.appendChild(warning_div);
-
+                    break;
+                case 'LinkTool':
+                    let link_container = document.createElement('a');
+                    link_container.setAttribute('href', blocks[index].data.link);
+                    link_container.classList.add('external-link-block');
+                    let link_title = document.createElement('div');
+                    link_title.classList.add('external-link-title');
+                    link_title.textContent = " " + blocks[index].data.meta.title;
+                    let link_i = document.createElement('i');
+                    link_i.classList.add("fa-solid", "fa-arrow-up-right-from-square");
+                    let link_description = document.createElement('p');
+                    link_description.classList.add('external-link-description');
+                    link_description.textContent = blocks[index].data.meta.description;
+                    let link_url = document.createElement('span');
+                    link_url.classList.add('external-link-url');
+                    link_url.textContent = blocks[index].data.link;
+                    link_title.prepend(link_i);
+                    link_container.appendChild(link_title);
+                    link_container.appendChild(link_description);
+                    link_container.appendChild(link_url);
+                    articleContent.appendChild(link_container);
             }
         }
 

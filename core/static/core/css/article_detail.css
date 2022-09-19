@@ -122,6 +122,25 @@ blockquote.quote {
 .warning-container {
     border: 2px solid #cc0;
     margin: 1em 0;
-    padding-left: 1em;
+    padding: 0 1em;
     background-color: #ffc;
+}
+
+.external-link-block {
+    display: block;
+    padding: 1em;
+    margin: 1em 0;
+    border: #aaa 1px solid;
+    border-radius: 6px;
+    text-decoration: none;
+    color: black;
+    box-shadow: 2px 2px 4px gray;
+}
+
+.external-link-title {
+    font-weight: bold;
+}
+
+.external-link-url {
+    color: #555;
 }
