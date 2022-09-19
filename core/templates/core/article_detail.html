@@ -9,7 +9,10 @@
 {% endblock %}
 {% block column2-1 %}
     <div class="breadcrumb-list">
-        <a class="crumb-list-item" href="{% url 'core:index' %}">HOME</a>
+        <a class="crumb-list-item" href="{% url 'core:index' %}">
+            <i class="fa-solid fa-house"></i>
+            HOME
+        </a>
         {% for category in category_list %}
         &nbsp;>&nbsp;<a class="crumb-list-item" href="{% url 'core:category' category.inner_name %}">{{ category.name }}</a>
         {% endfor %}
@@ -18,7 +21,7 @@
     <h1 class="title">{{article.title}}</h1>
     <div class="article-info">
         <div class="article-view-count">{{article.view_count}} views</div>
-        <div class="article-pub-date">投稿日:{{article.pub_date.year}}/{{article.pub_date.month}}/{{article.pub_date.day}}, 更新日:{{article.renew_date.year}}/{{article.renew_date.month}}/{{article.renew_date.day}}</div>
+        <div class="article-pub-date"><i class="fa-regular fa-clock"></i>&nbsp;{{article.pub_date.year}}/{{article.pub_date.month}}/{{article.pub_date.day}}&emsp;<i class="fa-solid fa-clock-rotate-left"></i>&nbsp;{{article.renew_date.year}}/{{article.renew_date.month}}/{{article.renew_date.day}}</div>
     </div>
     <img class="thumbnail-image" src="{{article.thumbnail.url}}" alt="{{article.title}}">
     作者：{{ article.author.display_name }}<br>

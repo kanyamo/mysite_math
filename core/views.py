@@ -83,6 +83,7 @@ class ArticleEditView(generic.TemplateView):
             if form.cleaned_data['thumbnail']:
                 article.thumbnail = form.cleaned_data['thumbnail']
             article.content = form.cleaned_data['content']
+            article.has_table_of_contents = form.cleaned_data['has_table_of_contents']
             article.renew_date = timezone.localtime(timezone.now())  # 更新時には投稿日やビュー数、著者は更新しない
             article.save()
             return redirect('core:detail', pk=article.pk)

@@ -33,6 +33,10 @@
                     <td>作者表示名：</td>
                     <td>{{ user.display_name }}</td>
                 </tr>
+                <tr>
+                    <td>目次を表示する：</td>
+                    <td>{{ form.has_table_of_contents }}</td>
+                </tr>
             </table>
             ※ほかの作者で編集する場合は、一度ログアウトし、そのアカウントでログインしなおしてください。
             <h2>内容</h2>
@@ -51,7 +55,6 @@
             let inputs = document.querySelectorAll('input.text-node');
             console.log(inputs);
             inputs.forEach((input) => {
-                console.log(input);
                 input.value = input.value.replaceAll('&amp;', '&');
             });
         }, 1000);

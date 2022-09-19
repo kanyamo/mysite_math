@@ -187,3 +187,11 @@ footer > div > div > div > a {
     text-decoration: none;
     color: white;
 }
+
+.breadcrumb-list, .crumb-list-item {
+    color: #333;
+}
+
+.crumb-list-item {
+    text-decoration: none;
+}
