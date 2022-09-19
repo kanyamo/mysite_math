@@ -22,9 +22,17 @@
     </div>
     <img class="thumbnail-image" src="{{article.thumbnail.url}}" alt="{{article.title}}">
     作者：{{ article.author.display_name }}<br>
-    <!-- article.content でJSONを展開 -->
+    {% if article.lead %}
+    <p class="lead_sentence">{{article.lead}}</p>
+    {% endif %}
+    {% if article.has_table_of_contents %}
+    <div class="toc-container" id="toc-container">
+        <p class="toc-title">Contents</p>
+        <ol class="toc-ol" id="toc-ol">
+        </ol>
+    </div>
+    {% endif %}
     <div id="article-content" class="article-content">
-        <!-- article.content | editorjs -->
     </div> <!-- このidはjsで使う -->
     {% if user.id == article.author.id %}
     <hr>
@@ -52,10 +60,11 @@
         let content = JSON.parse('{{ article.content|escapejs }}');
         let blocks = content.blocks;
         for (let index = 0; index < blocks.length; index++ ){
-            switch(blocks[index].type){  // JSONファイルを展開し、そのブロックの各タイプごとに分解
+            switch(blocks[index].type){  // JSONファイルを展開し、そのブロックの各タイプごとに適した処理でブロックを追加する
                 case 'Header':
                     let head = document.createElement(`h${blocks[index].data.level}`);
                     head.textContent = blocks[index].data.text;
+                    head.setAttribute('id', blocks[index].id);
                     articleContent.appendChild(head);
                     break;
                 case 'Image':
@@ -192,6 +201,24 @@
                     link_container.appendChild(link_description);
                     link_container.appendChild(link_url);
                     articleContent.appendChild(link_container);
+            }
+        }
+
+        // h2見出しを抽出し、目次を作成する
+        let toc_ol = document.getElementById('toc-ol')
+        if (toc_ol != null){
+            let h2_headers = blocks.filter((block) => {
+                return block.type == 'Header';
+            });
+            for (let index = 0; index < h2_headers.length; index++ ){
+                let a = document.createElement('a');
+                a.classList.add('toc-a');
+                a.setAttribute('href', '#' + h2_headers[index].id)
+                let li = document.createElement('li');
+                li.classList.add('toc-li');
+                a.textContent = h2_headers[index].data.text;
+                li.appendChild(a);
+                toc_ol.appendChild(li);
             }
         }
 

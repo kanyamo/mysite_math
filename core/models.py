@@ -22,7 +22,7 @@ class Category(models.Model):
     name = models.CharField('カテゴリ名', max_length=100, unique=True)
     inner_name = models.CharField('内部的カテゴリ名', max_length=100, validators=[alphanumeric], unique=True)
     description = models.TextField('カテゴリの説明文', blank=False, null=False, default='これがカテゴリの説明文です。')
-    is_root = models.BooleanField('ルートカテゴリかどうか', default=False)  # ルートカテゴリはもっとも上位のカテゴリであることを示す
+    is_root = models.BooleanField('ルートカテゴリかどうか', default=False, help_text='ルートカテゴリは最も上位のカテゴリに適用されます。')  # ルートカテゴリはもっとも上位のカテゴリであることを示す
 
     def __str__(self):
         return self.name
@@ -36,6 +36,8 @@ class Article(models.Model):
     view_count = models.IntegerField('PV数', default=0)  # 約21億が上限。さすがにそこまではいかないだろう
     category = models.ForeignKey(Category, verbose_name='カテゴリ', on_delete=models.SET_DEFAULT, default=1)  # もし属するカテゴリーが削除されると、HOMEカテゴリ(id=1)に強制的に属させる
     author = models.ForeignKey(MyUser, verbose_name='作者', on_delete=models.SET_DEFAULT, default=1)  # 作者が削除されると、記事はすべて管理者(id=1)のものになる
+    has_table_of_contents = models.BooleanField('目次を表示するかどうか', default=False)
+    lead = models.TextField('リード文', max_length=2000, blank=True, default='', help_text='投稿日や作者の直後で目次（表示する場合）の直前に挿入される文章です。リード文は記事のリンクにも使われます。')
     content = EditorJsTextField()
 
     def __str__(self):

@@ -14,6 +14,23 @@
     text-align: right;
 }
 
+.toc-container {
+    margin: auto;
+    width: 100%;
+    max-width: 500px;
+    border-top: 2px solid #009efd;
+    border-bottom: 2px solid #009efd;
+}
+
+.toc-title {
+    text-align: center;
+}
+
+.toc-a {
+    text-decoration: none;
+    color: black;
+}
+
 .article-edit-button__outer {
     text-align: center;  /* ボタンそのものをインライン要素にして、それを中央寄せ */
 }
