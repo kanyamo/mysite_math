@@ -46,7 +46,7 @@ class ArticleCreateView(generic.TemplateView):
             post.save()
             return redirect('core:index')
         else:
-            pass
+            return render(request, self.template_name, {'form':form, 'creating_new': True})
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -59,7 +59,7 @@ class ArticleEditView(generic.TemplateView):
 
     def post(self, request, pk):
         article=Article.objects.get(pk=pk)
-        form = ArticleEditForm(request.POST, request.FILES)
+        form = ArticleEditForm(request.POST, request.FILES, instance=article)
         if form.is_valid():
             article.title = form.cleaned_data['title']
             if form.cleaned_data['thumbnail']:
@@ -69,6 +69,8 @@ class ArticleEditView(generic.TemplateView):
             article.renew_date = timezone.localtime(timezone.now())  # 更新時には投稿日やビュー数、著者は更新しない
             article.save()
             return redirect('core:detail', pk=article.pk)
+        else:
+            return render(request, self.template_name, {'form':form, 'pk': pk, 'creating_new': False})
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -87,7 +89,7 @@ class CategoryCreateView(generic.TemplateView):
             form.save()
             return redirect('core:index')
         else:
-            pass
+            return render(request, self.template_name, {'form':form, 'creating_new': True})
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -128,7 +130,7 @@ class CategoryEditView(generic.TemplateView):
             category.save()
             return redirect('core:category-detail', inner_name=category.inner_name)
         else:
-            pass
+            return render(request, self.template_name, {'form':form, 'inner_name': inner_name, 'creating_new': False})
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

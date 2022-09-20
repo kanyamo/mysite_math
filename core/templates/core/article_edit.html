@@ -9,6 +9,15 @@
 {% block column1-1 %}
     <h1>記事{% if creating_new %}新規作成{% else %}編集{% endif %}</h1>
     {% if user.is_authenticated %}
+        {% if form.errors %}
+        <ul class="form-errorlist">
+            {% for error in form.errors %}
+            <li>
+                {{ error }}
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
         {% if creating_new %}
         <form method="post" action="{% url 'core:article-create' %}" enctype="multipart/form-data">
         {% else %}

@@ -7,7 +7,11 @@
 {% endblock %}
 {% block column1-1 %}
     <h1>カテゴリ{% if creating_new %}新規作成{% else %}編集{% endif %}</h1>
-    {% if user.is_authenticated %}
+    {% if user.is_staff %}
+        {% if form.errors %}
+        <p>以下のエラー箇所を修正してください。</p>
+        {{ form.errors }}
+        {% endif %}
         {% if creating_new %}
         <form method="post" action="{% url 'core:category-create' %}">
         {% else %}
@@ -40,6 +44,6 @@
             <button type="submit" class="category-post-button">この内容で投稿</button>
         </form>
     {% else %}
-        <p>現在ログイン中でないので、ここに表示する内容はありません。</p>
+        <p>現在スタッフユーザーでログイン中でないので、ここに表示する内容はありません。</p>
     {% endif %}
 {% endblock %}
