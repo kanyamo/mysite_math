@@ -1,0 +1,9 @@
+.category-post-button {
+    display: block;
+    margin: auto;
+    background-color: #009efd;
+    color: white;
+    border-radius: 6px;
+    padding: 1em;
+    border: 0;
+}

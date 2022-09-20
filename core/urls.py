@@ -1,12 +1,13 @@
 from django.urls import path
 from . import views
-from django.views.decorators.csrf import csrf_exempt
 
 app_name = 'core'
 urlpatterns = [
     path('', views.IndexView.as_view(), name='index'),
-    path('<int:pk>/', views.ArticleDetailView.as_view(), name='detail'),
-    path('create/', views.ArticleCreateView.as_view(), name='create'),
-    path('edit/<int:pk>', views.ArticleEditView.as_view(), name='edit'),
-    path('category/<str:category_name>', views.CategoryListView.as_view(), name='category'),
+    path('detail/<int:pk>/', views.ArticleDetailView.as_view(), name='detail'),
+    path('article-create/', views.ArticleCreateView.as_view(), name='article-create'),
+    path('article-edit/<int:pk>/', views.ArticleEditView.as_view(), name='article-edit'),
+    path('category/<str:inner_name>/', views.CategoryDetailView.as_view(), name='category-detail'),
+    path('category-create/', views.CategoryCreateView.as_view(), name='category-create'),
+    path('category-edit/<str:inner_name>', views.CategoryEditView.as_view(), name='category-edit'),
 ]

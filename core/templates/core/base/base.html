@@ -12,7 +12,7 @@
     <link href="{% static 'fontawesomefree/css/solid.css' %}" rel="stylesheet" type="text/css">
     {% block extra-styles %}{% endblock %}
     <title>
-        {% block title %}{% endblock %} | 感覚の数学
+        {% block title %}{% endblock %}&nbsp;|&nbsp;感覚の数学
     </title>
 </head>
 <body>
@@ -26,7 +26,7 @@
                 </li>
                 {% for category in root_categories %}
                 <li class="navbar-list-item">
-                    <a class="navbar-nav" href="{% url 'core:category' category.inner_name %}">
+                    <a class="navbar-nav" href="{% url 'core:category-detail' category.inner_name %}">
                         <p class="navbar-nav-title">{{ category.name }}</p>
                     </a>
                 </li>
@@ -43,11 +43,23 @@
     </div>
     <footer>
         <ul class="footer-list">
+            {% if request.user.is_authenticated %}
             <li class="footer-list-item">
                 <a>
-                    <p>作者</p>
+                    <p>アカウント</p>
                 </a>
             </li>
+            <li class="footer-list-item">
+                <a href="{% url 'core:article-create' %}">
+                    <p>記事作成</p>
+                </a>
+            </li>
+            <li class="footer-list-item">
+                <a href="{% url 'core:category-create' %}">
+                    <p>カテゴリ作成</p>
+                </a>
+            </li>
+            {% endif %}
             <li class="footer-list-item">
                 {% if request.user.is_authenticated %}
                 <a href="{% url 'account_logout' %}">
@@ -58,11 +70,6 @@
                     <p>管理者用ログイン</p>
                 </a>
                 {% endif %}
-            </li>
-            <li class="footer-list-item">
-                <a href="{% url 'core:create' %}">
-                    <p>記事作成</p>
-                </a>
             </li>
             <li class="footer-list-item">
                 <a href="#">

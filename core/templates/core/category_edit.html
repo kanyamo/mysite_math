@@ -1,0 +1,45 @@
+{% extends 'core/base/one_column_base.html' %}
+{% load static %}
+{% block title %}カテゴリ{% if creating_new %}新規作成{% else %}編集{% endif %}{% endblock %}
+{% block extra-styles %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'core/css/category_edit.css' %}">
+{% endblock %}
+{% block column1-1 %}
+    <h1>カテゴリ{% if creating_new %}新規作成{% else %}編集{% endif %}</h1>
+    {% if user.is_authenticated %}
+        {% if creating_new %}
+        <form method="post" action="{% url 'core:category-create' %}">
+        {% else %}
+        <form method="post" action="{% url 'core:category-edit' inner_name=inner_name %}">
+        {% endif %}
+            {% csrf_token %}
+            <h2>基本情報</h2>
+            <table>
+                <tr>
+                    <td><label for="upper">上位カテゴリ：</label></td>
+                    <td>{{ form.upper }}</td>
+                </tr>
+                <tr>
+                    <td><label for="name">カテゴリ名：</label></td>
+                    <td>{{ form.name }}</td>
+                </tr>
+                <tr>
+                    <td><label for="inner_name">内部カテゴリ名：</label></td>
+                    <td>{{ form.inner_name }}</td>
+                </tr>
+                <tr>
+                    <td>説明文：</td>
+                    <td>{{ form.description }}</td>
+                </tr>
+                <tr>
+                    <td>ルートカテゴリかどうか：</td>
+                    <td>{{ form.is_root }}</td>
+                </tr>
+            </table>
+            <button type="submit" class="category-post-button">この内容で投稿</button>
+        </form>
+    {% else %}
+        <p>現在ログイン中でないので、ここに表示する内容はありません。</p>
+    {% endif %}
+{% endblock %}

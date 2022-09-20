@@ -2,7 +2,7 @@
 {% load static %}
 {% block title %}{{ category.name }}{% endblock %}
 {% block extra-styles %}
-    <link rel="stylesheet" href="{% static 'core/css/category.css' %}">
+    <link rel="stylesheet" href="{% static 'core/css/category_detail.css' %}">
 {% endblock %}
 {% block column2-1 %}
     <div class="breadcrumb-list">
@@ -11,7 +11,7 @@
             HOME
         </a>
         {% for category in category_list %}
-        >&nbsp;<a class="crumb-list-item" href="{% url 'core:category' category.inner_name %}">{{ category.name }}</a>
+        >&nbsp;<a class="crumb-list-item" href="{% url 'core:category-detail' category.inner_name %}">{{ category.name }}</a>
         {% endfor %}
         <!-- htmlの改行でスペースがひとつ入ってしまうのでそれを見越して省略する -->
     </div>
@@ -26,7 +26,7 @@
     <h2>{{ category.name }}カテゴリの下位カテゴリ一覧</h2>
     <div class="lower-categories">
         {% for lower_category in lower_categories %}
-            <a href="{% url 'core:category' lower_category.inner_name %}" class="lower-category-link">
+            <a href="{% url 'core:category-detail' lower_category.inner_name %}" class="lower-category-link">
                 <div class="lower-category-container">
                     <h3>{{ lower_category.name }}</h3>
                     <p class="category-description">
@@ -36,4 +36,13 @@
             </a>
         {% endfor %}
     </div>
+    {% if user.is_staff %}
+    <div class="category-edit-button__outer">
+        <a href="{% url 'core:category-edit' category.inner_name %}" class="category-edit-link">
+            <div class="category-edit-button">
+                このカテゴリを編集する
+            </div>
+        </a>
+    </div>
+    {% endif %}
 {% endblock %}

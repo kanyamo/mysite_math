@@ -9,10 +9,10 @@
 {% block column1-1 %}
     <h1>記事{% if creating_new %}新規作成{% else %}編集{% endif %}</h1>
     {% if user.is_authenticated %}
-    {% if creating_new %}
-        <form method="post" action="{% url 'core:create' %}" enctype="multipart/form-data">
+        {% if creating_new %}
+        <form method="post" action="{% url 'core:article-create' %}" enctype="multipart/form-data">
         {% else %}
-        <form method="post" action="{% url 'core:edit' pk %}" enctype="multipart/form-data">
+        <form method="post" action="{% url 'core:article-edit' pk %}" enctype="multipart/form-data">
         {% endif %}
             {% csrf_token %}
             <h2>基本情報</h2>
