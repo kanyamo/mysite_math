@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render, get_object_or_404
 from django.views import generic
-from .models import Article, Category
-from .forms import ArticleEditForm, CategoryEditForm
+from .models import Article, Category, MyUser
+from .forms import ArticleEditForm, CategoryEditForm, UserEditForm
 from django.utils import timezone
 
 class IndexView(generic.TemplateView):  # ホーム表示
@@ -33,7 +33,7 @@ class ArticleDetailView(generic.TemplateView):
         return context
 
 class ArticleCreateView(generic.TemplateView):
-    template_name = 'core/article_edit.html'
+    template_name = 'core/article_create.html'
 
     def post(self, request):
         form = ArticleEditForm(request.POST, request.FILES)
@@ -46,12 +46,11 @@ class ArticleCreateView(generic.TemplateView):
             post.save()
             return redirect('core:index')
         else:
-            return render(request, self.template_name, {'form':form, 'creating_new': True})
+            return render(request, self.template_name, {'form':form})
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['form'] = ArticleEditForm()
-        context['creating_new'] = True  # テンプレートを共有しているので必要になってくる
         return context
 
 class ArticleEditView(generic.TemplateView):
@@ -70,14 +69,13 @@ class ArticleEditView(generic.TemplateView):
             article.save()
             return redirect('core:detail', pk=article.pk)
         else:
-            return render(request, self.template_name, {'form':form, 'pk': pk, 'creating_new': False})
+            return render(request, self.template_name, {'form':form, 'article': article})
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         article = get_object_or_404(Article, pk=self.kwargs.get('pk'))
-        context['pk'] = article.pk
+        context['article'] = article
         context['form'] = ArticleEditForm(instance=article)
-        context['creating_new'] = False  # テンプレートを共有しているので必要になってくる
         return context
 
 class CategoryCreateView(generic.TemplateView):
@@ -140,3 +138,24 @@ class CategoryEditView(generic.TemplateView):
         context['creating_new'] = False
         return context
 
+class UserEditView(generic.TemplateView):
+    template_name = 'core/user_edit.html'
+
+    def post(self, request, pk):
+        user = MyUser.objects.get(pk=pk)
+        form = UserEditForm(request.POST, request.FILES, instance=user)
+        if form.is_valid():
+            if form.cleaned_data['icon']:
+                user.icon = form.cleaned_data['icon']
+            user.username = form.cleaned_data['username']
+            user.display_name = form.cleaned_data['display_name']
+            user.save()
+        else:
+            return render(request, self.template_name, {})
+        
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user = get_object_or_404(MyUser, pk=self.kwargs.get('pk'))
+        context['form'] = UserEditForm(instance=user)
+        context['user'] = user
+        return context

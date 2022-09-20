@@ -1,11 +1,11 @@
 {% extends 'core/base/one_column_base.html' %}
 {% load static %}
-{% block title %}記事編集{% endblock %}
+{% block title %}アカウント編集{% endblock %}
 {% block extra-styles %}
     {{ block.super }}
-    {{ form.media }}
-    <link rel="stylesheet" href="{% static 'core/css/article_edit.css' %}">
+    <link rel="stylesheet" href="{% static 'core/css/user_edit.css' %}">
 {% endblock %}
+<!-- 次ここから -->
 {% block column1-1 %}
     <h1>記事編集</h1>
     {% if user.is_authenticated %}
@@ -51,18 +51,4 @@
     {% else %}
         <p>現在ログイン中でないので、ここに表示する内容はありません。</p>
     {% endif %}
-{% endblock %}
-{% block scripts %}
-<script type="text/javascript">  // &のエスケープを戻す
-    document.addEventListener('DOMContentLoaded', () => {
-        setTimeout(() => {
-            let inputs = document.querySelectorAll('input.text-node');
-            console.log(inputs);
-            inputs.forEach((input) => {
-                input.value = input.value.replaceAll('&amp;', '&');
-            });
-        }, 1000);
-    })
-</script>
-{{ block.super }}
 {% endblock %}

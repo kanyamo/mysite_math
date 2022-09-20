@@ -45,7 +45,7 @@
         <ul class="footer-list">
             {% if request.user.is_authenticated %}
             <li class="footer-list-item">
-                <a>
+                <a class="">
                     <p>アカウント</p>
                 </a>
             </li>
@@ -59,18 +59,18 @@
                     <p>カテゴリ作成</p>
                 </a>
             </li>
-            {% endif %}
             <li class="footer-list-item">
-                {% if request.user.is_authenticated %}
                 <a href="{% url 'account_logout' %}">
                     <p>ログアウト</p>
                 </a>
-                {% else %}
+            </li>
+            {% else %}
+            <li class="footer-list-item">
                 <a href="{% url 'account_login' %}" >
                     <p>管理者用ログイン</p>
                 </a>
-                {% endif %}
             </li>
+            {% endif %}
             <li class="footer-list-item">
                 <a href="#">
                     <p>トップに戻る</p>
