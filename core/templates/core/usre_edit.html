@@ -7,7 +7,7 @@
 {% endblock %}
 <!-- 次ここから -->
 {% block column1-1 %}
-    <h1>記事編集</h1>
+    <h1>アカウント プロフィール編集</h1>
     {% if user.is_authenticated %}
         {% if form.errors %}
         <p>以下のエラー箇所を修正してください。</p>
@@ -42,7 +42,6 @@
                     <td>{{ form.has_table_of_contents }}</td>
                 </tr>
             </table>
-            ※ほかの作者で編集する場合は、一度ログアウトし、そのアカウントでログインしなおしてください。
             <h2>内容</h2>
             ※タイトルとサムネイル画像の後の本文から書いてください。<br>
             {{ form.content }}

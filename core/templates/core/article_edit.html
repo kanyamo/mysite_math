@@ -9,45 +9,48 @@
 {% block column1-1 %}
     <h1>記事編集</h1>
     {% if user.is_authenticated %}
-        {% if form.errors %}
-        <p>以下のエラー箇所を修正してください。</p>
-        {{ form.errors }}
+        {% if user.id == article.author.pk %}
+            {% if form.errors %}
+                <p>以下のエラー箇所を修正してください。</p>
+                {{ form.errors }}
+            {% endif %}
+            <form method="post" action="{% url 'core:article-edit' pk=article.pk %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                <h2>基本情報</h2>
+                <table>
+                    <tr>
+                        <td><label for="title">カテゴリ：</label></td>
+                        <td>{{ form.category }}</td>
+                    </tr>
+                    <tr>
+                        <td><label for="title">タイトル：</label></td>
+                        <td>{{ form.title }}</td>
+                    </tr>
+                    <tr>
+                        <td><label for="thumbnail">サムネイル画像：</label></td>
+                        <td>{{ form.thumbnail }}</td>
+                    </tr>
+                    <tr>
+                        <td>作者表示名：</td>
+                        <td>{{ user.display_name }}</td>
+                    </tr>
+                    <tr>
+                        <td>リード文：</td>
+                        <td>{{ form.lead }}</td>
+                    </tr>
+                    <tr>
+                        <td>目次を表示する：</td>
+                        <td>{{ form.has_table_of_contents }}</td>
+                    </tr>
+                </table>
+                <h2>内容</h2>
+                ※タイトルとサムネイル画像の後の本文から書いてください。<br>
+                {{ form.content }}
+                <button type="submit" class="article-post-button">この内容で投稿</button>
+            </form>
+        {% else %}
+            <p>現在ログイン中のユーザーはこの記事の筆者ではないので、ここに表示する内容はありません。</p>
         {% endif %}
-        <form method="post" action="{% url 'core:article-edit' pk=article.pk %}" enctype="multipart/form-data">
-            {% csrf_token %}
-            <h2>基本情報</h2>
-            <table>
-                <tr>
-                    <td><label for="title">カテゴリ：</label></td>
-                    <td>{{ form.category }}</td>
-                </tr>
-                <tr>
-                    <td><label for="title">タイトル：</label></td>
-                    <td>{{ form.title }}</td>
-                </tr>
-                <tr>
-                    <td><label for="thumbnail">サムネイル画像：</label></td>
-                    <td>{{ form.thumbnail }}</td>
-                </tr>
-                <tr>
-                    <td>作者表示名：</td>
-                    <td>{{ user.display_name }}</td>
-                </tr>
-                <tr>
-                    <td>リード文：</td>
-                    <td>{{ form.lead }}</td>
-                </tr>
-                <tr>
-                    <td>目次を表示する：</td>
-                    <td>{{ form.has_table_of_contents }}</td>
-                </tr>
-            </table>
-            ※ほかの作者で編集する場合は、一度ログアウトし、そのアカウントでログインしなおしてください。
-            <h2>内容</h2>
-            ※タイトルとサムネイル画像の後の本文から書いてください。<br>
-            {{ form.content }}
-            <button type="submit" class="article-post-button">この内容で投稿</button>
-        </form>
     {% else %}
         <p>現在ログイン中でないので、ここに表示する内容はありません。</p>
     {% endif %}

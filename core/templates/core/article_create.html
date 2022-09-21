@@ -9,7 +9,6 @@
 {% block column1-1 %}
     <h1>記事新規作成</h1>
     {% if user.is_authenticated %}
-        {% if user.id == article.author.pk %}
             {% if form.errors %}
                 <p>以下のエラー箇所を修正してください。</p>
                 {{ form.errors }}
@@ -43,14 +42,12 @@
                         <td>{{ form.has_table_of_contents }}</td>
                     </tr>
                 </table>
+                ※ほかの作者で作成する場合は、一度ログアウトし、そのアカウントでログインしなおしてください。
                 <h2>内容</h2>
                 ※タイトルとサムネイル画像の後の本文から書いてください。<br>
                 {{ form.content }}
                 <button type="submit" class="article-post-button">この内容で投稿</button>
             </form>
-        {% else %}
-            <p>現在ログイン中のユーザーはこの記事の筆者ではないので、ここに表示する内容はありません。</p>
-        {% endif %}
     {% else %}
         <p>現在ログイン中でないので、ここに表示する内容はありません。</p>
     {% endif %}
