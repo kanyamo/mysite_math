@@ -80,17 +80,18 @@ li.navbar-list-item {
 
 
 @media (max-width: 1000px){
+    .wrapper {
+        max-width: 800px;
+    }
+
     .container {
         flex-direction: column;
     }
 
-    .column2-1 {
-        width: 98%;
-    }
-
-    .column2-2 {
-        width: 98%;
-        margin-top: 0;
+    .column2-1 , .column2-2 {
+        width: 100%;
+        margin: 0;
+        border-radius: 0;
     }
 }
 

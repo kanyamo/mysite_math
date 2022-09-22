@@ -23,4 +23,4 @@ class CategoryEditForm(forms.ModelForm):
 class UserEditForm(forms.ModelForm):
     class Meta:
         model = MyUser
-        fields = ['icon', 'username', 'display_name']
+        fields = ['icon', 'username', 'display_name', 'description']

@@ -13,13 +13,17 @@
         <p>以下のエラー箇所を修正してください。</p>
         {{ form.errors }}
         {% endif %}
-        <form method="post" action="{% url 'core:article-edit' pk=article.pk %}" enctype="multipart/form-data">
+        <form method="post" action="{% url 'core:user-edit' %}" enctype="multipart/form-data">
             {% csrf_token %}
             <h2>基本情報</h2>
             <table>
                 <tr>
                     <td><label for="icon">アイコン画像：</label></td>
                     <td>{{ form.icon }}</td>
+                </tr>
+                <tr>
+                    <td><label for="username">ユーザー名：</label></td>
+                    <td>{{ form.username }}</td>
                 </tr>
                 <tr>
                     <td><label for="display_name">表示名：</label></td>
@@ -30,8 +34,6 @@
                     <td>{{ form.description }}</td>
                 </tr>
             </table>
-            <h2>内容</h2>\
-            {{ form.content }}
             <button type="submit" class="post-button">変更を適用する</button>
         </form>
     {% else %}

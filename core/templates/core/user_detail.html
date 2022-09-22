@@ -6,6 +6,27 @@
 {% endblock %}
 {% block column2-1 %}
     <h1>{{ user.display_name }}のマイページ</h1>
+    <div class="user-info">
+        <div class="user-info-left">
+            <img class="user-icon" src="{{ user.icon.url }}">
+        </div>
+        <div class="user-info-right">
+            <table>
+                <tr>
+                    <td>表示名：</td>
+                    <td>{{ user.display_name }}</td>
+                </tr>
+                <tr>
+                    <td>ユーザー名：</td>
+                    <td>{{ user.username }}</td>
+                </tr>
+                <tr>
+                    <td>登録日：</td>
+                    <td>{{ user.pub_date }}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
     <div class="user-edit-button__outer">
         <a href="{% url 'core:user-edit' %}" class="user-edit-link">
             <div class="user-edit-button">

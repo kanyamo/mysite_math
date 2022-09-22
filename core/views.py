@@ -139,7 +139,12 @@ class CategoryEditView(generic.TemplateView):
         context['creating_new'] = False
         return context
 
+# 
 class UserEditView(LoginRequiredMixin, generic.TemplateView):
+    """
+    アイコン画像、表示名、ユーザー名の変更をするビュー
+    パスワードの変更はallauthの専用のビューから行う
+    """
     template_name = 'core/user_edit.html'
 
     def post(self, request):
@@ -151,6 +156,7 @@ class UserEditView(LoginRequiredMixin, generic.TemplateView):
             user.username = form.cleaned_data['username']
             user.display_name = form.cleaned_data['display_name']
             user.save()
+            return redirect('core:user-detail')
         else:
             return render(request, self.template_name, {'form': form})
         

@@ -1,3 +1,23 @@
+.user-info {
+    display: flex;
+    margin: 1em 0;
+}
+
+.user-icon {
+    border-radius: 50%;
+    object-fit: cover;
+    width: 100%;
+}
+
+.user-info-left {
+    margin: auto;
+    width: 40%;
+}
+
+.user-info-right {
+    margin-right: auto;
+}
+
 .user-edit-button__outer {
     text-align: center;  /* ボタンそのものをインライン要素にして、それを中央寄せ */
 }
