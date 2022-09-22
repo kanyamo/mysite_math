@@ -3,6 +3,7 @@ from django.views import generic
 from .models import Article, Category, MyUser
 from .forms import ArticleEditForm, CategoryEditForm, UserEditForm
 from django.utils import timezone
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 class IndexView(generic.TemplateView):  # ホーム表示
     template_name = 'core/index.html'
@@ -138,11 +139,11 @@ class CategoryEditView(generic.TemplateView):
         context['creating_new'] = False
         return context
 
-class UserEditView(generic.TemplateView):
+class UserEditView(LoginRequiredMixin, generic.TemplateView):
     template_name = 'core/user_edit.html'
 
-    def post(self, request, pk):
-        user = MyUser.objects.get(pk=pk)
+    def post(self, request):
+        user = request.user
         form = UserEditForm(request.POST, request.FILES, instance=user)
         if form.is_valid():
             if form.cleaned_data['icon']:
@@ -151,11 +152,12 @@ class UserEditView(generic.TemplateView):
             user.display_name = form.cleaned_data['display_name']
             user.save()
         else:
-            return render(request, self.template_name, {})
+            return render(request, self.template_name, {'form': form})
         
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        user = get_object_or_404(MyUser, pk=self.kwargs.get('pk'))
-        context['form'] = UserEditForm(instance=user)
-        context['user'] = user
+        context['form'] = UserEditForm(instance=self.request.user)
         return context
+
+class UserDetailView(LoginRequiredMixin, generic.TemplateView):
+    template_name = 'core/user_detail.html'

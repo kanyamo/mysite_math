@@ -11,7 +11,11 @@
             HOME
         </a>
         {% for category in category_list %}
-        >&nbsp;<a class="crumb-list-item" href="{% url 'core:category-detail' category.inner_name %}">{{ category.name }}</a>
+        &gt;
+        <a class="crumb-list-item" href="{% url 'core:category-detail' category.inner_name %}">
+            <i class="fa-regular fa-folder"></i>
+            {{ category.name }}
+        </a>
         {% endfor %}
         <!-- htmlの改行でスペースがひとつ入ってしまうのでそれを見越して省略する -->
     </div>

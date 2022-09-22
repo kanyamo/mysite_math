@@ -10,4 +10,6 @@ urlpatterns = [
     path('category/<str:inner_name>/', views.CategoryDetailView.as_view(), name='category-detail'),
     path('category-create/', views.CategoryCreateView.as_view(), name='category-create'),
     path('category-edit/<str:inner_name>', views.CategoryEditView.as_view(), name='category-edit'),
+    path('user-edit/', views.UserEditView.as_view(), name='user-edit'),
+    path('user-detail/', views.UserDetailView.as_view(), name='user-detail'),
 ]

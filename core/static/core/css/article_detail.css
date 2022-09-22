@@ -5,8 +5,16 @@
 }
 
 .article-info {
-    display: flex;
     margin: 1em 0;
+}
+
+.article-info .row1 {
+    display: flex;
+}
+
+.article-author {
+    margin-left: auto;
+    text-align: right;
 }
 
 .article-pub-date {

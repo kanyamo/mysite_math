@@ -1,0 +1,16 @@
+{% extends 'core/base/two_column_base.html' %}
+{% load static %}
+{% block title %}アカウント{% endblock %}
+{% block extra-styles %}
+<link rel="stylesheet" href="{% static 'core/css/user_detail.css' %}">
+{% endblock %}
+{% block column2-1 %}
+    <h1>{{ user.display_name }}のマイページ</h1>
+    <div class="user-edit-button__outer">
+        <a href="{% url 'core:user-edit' %}" class="user-edit-link">
+            <div class="user-edit-button">
+                アカウント情報を編集する
+            </div>
+        </a>
+    </div>
+{% endblock %}

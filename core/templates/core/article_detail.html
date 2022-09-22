@@ -14,18 +14,27 @@
             HOME
         </a>
         {% for category in category_list %}
-        >&nbsp;<a class="crumb-list-item" href="{% url 'core:category-detail' category.inner_name %}">{{ category.name }}</a>
+        &gt;
+        <a class="crumb-list-item" href="{% url 'core:category-detail' category.inner_name %}">
+            <i class="fa-regular fa-folder"></i>
+            {{ category.name }}
+        </a>
         {% endfor %}
-        >&nbsp;<a class="crumb-list-item" href="#">{{ article.title }}</a>
+        &gt;
+        <a class="crumb-list-item" href="#">{{ article.title }}</a>
         <!-- htmlの改行でスペースがひとつ入ってしまうのでそれを見越して省略する -->
     </div>
     <h1 class="title">{{article.title}}</h1>
     <div class="article-info">
-        <div class="article-view-count">{{article.view_count}} views</div>
-        <div class="article-pub-date"><i class="fa-regular fa-clock"></i>&nbsp;{{article.pub_date.year}}/{{article.pub_date.month}}/{{article.pub_date.day}}&emsp;<i class="fa-solid fa-clock-rotate-left"></i>&nbsp;{{article.renew_date.year}}/{{article.renew_date.month}}/{{article.renew_date.day}}</div>
+        <div class="row1">
+            <div class="article-view-count">{{article.view_count}} views</div>
+            <div class="article-pub-date"><i class="fa-regular fa-clock"></i>&nbsp;{{article.pub_date.year}}/{{article.pub_date.month}}/{{article.pub_date.day}}&emsp;<i class="fa-solid fa-clock-rotate-left"></i>&nbsp;{{article.renew_date.year}}/{{article.renew_date.month}}/{{article.renew_date.day}}</div>
+        </div>
+        <div class="row2">
+            <div class="article-author"><i class="fa-regular fa-pen-nib"></i>&nbsp;{{ article.author.display_name }}</div>
+        </div>
     </div>
     <img class="thumbnail-image" src="{{article.thumbnail.url}}" alt="{{article.title}}">
-    作者：{{ article.author.display_name }}<br>
     {% if article.lead %}
     <p class="lead_sentence">{{article.lead}}</p>
     {% endif %}
