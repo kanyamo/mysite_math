@@ -4,6 +4,7 @@
 {% block extra-styles %}
     {{ block.super }}
     {{ form.media }}
+    <link rel="stylesheet" href="{% static 'core/css/edit_base.css' %}">
     <link rel="stylesheet" href="{% static 'core/css/article_edit.css' %}">
 {% endblock %}
 {% block column1-1 %}
@@ -46,7 +47,7 @@
                 <h2>内容</h2>
                 ※タイトルとサムネイル画像の後の本文から書いてください。<br>
                 {{ form.content }}
-                <button type="submit" class="article-post-button">この内容で投稿</button>
+                <button type="submit" class="post-button">この内容で投稿</button>
             </form>
     {% else %}
         <p>現在ログイン中でないので、ここに表示する内容はありません。</p>

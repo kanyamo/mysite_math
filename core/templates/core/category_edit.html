@@ -3,6 +3,7 @@
 {% block title %}カテゴリ{% if creating_new %}新規作成{% else %}編集{% endif %}{% endblock %}
 {% block extra-styles %}
     {{ block.super }}
+    <link rel="stylesheet" href="{% static 'core/css/edit_base.css' %}">
     <link rel="stylesheet" href="{% static 'core/css/category_edit.css' %}">
 {% endblock %}
 {% block column1-1 %}
@@ -41,7 +42,7 @@
                     <td>{{ form.is_root }}</td>
                 </tr>
             </table>
-            <button type="submit" class="category-post-button">この内容で投稿</button>
+            <button type="submit" class="post-button">{% if creating_new %}この内容で作成{% else %}変更を適用する{% endif %}</button>
         </form>
     {% else %}
         <p>現在スタッフユーザーでログイン中でないので、ここに表示する内容はありません。</p>

@@ -15,6 +15,7 @@ class MyUser(AbstractUser):
     icon = models.ImageField('アイコン画像', upload_to='icons/', default='default/default_user_icon.png')
     pub_date = models.DateTimeField('登録日', default=local_now)
     display_name = models.CharField('表示名', max_length=100, default='表示名')
+    description = models.TextField('自己紹介文', max_length=2000, default='これが作者の紹介文です。') 
 
 
 class Category(models.Model):

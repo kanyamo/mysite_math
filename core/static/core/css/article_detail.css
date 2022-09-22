@@ -125,7 +125,7 @@ ul.checklist li[checked="false"]:before {
 hr.delimiter {
     border:none;
     height: 8px;
-    background-image: repeating-linear-gradient(45deg, #aaa 0, #aaa 1px, transparent 0, transparent 50%);
+    background-image: repeating-linear-gradient(45deg, #aaa 0, #aaa 2px, transparent 0, transparent 50%);
     background-size: 8px 8px;
     margin: 2em 0;
 }
