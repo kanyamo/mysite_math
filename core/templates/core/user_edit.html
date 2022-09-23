@@ -10,7 +10,7 @@
     <h1>アカウント プロフィール編集</h1>
     {% if user.is_authenticated %}
         {% if form.errors %}
-        <p>以下のエラー箇所を修正してください。</p>
+        <p class="error-notification">以下のエラー箇所を修正してください。</p>
         {{ form.errors }}
         {% endif %}
         <form method="post" action="{% url 'core:user-edit' %}" enctype="multipart/form-data">

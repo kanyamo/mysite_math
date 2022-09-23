@@ -83,7 +83,7 @@ li.navbar-list-item {
     body {
         background-color: #fff;
     }
-    
+
     .wrapper {
         max-width: 800px;
     }
@@ -99,7 +99,45 @@ li.navbar-list-item {
     }
 }
 
+ul.messages {
+    padding: 0;
+    margin: 0 1em;
+}
 
+ul.messages li {
+    list-style: none;
+    padding: 1em;
+    border-radius: 6px;
+    margin: 1em 0;
+}
+
+ul.messages .error {
+    background-color: #ffbaba;
+}
+
+ul.messages .warning {
+    background-color: #ffffba;
+}
+
+ul.messages .success {
+    background-color: #baffc1;
+}
+
+ul.messages .info {
+    background-color: white;
+    border: 2px solid #aaa;
+}
+
+.error-notification::before {
+    font-family: "Font Awesome 6 Free";
+    content: "\f071";
+    padding-right: 0.5em;
+    font-weight: 900;
+}
+
+.errorlist .errorlist {
+    list-style: none;
+}
 
 a.article-link {
     text-decoration: none;
@@ -138,6 +176,8 @@ h1 {
     background-image: linear-gradient(to left, #2af598 0%, #009efd 100%);
     border-radius: 6px;
     color: #fff;
+    margin-top: 0;
+    margin-bottom: 1em;
 }
 
 h2 {
@@ -179,6 +219,10 @@ footer {
 .footer-list-item a p {
     margin: 0;
     padding: 1.5em;
+}
+
+.breadcrumb-list {
+    margin: 0.5em 0;
 }
 
 .breadcrumb-list, .crumb-list-item {

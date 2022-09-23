@@ -12,7 +12,7 @@
     {% if user.is_authenticated %}
         {% if user.id == article.author.pk %}
             {% if form.errors %}
-                <p>以下のエラー箇所を修正してください。</p>
+                <p class="error-notification">以下のエラー箇所を修正してください。</p>
                 {{ form.errors }}
             {% endif %}
             <form method="post" action="{% url 'core:article-edit' pk=article.pk %}" enctype="multipart/form-data">

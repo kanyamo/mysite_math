@@ -9,7 +9,7 @@
     <h1>カテゴリ{% if creating_new %}新規作成{% else %}編集{% endif %}</h1>
     {% if user.is_staff %}
         {% if form.errors %}
-        <p>以下のエラー箇所を修正してください。</p>
+        <p class="error-notification">以下のエラー箇所を修正してください。</p>
         {{ form.errors }}
         {% endif %}
         {% if creating_new %}

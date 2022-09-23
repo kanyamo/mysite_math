@@ -1,9 +1,10 @@
 from django.shortcuts import redirect, render, get_object_or_404
 from django.views import generic
-from .models import Article, Category, MyUser
+from .models import Article, Category
 from .forms import ArticleEditForm, CategoryEditForm, UserEditForm
 from django.utils import timezone
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib import messages
 
 class IndexView(generic.TemplateView):  # ホーム表示
     template_name = 'core/index.html'
@@ -45,8 +46,10 @@ class ArticleCreateView(generic.TemplateView):
             post.view_count = 0
             post.author = request.user
             post.save()
+            messages.success(request, '記事を新しく作成しました')
             return redirect('core:index')
         else:
+            messages.error(request, '記事を作成できませんでした。')
             return render(request, self.template_name, {'form':form})
     
     def get_context_data(self, **kwargs):
@@ -68,8 +71,10 @@ class ArticleEditView(generic.TemplateView):
             article.has_table_of_contents = form.cleaned_data['has_table_of_contents']
             article.renew_date = timezone.localtime(timezone.now())  # 更新時には投稿日やビュー数、著者は更新しない
             article.save()
+            messages.success(request, '記事を更新しました。')
             return redirect('core:detail', pk=article.pk)
         else:
+            messages.error(request, '記事を更新できませんでした。')
             return render(request, self.template_name, {'form':form, 'article': article})
     
     def get_context_data(self, **kwargs):
@@ -86,8 +91,10 @@ class CategoryCreateView(generic.TemplateView):
         form = CategoryEditForm(request.POST)
         if form.is_valid():
             form.save()
+            messages.success(request, 'カテゴリを新しく作成しました。')
             return redirect('core:index')
         else:
+            messages.error(request, 'カテゴリを作成できませんでした。')
             return render(request, self.template_name, {'form':form, 'creating_new': True})
     
     def get_context_data(self, **kwargs):
@@ -127,8 +134,10 @@ class CategoryEditView(generic.TemplateView):
             category.description = form.cleaned_data['description']
             category.is_root = form.cleaned_data['is_root']
             category.save()
+            messages.success(request, 'カテゴリを更新しました。')
             return redirect('core:category-detail', inner_name=category.inner_name)
         else:
+            messages.error(request, 'カテゴリを更新できませんでした。')
             return render(request, self.template_name, {'form':form, 'inner_name': inner_name, 'creating_new': False})
 
     def get_context_data(self, **kwargs):
@@ -139,7 +148,6 @@ class CategoryEditView(generic.TemplateView):
         context['creating_new'] = False
         return context
 
-# 
 class UserEditView(LoginRequiredMixin, generic.TemplateView):
     """
     アイコン画像、表示名、ユーザー名の変更をするビュー
@@ -156,8 +164,10 @@ class UserEditView(LoginRequiredMixin, generic.TemplateView):
             user.username = form.cleaned_data['username']
             user.display_name = form.cleaned_data['display_name']
             user.save()
+            messages.success(request, 'プロフィールを更新しました。')
             return redirect('core:user-detail')
         else:
+            messages.error(request, 'プロフィールを更新できませんでした。')
             return render(request, self.template_name, {'form': form})
         
     def get_context_data(self, **kwargs):
