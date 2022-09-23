@@ -39,22 +39,18 @@
     color: black;
 }
 
-.article-edit-button__outer {
+.article-edit-button-container {
     text-align: center;  /* ボタンそのものをインライン要素にして、それを中央寄せ */
-}
-
-.article-edit-button {
-    display: inline-block;
-    margin: auto;
-    border-radius: 6px;
-    background-color: #009efd;
-    padding: 1em;
 }
 
 .article-edit-link {
     text-decoration: none;
     color: white;
-    display: inline;
+    display: inline-block;
+    border-radius: 6px;
+    background-color: #009efd;
+    padding: 1em;
+    margin: 1em;
 }
 
 .katex-html {

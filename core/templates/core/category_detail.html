@@ -41,11 +41,9 @@
         {% endfor %}
     </div>
     {% if user.is_staff %}
-    <div class="category-edit-button__outer">
+    <div class="category-edit-button-container">
         <a href="{% url 'core:category-edit' category.inner_name %}" class="category-edit-link">
-            <div class="category-edit-button">
-                このカテゴリを編集する
-            </div>
+            このカテゴリを編集する
         </a>
     </div>
     {% endif %}

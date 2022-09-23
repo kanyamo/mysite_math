@@ -21,22 +21,18 @@
     max-width: 50%;
 }
 
-.user-edit-button__outer {
+.user-edit-button-container {
     text-align: center;  /* ボタンそのものをインライン要素にして、それを中央寄せ */
-}
-
-.user-edit-button {
-    display: inline-block;
-    margin: auto;
-    border-radius: 6px;
-    background-color: #009efd;
-    padding: 1em;
 }
 
 .user-edit-link {
     text-decoration: none;
     color: white;
-    display: inline;
+    display: inline-block;
+    border-radius: 6px;
+    background-color: #009efd;
+    padding: 1em;
+    margin: 1em;
 }
 
 .info-data {

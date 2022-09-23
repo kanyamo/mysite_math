@@ -21,11 +21,12 @@
             <div class="info-data">{{ user.description }}</div>
         </div>
     </div>
-    <div class="user-edit-button__outer">
+    <div class="user-edit-button-container">
         <a href="{% url 'core:user-edit' %}" class="user-edit-link">
-            <div class="user-edit-button">
-                アカウント情報を編集する
-            </div>
+            プロフィール編集
+        </a>
+        <a href="{% url 'account_change_password' %}" class="user-edit-link">
+            パスワード変更
         </a>
     </div>
 {% endblock %}

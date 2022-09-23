@@ -53,11 +53,9 @@
     <h2>このページのJSONデータ</h2>
     <pre class="article-json-data" id="article-json-data"></pre>
     <br>
-    <div class="article-edit-button__outer">
+    <div class="article-edit-button-container">
         <a href="{% url 'core:article-edit' article.pk %}" class="article-edit-link">
-            <div class="article-edit-button">
-                この記事を編集する
-            </div>
+            この記事を編集する
         </a>
     </div>
     {% endif %}
