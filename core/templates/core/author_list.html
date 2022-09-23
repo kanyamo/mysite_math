@@ -1,0 +1,27 @@
+{% extends 'core/base/two_column_base.html' %}
+{% load static %}
+{% block title %}作者一覧{% endblock %}
+{% block extra-styles %}
+<link rel="stylesheet" href="{% static 'core/css/author_list.css' %}">
+{% endblock %}
+{% block column2-1 %}
+    <h1>作者一覧</h1>
+    {% for author in authors %}
+    <div class="author-info">
+        <div class="author-info-left">
+            <img class="author-icon" src="{{ author.icon.url }}">
+        </div>
+        <div class="author-info-right">
+            <b>{{ author.display_name }}</b>
+            <p>{{ author.description }}</p>
+        </div>
+    </div>
+    {% endfor %}
+    {% if DEBUG %}
+    <div class="login-button-container">
+        <a href="{% url 'account_login' %}" class="login-link">
+            管理者用ログイン
+        </a>
+    </div>
+    {% endif %}
+{% endblock %}

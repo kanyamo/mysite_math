@@ -1,6 +1,6 @@
 from django.shortcuts import redirect, render, get_object_or_404
 from django.views import generic
-from .models import Article, Category
+from .models import Article, Category, MyUser
 from .forms import ArticleEditForm, CategoryEditForm, UserEditForm
 from django.utils import timezone
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -177,3 +177,11 @@ class UserEditView(LoginRequiredMixin, generic.TemplateView):
 
 class UserDetailView(LoginRequiredMixin, generic.TemplateView):
     template_name = 'core/user_detail.html'
+
+class AuthorListView(generic.TemplateView):
+    template_name = 'core/author_list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['authors'] = MyUser.objects.all()
+        return context

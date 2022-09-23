@@ -74,13 +74,12 @@
                     <p>ログアウト</p>
                 </a>
             </li>
-            {% else %}
+            {% endif %}
             <li class="footer-list-item">
-                <a href="{% url 'account_login' %}" >
-                    <p>管理者用ログイン</p>
+                <a href="{% url 'core:author-list' %}" >
+                    <p>作者一覧</p>
                 </a>
             </li>
-            {% endif %}
             <li class="footer-list-item">
                 <a href="#">
                     <p>トップに戻る</p>

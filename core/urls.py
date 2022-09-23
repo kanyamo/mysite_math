@@ -12,4 +12,5 @@ urlpatterns = [
     path('category-edit/<str:inner_name>', views.CategoryEditView.as_view(), name='category-edit'),
     path('user-edit/', views.UserEditView.as_view(), name='user-edit'),
     path('user-detail/', views.UserDetailView.as_view(), name='user-detail'),
+    path('author-list/', views.AuthorListView.as_view(), name='author-list'),
 ]

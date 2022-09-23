@@ -177,7 +177,6 @@ h1 {
     border-radius: 6px;
     color: #fff;
     margin-top: 0;
-    margin-bottom: 1em;
 }
 
 h2 {
@@ -222,7 +221,7 @@ footer {
 }
 
 .breadcrumb-list {
-    margin: 0.5em 0;
+    margin-bottom: 0.5em;
 }
 
 .breadcrumb-list, .crumb-list-item {

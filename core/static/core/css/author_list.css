@@ -1,0 +1,56 @@
+.author-info {
+    display: flex;
+    margin: 1em 0;
+}
+
+.author-icon {
+    border-radius: 50%;
+    object-fit: cover;
+    width: 100%;
+}
+
+.author-info-left {
+    margin: auto;
+    padding: 1em 0;
+    width: 40%;
+}
+
+.author-info-right {
+    margin-right: auto;
+    padding: 1em 0;
+    max-width: 50%;
+}
+
+.login-button-container {
+    text-align: center;  /* ボタンそのものをインライン要素にして、それを中央寄せ */
+}
+
+.login-link {
+    text-decoration: none;
+    color: white;
+    display: inline-block;
+    border-radius: 6px;
+    background-color: #009efd;
+    padding: 1em;
+    margin: 1em;
+}
+
+.info-data {
+    text-align: right;
+}
+
+@media (max-width: 760px) {
+    .author-info {
+        flex-direction: column;
+    }
+
+    .author-info-left {
+        width: 80%;
+    }
+
+    .author-info-right {
+        width: 80%;
+        max-width: 100%;
+        margin: auto;
+    }
+}
