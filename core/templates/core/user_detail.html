@@ -11,20 +11,14 @@
             <img class="user-icon" src="{{ user.icon.url }}">
         </div>
         <div class="user-info-right">
-            <table>
-                <tr>
-                    <td>表示名：</td>
-                    <td>{{ user.display_name }}</td>
-                </tr>
-                <tr>
-                    <td>ユーザー名：</td>
-                    <td>{{ user.username }}</td>
-                </tr>
-                <tr>
-                    <td>登録日：</td>
-                    <td>{{ user.pub_date }}</td>
-                </tr>
-            </table>
+            <div class="info-label">表示名：</div>
+            <div class="info-data">{{ user.display_name }}</div>
+            <div class="info-label">ユーザー名：</div>
+            <div class="info-data">{{ user.username }}</div>
+            <div class="info-label">登録日：</div>
+            <div class="info-data">{{ user.pub_date }}</div>
+            <div class="info-label">自己紹介文：</div>
+            <div class="info-data">{{ user.description }}</div>
         </div>
     </div>
     <div class="user-edit-button__outer">

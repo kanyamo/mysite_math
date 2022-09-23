@@ -11,11 +11,14 @@
 
 .user-info-left {
     margin: auto;
+    padding: 1em 0;
     width: 40%;
 }
 
 .user-info-right {
     margin-right: auto;
+    padding: 1em 0;
+    max-width: 50%;
 }
 
 .user-edit-button__outer {
@@ -34,4 +37,24 @@
     text-decoration: none;
     color: white;
     display: inline;
+}
+
+.info-data {
+    text-align: right;
+}
+
+@media (max-width: 760px) {
+    .user-info {
+        flex-direction: column;
+    }
+
+    .user-info-left {
+        width: 80%;
+    }
+
+    .user-info-right {
+        width: 80%;
+        max-width: 100%;
+        margin: auto;
+    }
 }

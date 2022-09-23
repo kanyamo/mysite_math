@@ -80,6 +80,10 @@ li.navbar-list-item {
 
 
 @media (max-width: 1000px){
+    body {
+        background-color: #fff;
+    }
+    
     .wrapper {
         max-width: 800px;
     }
