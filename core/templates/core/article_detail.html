@@ -21,7 +21,7 @@
         </a>
         {% endfor %}
         &gt;
-        <a class="crumb-list-item" href="#">{{ article.title }}</a>
+        <a class="crumb-list-item" href="#">{{ article.title }}{% if not article.is_published %}<span class="not-published-notification">*未公開</span>{% endif %}</a>
         <!-- htmlの改行でスペースがひとつ入ってしまうのでそれを見越して省略する -->
     </div>
     <h1 class="title">{{article.title}}</h1>

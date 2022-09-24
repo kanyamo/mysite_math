@@ -15,9 +15,13 @@ class ArticleDetailView(generic.TemplateView):
     def get(self, request, *args, **kwargs):
         pk = self.kwargs.get('pk')
         obj = get_object_or_404(Article, pk=pk)
-        obj.view_count += 1
-        obj.save()
-        return super().get(request, *args, **kwargs)
+        if obj.is_published or obj.author == request.user:
+            obj.view_count += 1
+            obj.save()
+            return super().get(request, *args, **kwargs)
+        else:
+            messages.warning(request, 'アクセスしようとした記事は未公開ですので、ホームにリダイレクトされました。')
+            return redirect('core:index')
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -47,6 +51,8 @@ class ArticleCreateView(generic.TemplateView):
             post.author = request.user
             post.save()
             messages.success(request, '記事を新しく作成しました')
+            if not post.is_published:
+                messages.info(request, '記事は作成されましたが、まだ公開されていません。')
             return redirect('core:index')
         else:
             messages.error(request, '記事を作成できませんでした。')
@@ -69,9 +75,12 @@ class ArticleEditView(generic.TemplateView):
                 article.thumbnail = form.cleaned_data['thumbnail']
             article.content = form.cleaned_data['content']
             article.has_table_of_contents = form.cleaned_data['has_table_of_contents']
+            article.is_published = form.cleaned_data['is_published']
             article.renew_date = timezone.localtime(timezone.now())  # 更新時には投稿日やビュー数、著者は更新しない
             article.save()
             messages.success(request, '記事を更新しました。')
+            if not article.is_published:
+                messages.info(request, '記事は更新されましたが、まだ公開されていません。')
             return redirect('core:detail', pk=article.pk)
         else:
             messages.error(request, '記事を更新できませんでした。')
@@ -112,7 +121,7 @@ class CategoryDetailView(generic.TemplateView):
         category = get_object_or_404(Category, inner_name=inner_name)
         context['category'] = category
         context['lower_categories'] = category.lowers.all()
-        context['articles'] = category.article_set.all()
+        context['articles'] = category.article_set.filter(is_published=True)
         category_list = []
         while category is not None:
             category_list.append(category)
@@ -177,6 +186,11 @@ class UserEditView(LoginRequiredMixin, generic.TemplateView):
 
 class UserDetailView(LoginRequiredMixin, generic.TemplateView):
     template_name = 'core/user_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['articles'] = Article.objects.filter(author=self.request.user).order_by('renew_date').reverse()
+        return context
 
 class AuthorListView(generic.TemplateView):
     template_name = 'core/author_list.html'

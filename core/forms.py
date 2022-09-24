@@ -6,7 +6,7 @@ from django.conf import settings
 class ArticleEditForm(forms.ModelForm):
     class Meta:
         model = Article
-        fields = ['title', 'thumbnail', 'content', 'category', 'has_table_of_contents', 'lead']
+        fields = ['title', 'thumbnail', 'content', 'category', 'has_table_of_contents', 'is_published', 'lead']
         widgets = {
             'content': EditorJsWidget(
                 config={'minHeight': 300}

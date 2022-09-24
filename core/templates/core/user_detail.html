@@ -29,4 +29,43 @@
             パスワード変更
         </a>
     </div>
+    {% if articles %}
+    <h2>{{ user.display_name }}の記事一覧</h2>
+    <div class="articles">
+        <table class="articles-table">
+            <tr>
+                <th>
+                    タイトル
+                </th>
+                <th>
+                    更新日
+                </th>
+                <th>
+                    PV数
+                </th>
+                <th>
+                    公開状況
+                </th>
+            </tr>
+            {% for article in articles %}
+            <tr>
+                <td>
+                    <a href="{% url 'core:detail' article.pk %}">
+                        {{ article.title }}
+                    </a>
+                </td>
+                <td>
+                    {{ article.renew_date }}
+                </td>
+                <td>
+                    {{ article.view_count }}
+                </td>
+                <td>
+                    {% if article.is_published %}公開中{% else %}未公開{% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    {% endif %}
 {% endblock %}

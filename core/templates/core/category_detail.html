@@ -32,7 +32,7 @@
         {% for lower_category in lower_categories %}
             <a href="{% url 'core:category-detail' lower_category.inner_name %}" class="lower-category-link">
                 <div class="lower-category-container">
-                    <h3>{{ lower_category.name }}</h3>
+                    <h3><i class="fa-regular fa-folder"></i>&nbsp;{{ lower_category.name }}</h3>
                     <p class="category-description">
                         {{ lower_category.description }}
                     </p>
