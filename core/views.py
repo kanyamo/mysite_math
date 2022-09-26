@@ -31,7 +31,9 @@ class ArticleDetailView(generic.TemplateView):
         # 親が存在しない地点までさかのぼってカテゴリーのリストを作成する
         category = article.category
         category_list = []
-        while category is not None:
+        i = 0
+        while i < 10 and category is not None:
+            i += 1
             category_list.append(category)
             category = category.upper
         category_list.reverse()  # 上位カテゴリを後ろに加えていったので最後にreverse
@@ -123,7 +125,9 @@ class CategoryDetailView(generic.TemplateView):
         context['lower_categories'] = category.lowers.all()
         context['articles'] = category.article_set.filter(is_published=True)
         category_list = []
-        while category is not None:
+        i = 0
+        while i < 10 and category is not None:
+            i += 1
             category_list.append(category)
             category = category.upper
         category_list.reverse()  # 上位カテゴリを後ろに加えていったので最後にreverse
