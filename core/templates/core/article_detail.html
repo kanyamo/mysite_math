@@ -84,7 +84,7 @@
                     let image_caption = document.createElement('p');
                     image.classList.add('content-image');
                     image_caption.classList.add('content-image-caption');
-                    image.src = `{{ base_url }}${blocks[index].data.file.url}`;  // base_urlは.envで定義済み
+                    image.src = `${blocks[index].data.file.url}`;
                     image_caption.textContent = blocks[index].data.caption;
                     image_div.appendChild(image);
                     image_div.appendChild(image_caption);

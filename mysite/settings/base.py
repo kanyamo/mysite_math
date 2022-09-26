@@ -13,9 +13,10 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 from pathlib import Path
 import os
 from django.urls import reverse_lazy
+from .utils import strtobool
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 
 # Quick-start development settings - unsuitable for production
@@ -25,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = strtobool(os.getenv('DEBUG', 'y'))
 
 ALLOWED_HOSTS = [os.getenv('ALLOWED_HOSTS', None)]
 
@@ -77,17 +78,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'mysite.wsgi.application'
-
-
-# Database
-# https://docs.djangoproject.com/en/4.1/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
 
 
 # Password validation
@@ -225,3 +215,71 @@ EDITORJS_DEFAULT_CONFIG_TOOLS = {
     'Table': {'class': 'Table', 'inlineToolbar': True},
     "Math": {'class': 'MathTex'},
 }
+
+if DEBUG:
+    # Database
+    # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
+
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
+else:
+    # 本番環境のデータベース設定
+
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'mysite',
+            'USER': os.getenv('DB_USER'),
+            'PASSWORD': os.getenv('DB_PASSWORD'),
+            'HOST': '',
+            'PORT': '',
+        }
+    }
+    # 本番環境のロギング設定
+    LOGGING = {
+        'version': 1,  # 1固定
+        'disable_existing_loggers': False,
+
+        # ロガーの設定
+        'loggers': {
+            # Djangoが利用するロガー
+            'django': {
+                'handlers': ['file'],
+                'level': 'INFO',
+            },
+            # diaryアプリケーションが利用するロガー
+            'core': {
+                'handlers': ['file'],
+                'level': 'INFO',
+            },
+        },
+
+        # ハンドラの設定
+        'handlers': {
+            'file': {
+                'level': 'INFO',
+                'class': 'logging.handlers.TimedRotatingFileHandler',
+                'filename': os.path.join(BASE_DIR, 'logs/django.log'),
+                'formatter': 'prod',
+                'when': 'D',  # ログローテーション(新しいファイルへの切り替え)間隔の単位(D=日)
+                'interval': 1,  # ログローテーション間隔(1日単位)
+                'backupCount': 7,  # 保存しておくログファイル数
+            },
+        },
+
+        # フォーマッタの設定
+        'formatters': {
+            'prod': {
+                'format': '\t'.join([
+                    '%(asctime)s',
+                    '[%(levelname)s]',
+                    '%(pathname)s(Line:%(lineno)d)',
+                    '%(message)s'
+                ])
+            },
+        }
+    }
