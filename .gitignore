@@ -7,7 +7,8 @@ venv_mysite/
 __pychache__/
 db-volumes/
 logs/
-media/
+media/*
 staticfiles/
 db.sqlite3
 migrations/
+!media/default/
