@@ -7,12 +7,6 @@ from django.conf import settings
 
 alphanumeric = RegexValidator(r'^[0-9a-zA-Z_]*$', '半角英数字とアンダースコアのみ使用可能です。')  # 内部カテゴリ名として半角英数字とアンダースコアしか使えないようにする
 
-# 上位カテゴリが自分自身を頂点とするカテゴリの部分木に含まれないかをチェック
-def check_category_loop(category):
-    pass
-
-# 頂点がルートカテゴリになっているかをチェック
-
 def local_now():
     return timezone.localtime(timezone.now())
 
@@ -27,11 +21,11 @@ class MyUser(AbstractUser):
 
 
 class Category(models.Model):
-    upper = models.ForeignKey('self', verbose_name='上位カテゴリ', on_delete=models.CASCADE, blank=True, null=True, related_name='lowers')
+    upper = models.ForeignKey('self', verbose_name='上位カテゴリ', on_delete=models.PROTECT, blank=True, null=True, related_name='lowers')  # 上位カテゴリは、そのカテゴリに属するカテゴリを全て削除しない限り削除できない
     name = models.CharField('カテゴリ名', max_length=100, unique=True)
     inner_name = models.CharField('内部カテゴリ名', max_length=100, validators=[alphanumeric], unique=True)
     description = models.TextField('カテゴリの説明文', blank=False, null=False, default='これがカテゴリの説明文です。')
-    is_root = models.BooleanField('ルートカテゴリかどうか', default=False, help_text='ルートカテゴリは最も上位のカテゴリに適用されます。')  # ルートカテゴリはもっとも上位のカテゴリであることを示す
+    is_root = models.BooleanField('ナビゲーションに表示するかどうか', default=False, help_text='最上位のカテゴリは必ず表示する必要があります。')  # ルートカテゴリは大きいカテゴリであることを示す
 
     def __str__(self):
         return self.name
@@ -43,7 +37,7 @@ class Article(models.Model):
     renew_date = models.DateTimeField('更新日', default=local_now)
     title = models.CharField('タイトル', max_length=200)
     view_count = models.IntegerField('PV数', default=0)  # 約21億が上限。さすがにそこまではいかないだろう
-    category = models.ForeignKey(Category, verbose_name='カテゴリ', on_delete=models.SET_DEFAULT, default=1)  # もし属するカテゴリーが削除されると、HOMEカテゴリ(id=1)に強制的に属させる
+    category = models.ForeignKey(Category, verbose_name='カテゴリ', on_delete=models.PROTECT, default=1)  # カテゴリは、そのカテゴリに属する記事を全て削除しない限り削除できない
     author = models.ForeignKey(MyUser, verbose_name='作者', on_delete=models.SET_DEFAULT, default=1)  # 作者が削除されると、記事はすべて管理者(id=1)のものになる
     lead = models.TextField('リード文', max_length=2000, blank=True, default='', help_text='投稿日や作者の直後で目次（表示する場合）の直前に挿入される文章です。リード文は記事のリンクにも使われます。')
     has_table_of_contents = models.BooleanField('目次を表示するかどうか', default=False)

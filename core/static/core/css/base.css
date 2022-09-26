@@ -3,7 +3,7 @@
 }
 
 html {
-    height: 100%;
+    height: 100vh;
 }
 
 body {
@@ -56,8 +56,8 @@ li.navbar-list-item {
 
 .column1-1 {
     background-color: #fff;
-    width: 98%;
-    margin:1em 1%;
+    width: calc(100% - 1em);
+    margin:1em 0.5em;
     padding: 1em;
     border-radius: 6px;
 }

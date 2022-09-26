@@ -32,7 +32,14 @@ class CategoryEditForm(forms.ModelForm):
                 raise forms.ValidationError('カテゴリ木がループしています。カテゴリのグラフは有向木である必要があります。')
             category = category.upper
         return self.cleaned_data['upper']
-        
+    
+    def clean_is_root(self):
+        is_root = self.cleaned_data['is_root']
+        if 'upper' in self.cleaned_data:  # clean_upper()でupperが生き残っていない可能性を考慮
+            upper = self.cleaned_data['upper']
+            if upper is None and not is_root:
+                raise forms.ValidationError('上位カテゴリを指定しない場合、カテゴリは必ずルートカテゴリである必要があります。')
+        return is_root
 
 
 class UserEditForm(forms.ModelForm):
