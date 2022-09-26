@@ -235,8 +235,8 @@ else:
             'NAME': 'mysite',
             'USER': os.getenv('DB_USER'),
             'PASSWORD': os.getenv('DB_PASSWORD'),
-            'HOST': '',
-            'PORT': '',
+            'HOST': 'localhost',
+            'PORT': '5432',
         }
     }
     # 本番環境のロギング設定
