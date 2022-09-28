@@ -219,7 +219,7 @@
         let toc_ol = document.getElementById('toc-ol')
         if (toc_ol != null){
             let h2_headers = blocks.filter((block) => {
-                return block.type == 'Header';
+                return block.type == 'Header' && block.data.level == 2;
             });
             for (let index = 0; index < h2_headers.length; index++ ){
                 let a = document.createElement('a');
