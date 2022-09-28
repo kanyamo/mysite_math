@@ -54,9 +54,20 @@
     margin: 1em;
 }
 
-.katex-html {
+/* インライン数式は少し余白を設ける */
+span.katex {
+    padding: 0 0.2em;
+}
+
+.katex-display > .katex {
     overflow-x: auto;  /* 長い数式をスクロールできるようにするため */
     overflow-y: hidden;
+}
+
+.katex-display > .katex > .katex-html > .tag {
+    position: relative;  /* 数式のオーバーフロー時にタグが画面に対して絶対的な場所に浮いてしまう問題の修正 */
+    right: 0;
+    padding-left: 3em;
 }
 
 #article-content table {

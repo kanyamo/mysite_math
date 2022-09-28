@@ -304,6 +304,10 @@ h2:after {
     background-image: linear-gradient(to left, #2af598 0%, #009efd 100%);
 }
 
+p {
+    margin: 2em 0;
+}
+
 footer {
     width: 100%;
     background-image: linear-gradient(to left, #2af598 0%, #009efd 100%);
