@@ -78,6 +78,7 @@ class ArticleEditView(generic.TemplateView):
             article.content = form.cleaned_data['content']
             article.has_table_of_contents = form.cleaned_data['has_table_of_contents']
             article.is_published = form.cleaned_data['is_published']
+            article.lead = form.cleaned_data['lead']
             article.renew_date = timezone.localtime(timezone.now())  # 更新時には投稿日やビュー数、著者は更新しない
             article.save()
             messages.success(request, '記事を更新しました。')
