@@ -19,15 +19,23 @@
 <body>
     <header>
         <nav>
-            <ul class="navbar-list">
-                <li class="navbar-list-item">
-                    <a class="navbar-nav" href="{% url 'core:index' %}">
-                        <p class="navbar-nav-title">感覚の数学</p>
-                    </a>
-                </li>
+            <div class="navigation-home-container">
+                <a class="navbar-nav navigation-home" href="{% url 'core:index' %}">
+                    <p class="navbar-nav-title navigation-title-home">感覚の数学</p>
+                </a>
+                <div class="open-button-container">
+                    <div class="open-button" id="open-button">
+                        <span class="menu-line"></span>
+                        <span class="menu-line"></span>
+                        <span class="menu-line"></span>
+                        <span class="help-text" id="help-text"></span>
+                    </div>
+                </div>
+            </div>
+            <ul class="navbar-list navbar-list-hidden" id="navbar-list">
                 {% for category in root_categories %}
                 <li class="navbar-list-item">
-                    <a class="navbar-nav" href="{% url 'core:category-detail' category.inner_name %}">
+                    <a class="navbar-nav category" href="{% url 'core:category-detail' category.inner_name %}">
                         <p class="navbar-nav-title">{{ category.name }}</p>
                     </a>
                 </li>
@@ -88,6 +96,7 @@
         </ul>
     </footer>
     {% block scripts %}
+    <script type="text/javascript" src="{% static 'core/js/navbar.js' %}"></script>
     {% endblock %}
 </body>
 </html>

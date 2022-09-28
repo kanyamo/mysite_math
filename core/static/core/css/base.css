@@ -16,13 +16,16 @@ nav {
     background-image: linear-gradient(to left, #2af598 0%, #009efd 100%);
 }
 
+
 .navbar-list {
     margin: 0;
     padding: 0;
+    display: flex;
+    justify-content: center;
 }
 
 li.navbar-list-item {
-    display: inline-block;
+    display: block;
     list-style: none;
 }
 
@@ -33,8 +36,94 @@ li.navbar-list-item {
 }
 
 .navbar-nav-title {
-    padding: 1.5em;
+    padding: 1.5rem;
     margin: 0;
+    text-align: center;
+}
+
+.navigation-home-container {
+    position: relative;
+    width: 100%;
+    height: 100px;
+}
+
+.navigation-home {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    height: fit-content;
+}
+
+.navigation-title-home {
+    font-size: large;
+    padding: 1.5rem;
+}
+
+
+.open-button-container {
+    position: absolute;
+    height: 60%;
+    aspect-ratio: 1;
+    border: 2px solid white;
+    border-radius: 6px;
+    top: 50%;
+    right: 20px;
+    transform: translate(0, -50%);
+}
+.open-button {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.open-button .menu-line {
+    transition: all .4s;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 2px;
+    border-radius: 5px;
+    background-color: #fff;
+    width: 45%;
+}
+
+.open-button .menu-line:nth-of-type(1) {
+    top: calc(25%);
+}
+
+.open-button .menu-line:nth-of-type(2) {
+    top: calc(25% + 7px);
+}
+
+.open-button .menu-line:nth-of-type(3) {
+    top: calc(25% + 14px);
+}
+
+.open-button .help-text::after {
+    content: "MENU";
+    position: absolute;
+    top: calc(25% + 21px);
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.6rem;
+    color: white;
+}
+
+.open-button.active .menu-line:nth-of-type(1) {
+    transform: translate(-50%, 7px) rotate(-45deg);
+}
+
+.open-button.active .menu-line:nth-of-type(2) {
+    opacity: 0;
+}
+
+.open-button.active .menu-line:nth-of-type(3) {
+    transform: translate(-50%, -7px) rotate(45deg);
+}
+
+.open-button.active .help-text::after {
+    content: "CLOSE";
 }
 
 .wrapper {
@@ -73,6 +162,22 @@ li.navbar-list-item {
     padding: 1em;
     margin:1em 0.5em;
     border-radius: 6px;
+}
+
+@media (min-width: 701px){
+    .open-button-container {
+        display: none;
+    }
+}
+
+@media (max-width: 700px){
+    .navbar-list-hidden {
+        display: none;
+    }
+
+    .navbar-list {
+        flex-direction: column;
+    }
 }
 
 
