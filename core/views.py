@@ -1,6 +1,6 @@
 from django.shortcuts import redirect, render, get_object_or_404
 from django.views import generic
-from .models import Article, Category, MyUser
+from .models import Article, Category, MyUser, local_now
 from .forms import ArticleEditForm, CategoryEditForm, UserEditForm
 from django.utils import timezone
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -52,7 +52,7 @@ class ArticleCreateView(generic.TemplateView):
             post.view_count = 0
             post.author = request.user
             post.save()
-            messages.success(request, '記事を新しく作成しました')
+            messages.success(request, '記事を新しく作成しました。')
             if not post.is_published:
                 messages.info(request, '記事は作成されましたが、まだ公開されていません。')
             return redirect('core:index')
@@ -79,7 +79,7 @@ class ArticleEditView(generic.TemplateView):
             article.has_table_of_contents = form.cleaned_data['has_table_of_contents']
             article.is_published = form.cleaned_data['is_published']
             article.lead = form.cleaned_data['lead']
-            article.renew_date = timezone.localtime(timezone.now())  # 更新時には投稿日やビュー数、著者は更新しない
+            article.renew_date = local_now()  # 更新時には投稿日やビュー数、著者は更新しない
             article.save()
             messages.success(request, '記事を更新しました。')
             if not article.is_published:

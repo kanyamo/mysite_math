@@ -65,7 +65,6 @@
     document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => {
             let inputs = document.querySelectorAll('input.text-node');
-            console.log(inputs);
             inputs.forEach((input) => {
                 input.value = input.value.replaceAll('&amp;', '&');
             });
