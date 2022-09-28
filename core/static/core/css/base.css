@@ -268,11 +268,19 @@ a.article-link {
 
 .article-link-title {
     margin: 0.5em 0;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
 }
 
 .article-link-lead {
     margin: 0;
     font-size: 80%;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
 }
 
 .article-link-thumbnail, .content-image, .thumbnail-image {
@@ -312,6 +320,10 @@ h3 {
 
 p {
     margin: 2em 0;
+}
+
+mark {
+    background: linear-gradient(transparent 50%, #8df6ff 0%); 
 }
 
 footer {
