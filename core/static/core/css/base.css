@@ -24,6 +24,12 @@ nav {
     justify-content: center;
 }
 
+.navbar-list li {
+    height: 72px;
+    visibility: visible;
+    transition: all 0.4s ease;
+}
+
 li.navbar-list-item {
     display: block;
     list-style: none;
@@ -56,8 +62,7 @@ li.navbar-list-item {
 }
 
 .navigation-title-home {
-    font-size: large;
-    padding: 1.5rem;
+    font-size: x-large;
 }
 
 
@@ -171,8 +176,10 @@ li.navbar-list-item {
 }
 
 @media (max-width: 700px){
-    .navbar-list-hidden {
-        display: none;
+    .navbar-list-hidden li {
+        height: 0;
+        opacity: 0;
+        visibility: hidden;
     }
 
     .navbar-list {
