@@ -328,7 +328,14 @@ p {
 }
 
 mark {
-    background: linear-gradient(transparent 50%, #8df6ff 0%); 
+    background:linear-gradient(to bottom, transparent 50%, #8df6ff 0%);
+    background-size: 0% 100%;
+    background-repeat: no-repeat;
+    transition: background-size 2s ease-in-out;
+}
+
+mark.active {
+    background-size: 100% 100%;
 }
 
 footer {
