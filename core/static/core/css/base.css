@@ -256,6 +256,21 @@ ul.messages .info {
 a.article-link {
     text-decoration: none;
     color: black;
+    position: relative;
+    padding: 0.5rem 0;
+    display: block;
+}
+
+a.article-link:nth-of-type(n+2)::before {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    content: "";
+    width: 90%;
+    height: 2px;
+    background-image: linear-gradient(to left, #2af598 0%, #009efd 100%);
+    border-radius: 1px;
 }
 
 .article-link-container {
@@ -318,9 +333,9 @@ h2:after {
 }
 
 h3 {
-    padding: 1em 0.5em;
-    margin-left: 0.5em;
-    border-left: 4px solid #009efd;
+    padding: 0.8rem 1rem;
+    margin: 2rem 3px;
+    border-left: 5px solid #009efd;
 }
 
 p {

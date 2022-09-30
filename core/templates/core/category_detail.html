@@ -23,10 +23,7 @@
     <p class="category-description">
         {{ category.description }}
     </p>
-    <h2>{{ category.name }}カテゴリの記事一覧</h2>
-    {% for article in articles %}
-        {% include 'core/article_link.html' with article=article %}
-    {% endfor %}
+    {% if lower_categories %}
     <h2>{{ category.name }}カテゴリの下位カテゴリ一覧</h2>
     <div class="lower-categories">
         {% for lower_category in lower_categories %}
@@ -40,6 +37,17 @@
             </a>
         {% endfor %}
     </div>
+    {% endif %}
+    <h2>{{ category.name }}カテゴリの記事一覧</h2>
+    {% if articles %}
+    <div class="article-links">
+        {% for article in articles %}
+            {% include 'core/article_link.html' with article=article %}
+        {% endfor %}
+    </div>
+    {% else %}
+    <p><mark>このカテゴリの記事はまだ無いようです。</mark></p>
+    {% endif %}
     {% if user.is_staff %}
     <div class="category-edit-button-container">
         <a href="{% url 'core:category-edit' category.inner_name %}" class="category-edit-link">
