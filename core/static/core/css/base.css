@@ -267,7 +267,7 @@ a.article-link:nth-of-type(n+2)::before {
     left: 50%;
     transform: translateX(-50%);
     content: "";
-    width: 90%;
+    width: calc(100% - 30px);
     height: 2px;
     background-image: linear-gradient(to left, #2af598 0%, #009efd 100%);
     border-radius: 1px;
@@ -278,11 +278,12 @@ a.article-link:nth-of-type(n+2)::before {
 }
 
 .article-link-thumbnail-container {
-    width: calc(50% - 0.5em);
+    width: 160px;
+    aspect-ratio: 1.33;
 }
 
 .article-link-description {
-    width: calc(50% + 0.5em);
+    flex: 1;
     padding: 0 0.5em;
 }
 
