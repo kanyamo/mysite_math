@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="{% static 'core/css/edit_base.css' %}">
 {% endblock %}
 {% block column1-1 %}
+    {% include 'core/breadcrumb_list.html' with title='カテゴリ新規作成・編集' is_published=True %}
     <h1>カテゴリ{% if creating_new %}新規作成{% else %}編集{% endif %}</h1>
     {% if user.is_staff %}
         {% if form.errors %}

@@ -5,6 +5,7 @@
 <link rel="stylesheet" href="{% static 'core/css/user_detail.css' %}">
 {% endblock %}
 {% block column2-1 %}
+    {% include 'core/breadcrumb_list.html' with title='マイページ' is_published=True %}
     <h1>{{ user.display_name }}のマイページ</h1>
     <div class="user-info">
         <div class="user-info-left">

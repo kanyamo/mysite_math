@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="{% static 'core/css/user_edit.css' %}">
 {% endblock %}
 {% block column1-1 %}
+    {% include 'core/breadcrumb_list.html' with title='アカウント プロフィール編集' is_published=True %}
     <h1>アカウント プロフィール編集</h1>
     {% if user.is_authenticated %}
         {% if form.errors %}

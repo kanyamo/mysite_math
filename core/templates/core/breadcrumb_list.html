@@ -1,0 +1,18 @@
+<div class="breadcrumb-list">
+    <a class="crumb-list-item" href="{% url 'core:index' %}">
+        <i class="fa-solid fa-house"></i>
+        HOME
+    </a>
+    {% for category in category_list %}
+    &gt;
+    <a class="crumb-list-item" href="{% url 'core:category-detail' category.inner_name %}">
+        <i class="fa-regular fa-folder"></i>
+        {{ category.name }}
+    </a>
+    {% endfor %}
+    {% if title %}
+    &gt;
+    <a class="crumb-list-item" href="#">{{ title }}{% if not is_published %}<span class="not-published-notification">*未公開</span>{% endif %}</a>
+    {% endif %}
+    <!-- htmlの改行でスペースがひとつ入ってしまうのでそれを見越して省略する -->
+</div>

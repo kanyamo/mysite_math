@@ -8,22 +8,7 @@
 <link rel="stylesheet" type="text/css" href="https://tikzjax.com/v1/fonts.css">
 {% endblock %}
 {% block column2-1 %}
-    <div class="breadcrumb-list">
-        <a class="crumb-list-item" href="{% url 'core:index' %}">
-            <i class="fa-solid fa-house"></i>
-            HOME
-        </a>
-        {% for category in category_list %}
-        &gt;
-        <a class="crumb-list-item" href="{% url 'core:category-detail' category.inner_name %}">
-            <i class="fa-regular fa-folder"></i>
-            {{ category.name }}
-        </a>
-        {% endfor %}
-        &gt;
-        <a class="crumb-list-item" href="#">{{ article.title }}{% if not article.is_published %}<span class="not-published-notification">*未公開</span>{% endif %}</a>
-        <!-- htmlの改行でスペースがひとつ入ってしまうのでそれを見越して省略する -->
-    </div>
+    {% include 'core/breadcrumb_list.html' with category_list=category_list title=article.title is_published=article.is_published %}
     <h1 class="title">{{article.title}}</h1>
     <div class="article-info">
         <div class="row1">

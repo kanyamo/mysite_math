@@ -5,6 +5,7 @@
 <link rel="stylesheet" href="{% static 'core/css/author_list.css' %}">
 {% endblock %}
 {% block column2-1 %}
+    {% include 'core/breadcrumb_list.html' with title='作者一覧' is_published=True %}
     <h1>作者一覧</h1>
     {% for author in authors %}
     <div class="author-info">

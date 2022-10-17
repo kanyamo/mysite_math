@@ -1,6 +1,7 @@
 {% extends "core/base/one_column_base.html" %}
 {% block title %}サインアップ{% endblock %}
 {% block column1-1 %}
+{% include 'core/breadcrumb_list.html' with title='サインアップ' is_published=True %}
 <h1>サインアップ</h1>
 <p>現在、新規会員登録はできません。ところで、どうやってこのページにたどり着いたのですか？</p>
 {% endblock %}

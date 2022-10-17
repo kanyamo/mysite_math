@@ -9,12 +9,7 @@
 <img class="site-thumbnail" src="{% static 'core/image/site-thumbnail.png' %}" alt="">
 {% endblock %}
 {% block column2-1 %}
-    <div class="breadcrumb-list">
-        <a class="crumb-list-item" href="{% url 'core:index' %}">
-            <i class="fa-solid fa-house"></i>
-            HOME
-        </a>
-    </div>
+    {% include 'core/breadcrumb_list.html' %}
     <p>
         数あるサイトの中から当サイト「<b>感覚の数学</b>」をご覧いただきありがとうございます。このサイトは<mark>数学全般の直感的理解を軸とし、おもしろい数学問題、定理、裏技など</mark>を紹介しています。
     </p>

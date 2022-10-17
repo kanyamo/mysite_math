@@ -33,6 +33,8 @@
 
 .toc-title {
     text-align: center;
+    margin-top: 1em;
+    margin-bottom: 1em;
 }
 
 .toc-a {
@@ -143,12 +145,11 @@ hr.delimiter {
     height: 8px;
     background-image: repeating-linear-gradient(45deg, #aaa 0, #aaa 2px, transparent 0, transparent 50%);
     background-size: 8px 8px;
-    margin: 2em 0;
+    margin: 4em 0;
 }
 
 blockquote.quote {
-    border-left: 2px solid #888;
-    color: #555;
+    border-left: 2px solid black;
     padding: 1em 0 1em 1em;
 }
 

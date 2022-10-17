@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="{% static 'core/css/article_edit.css' %}">
 {% endblock %}
 {% block column1-1 %}
+    {% include 'core/breadcrumb_list.html' with title='記事新規作成' is_published=True %}
     <h1>記事新規作成</h1>
     {% if user.is_authenticated %}
         {% if form.errors %}

@@ -1,6 +1,7 @@
 {% extends 'core/base/two_column_base.html' %}
 {% block title %}404{% endblock %}
 {% block column2-1 %}
+{% include 'core/breadcrumb_list.html' with title='404 Not Found' is_published=False %}
 <h1>404 Not Found</h1>
 <p>お探しのページは存在しませんでした。</p>
 <a href="/">ホームに戻る</a>

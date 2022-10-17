@@ -6,6 +6,7 @@
 {% endblock %}
 {% block title %}ログイン{% endblock %}
 {% block column1-1 %}
+{% include 'core/breadcrumb_list.html' with title='ログイン' is_published=True %}
 <h1>ログイン</h1>
 {% if form.errors %}
     <p class="error-notification">以下のエラー箇所を修正してください。</p>

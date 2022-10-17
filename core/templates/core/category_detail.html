@@ -5,20 +5,7 @@
     <link rel="stylesheet" href="{% static 'core/css/category_detail.css' %}">
 {% endblock %}
 {% block column2-1 %}
-    <div class="breadcrumb-list">
-        <a class="crumb-list-item" href="{% url 'core:index' %}">
-            <i class="fa-solid fa-house"></i>
-            HOME
-        </a>
-        {% for category in category_list %}
-        &gt;
-        <a class="crumb-list-item" href="{% url 'core:category-detail' category.inner_name %}">
-            <i class="fa-regular fa-folder"></i>
-            {{ category.name }}
-        </a>
-        {% endfor %}
-        <!-- htmlの改行でスペースがひとつ入ってしまうのでそれを見越して省略する -->
-    </div>
+    {% include 'core/breadcrumb_list.html' with category_list=category_list %}
     <h1>カテゴリ：{{ category.name }}</h1>
     <p class="category-description">
         {{ category.description }}
