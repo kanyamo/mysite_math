@@ -68,7 +68,9 @@
 <script type="text/javascript">
     document.addEventListener('DOMContentLoaded', () => {
         const articleContent = document.getElementById('article-content');
-        let content = JSON.parse('{{ article.content|escapejs }}');
+        const re = /&lt;(.{1,5})&gt;/g;  // htmlタグをエスケープから戻して表示されるようにする
+        const jsonString = '{{ article.content|escapejs }}'.replace(re, '<$1>');
+        let content = JSON.parse(jsonString);
         let blocks = content.blocks;
         for (let index = 0; index < blocks.length; index++ ){
             switch(blocks[index].type){  // JSONファイルを展開し、そのブロックの各タイプごとに適した処理でブロックを追加する
