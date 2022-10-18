@@ -1,8 +1,10 @@
 {% extends "core/base/base.html" %}  <!-- カラムを2段組にしたいページに適用する -->
 {% block contents %}
 <div class="column2-1">  <!-- 2つあるカラムの1つめ -->
-    {% block column2-1 %}
-    {% endblock %}
+    <main>
+        {% block column2-1 %}
+        {% endblock %}
+    </main>
 </div>
 <div class="column2-2">
     <h2>人気記事</h2>

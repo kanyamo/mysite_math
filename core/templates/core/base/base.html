@@ -44,23 +44,21 @@
         </nav>
         {% block extra-header %}{% endblock %}
     </header>
-    <main>
-        <div class="wrapper">
-            {% if messages %}
-            <div class="message-container">
-                <ul class="messages">
-                    {% for message in messages %}
-                    <li class="{{ message.tags }}">{{ message }}</li>
-                    {% endfor %}
-                </ul>
-            </div>
-            {% endif %}
-            <div class="container">
-                {% block contents %}
-                {% endblock %}
-            </div>
+    <div class="wrapper">
+        {% if messages %}
+        <div class="message-container">
+            <ul class="messages">
+                {% for message in messages %}
+                <li class="{{ message.tags }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
         </div>
-    </main>
+        {% endif %}
+        <div class="container">
+            {% block contents %}
+            {% endblock %}
+        </div>
+    </div>
     <footer>
         <ul class="footer-list">
             {% if request.user.is_authenticated %}
