@@ -3,3 +3,10 @@
     height: 200px;
     object-fit: cover;
 }
+
+@media (min-width: 1564px) {
+    .site-thumbnail {
+        width: 100%;
+        height: auto;
+    }
+}
