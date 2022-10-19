@@ -14,13 +14,22 @@
         <div class="article-info">
             <div class="row1">
                 <div class="article-view-count">{{article.view_count}} views</div>
-                <div class="article-pub-date"><i class="fa-regular fa-clock"></i>&nbsp;{{ article.pub_date|date:"Y/m/d" }}&emsp;<i class="fa-solid fa-clock-rotate-left"></i>&nbsp;{{ article.renew_date|date:"Y/m/d" }}</div>
+                <div class="article-dates">
+                    <time class="article-pub-date" datetime="{{ article.pub_date|date:'c' }}">
+                        <i class="fa-regular fa-clock"></i>&nbsp;{{ article.pub_date|date:'Y/m/d' }}
+                    </time>
+                    <time class="article-renew-date" datetime="{{ article.renew_date|date:'c' }}">
+                        <i class="fa-solid fa-clock-rotate-left"></i>&nbsp;{{ article.renew_date|date:'Y/m/d' }}
+                    </time>
+                </div>
             </div>
             <div class="row2">
                 <div class="article-author"><i class="fa-solid fa-pen-nib"></i>&nbsp;{{ article.author.display_name }}</div>
             </div>
         </div>
-        <img class="thumbnail-image" src="{{article.thumbnail.url}}" alt="{{article.title}}">
+        <figure>
+            <img class="thumbnail-image" src="{{article.thumbnail.url}}" alt="{{article.title}}">
+        </figure>
         {% if article.lead %}
         <p class="lead_sentence">{{article.lead}}</p>
         {% endif %}

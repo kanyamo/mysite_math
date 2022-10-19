@@ -4,6 +4,11 @@
     box-sizing: border-box;
 }
 
+/* 読み込み時のアニメーションをなくすためのクラス(JSで外す処理を行う) */
+.preload * {
+    transition-duration: 0s !important;
+}
+
 html {
     scroll-behavior: smooth;
 }
@@ -23,6 +28,11 @@ nav {
     background-image: linear-gradient(to left, #2af598 0%, #009efd 100%);
 }
 
+.navbar-list li:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}
 
 .navbar-list {
     margin: 0;
@@ -69,7 +79,12 @@ li.navbar-list-item {
 }
 
 .navigation-title-home {
-    font-size: x-large;
+    font-size: 1.5rem;
+    transition: font-size 0.4s ease;
+}
+
+.navigation-title-home:hover {
+    font-size: 1.8rem;
 }
 
 
@@ -136,6 +151,15 @@ li.navbar-list-item {
 
 .open-button.active .help-text::after {
     content: "CLOSE";
+}
+
+figure {
+    margin: 0;
+}
+
+/* インライン要素であるimgはvertical-alignを指定しなければ謎の余白ができる */
+img {
+    vertical-align: bottom;
 }
 
 .wrapper {
@@ -411,5 +435,5 @@ footer {
 
 .not-published-notification {
     color: red;
-    font-size: 90%;
+    /*  フォントサイズはsmallタグで調整済み */
 }

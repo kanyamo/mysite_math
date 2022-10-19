@@ -5,14 +5,14 @@
     </a>
     {% for category in category_list %}
     &gt;
-    <a class="crumb-list-item" href="{% url 'core:category-detail' category.inner_name %}">
+    <a class="crumb-list-item" href="{% url 'core:category-detail' category.inner_name %}" rel="category">
         <i class="fa-regular fa-folder"></i>
         {{ category.name }}
     </a>
     {% endfor %}
     {% if title %}
     &gt;
-    <a class="crumb-list-item" href="#">{{ title }}{% if not is_published %}<span class="not-published-notification">*未公開</span>{% endif %}</a>
+    <a class="crumb-list-item" href="#">{{ title }}{% if not is_published %}<small><span class="not-published-notification">*未公開</span></small>{% endif %}</a>
     {% endif %}
     <!-- htmlの改行でスペースがひとつ入ってしまうのでそれを見越して省略する -->
 </div>

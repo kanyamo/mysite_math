@@ -6,7 +6,9 @@
 <link rel="stylesheet" href="{% static 'core/css/index.css' %}">
 {% endblock %}
 {% block extra-header %}
-<img class="site-thumbnail" src="{% static 'core/image/site-thumbnail_with_logo.png' %}" alt="">
+<figure>
+    <img class="site-thumbnail" src="{% static 'core/image/site-thumbnail_with_logo.png' %}" alt="">
+</figure>
 {% endblock %}
 {% block column2-1 %}
     {% include 'core/breadcrumb_list.html' %}

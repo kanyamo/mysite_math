@@ -1,9 +1,9 @@
 @charset "UTF-8";
 
 .content-image-caption, .quote-caption {
+    margin: 1em 0;
     text-align: center;
-    color: gray;
-    font-size: 14px;
+    font-size: 90%;
 }
 
 .article-info {
@@ -20,9 +20,13 @@
     text-align: right;
 }
 
-.article-pub-date {
+.article-dates {
     margin-left: auto;
     text-align: right;
+}
+
+.article-pub-date {
+    padding-right: 1em;
 }
 
 .toc-container {
@@ -152,7 +156,7 @@ hr.delimiter {
 
 blockquote.quote {
     border-left: 2px solid black;
-    padding: 1em 0 1em 1em;
+    padding-left: 1em;
 }
 
 .warning-container {

@@ -20,16 +20,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 articleContent.appendChild(head);
                 break;
             case 'Image':
-                let image_div = document.createElement('div');
+                let figure = document.createElement('figure');
                 let image = document.createElement('img');
-                let image_caption = document.createElement('p');
+                let image_caption = document.createElement('figcaption');
                 image.classList.add('content-image');
                 image_caption.classList.add('content-image-caption');
                 image.src = `${blocks[index].data.file.url}`;
                 image_caption.textContent = blocks[index].data.caption;
-                image_div.appendChild(image);
-                image_div.appendChild(image_caption);
-                articleContent.appendChild(image_div);
+                figure.appendChild(image);
+                figure.appendChild(image_caption);
+                articleContent.appendChild(figure);
                 break;
             case 'Math':
                 let math_div = document.createElement('div');

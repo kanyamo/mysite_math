@@ -21,11 +21,11 @@
     {% block structured-data %}{% endblock %}
     <title>{% block title %}{% endblock %}&nbsp;|&nbsp;感覚の数学</title>
 </head>
-<body>
+<body class="preload" id="body">
     <header>
         <nav>
             <div class="navigation-home-container">
-                <a class="navbar-nav navigation-home" href="{% url 'core:index' %}">
+                <a class="navbar-nav navigation-home" href="{% url 'core:index' %}" accesskey="0" title="HOME: Alt+0">
                     <p class="navbar-nav-title navigation-title-home">感覚の数学</p>
                 </a>
                 <div class="open-button-container">
@@ -40,7 +40,7 @@
             <ul class="navbar-list navbar-list-hidden" id="navbar-list">
                 {% for category in root_categories %}
                 <li class="navbar-list-item">
-                    <a class="navbar-nav category" href="{% url 'core:category-detail' category.inner_name %}">
+                    <a class="navbar-nav category" href="{% url 'core:category-detail' category.inner_name %}" accesskey="{{ forloop.counter }}" title="{{ category.name }}: Alt+{{ forloop.counter }}">
                         <p class="navbar-nav-title">{{ category.name }}</p>
                     </a>
                 </li>
@@ -103,6 +103,7 @@
     {% block scripts %}
     <script type="text/javascript" src="{% static 'core/js/navbar.js' %}"></script>
     <script type="text/javascript" src="{% static 'core/js/marker.js' %}"></script>
+    <script type="text/javascript" src="{% static 'core/js/preload.js' %}"></script>
     {% endblock %}
 </body>
 </html>
