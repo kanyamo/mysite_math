@@ -54,7 +54,6 @@
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
 <!-- jsにデータを渡すためにjson_scriptを指定する -->
 <script type="application/json" id="article-content-data">{{ article.content|escapejs }}</script>
-<!-- {{ article.content|escapejs|json_script:'article-content-data' }} -->
 <script type="text/javascript" src="{% static 'core/js/article_compose.js' %}"></script>
 {{ block.super }}
 {% endblock %}
