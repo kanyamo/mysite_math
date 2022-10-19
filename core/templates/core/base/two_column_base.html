@@ -7,17 +7,19 @@
     </main>
 </div>
 <div class="column2-2">
-    <h2>人気記事</h2>
-    <div class="article-links">
-        {% for article in popular_articles %}
-            {% include "core/article_link.html" with article=article %}
-        {% endfor %}
-    </div>
-    <h2>新着記事</h2>
-    <div class="article-links">
-        {% for article in new_articles %}
-            {% include "core/article_link.html" with article=article %}
-        {% endfor %}
-    </div>
+    <aside>
+        <h2>人気記事</h2>
+        <div class="article-links">
+            {% for article in popular_articles %}
+                {% include "core/article_link.html" with article=article %}
+            {% endfor %}
+        </div>
+        <h2>新着記事</h2>
+        <div class="article-links">
+            {% for article in new_articles %}
+                {% include "core/article_link.html" with article=article %}
+            {% endfor %}
+        </div>
+    </aside>
 </div>
 {% endblock %}
