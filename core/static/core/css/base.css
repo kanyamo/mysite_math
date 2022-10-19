@@ -1,3 +1,5 @@
+@charset "UTF-8";
+
 * {
     box-sizing: border-box;
 }
@@ -322,7 +324,7 @@ h2 {
     padding: 1rem .5rem;
 }
 
-h2:after {
+h2::after {
     position: absolute;
     bottom: 0;
     left: 0;
@@ -331,6 +333,22 @@ h2:after {
     content: '';
     border-radius: 3px;
     background-image: linear-gradient(to left, #2af598 0%, #009efd 100%);
+}
+
+/* detailsの三角マークを消す */
+details > summary:has(> h2) {
+    list-style: none;
+}
+
+summary > h2::before {
+    font-family: "Font Awesome 6 Free";
+    content: '\f0da';
+    font-weight: 900;
+    padding-right: 0.3em;
+}
+
+details[open] > summary > h2::before {
+    content: '\f0d7';
 }
 
 h3 {

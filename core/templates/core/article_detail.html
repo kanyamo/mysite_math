@@ -37,8 +37,12 @@
     {% if user.id == article.author.id %}
     <hr class="delimiter">
     <p style="text-align: center;">※以下の内容は作者としてログイン中のため表示されています。</p>
-    <h2>このページのJSONデータ</h2>
-    <pre class="article-json-data" id="article-json-data"></pre>
+    <details>
+        <summary>
+            <h2>このページのJSONデータ</h2>
+        </summary>
+        <pre class="article-json-data" id="article-json-data"></pre>
+    </details>
     <br>
     <div class="article-edit-button-container">
         <a href="{% url 'core:article-edit' article.pk %}" class="article-edit-link">
