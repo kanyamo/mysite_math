@@ -1,5 +1,6 @@
 {% extends "core/base/two_column_base.html" %}
 {% load static %}
+{% load make_indent %}
 {% load editorjs %}
 {% block title %}{{article.title}}{% endblock %}
 {% block extra-styles %}
@@ -44,7 +45,7 @@
             <summary>
                 <h2>このページのJSONデータ</h2>
             </summary>
-            <pre class="article-json-data" id="article-json-data"></pre>
+            <pre class="article-json-data" id="article-json-data">{{ article.content|make_indent:2 }}</pre>
         </details>
         <br>
         <div class="article-edit-button-container">
