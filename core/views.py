@@ -51,6 +51,7 @@ class ArticleCreateView(generic.TemplateView):
             post.renew_date = timezone.localtime(timezone.now())
             post.view_count = 0
             post.author = request.user
+            post.compose_html()
             post.save()
             messages.success(request, '記事を新しく作成しました。')
             if not post.is_published:
@@ -80,6 +81,8 @@ class ArticleEditView(generic.TemplateView):
             article.is_published = form.cleaned_data['is_published']
             article.lead = form.cleaned_data['lead']
             article.renew_date = local_now()  # 更新時には投稿日やビュー数、著者は更新しない
+            # 上記のアップデートされた内容に基づき、htmlを生成してセーブする
+            article.compose_html()
             article.save()
             messages.success(request, '記事を更新しました。')
             if not article.is_published:

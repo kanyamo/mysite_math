@@ -126,7 +126,7 @@ ul.checklist {
 ul.checklist li {
     list-style-type: none;
     line-height: 1.5;
-    padding: 0.5em 0;
+    padding: 0.5rem 0;
 }
 
 ul.checklist li:before {
@@ -156,14 +156,22 @@ hr.delimiter {
 
 blockquote.quote {
     border-left: 2px solid black;
-    padding-left: 1em;
+    padding-left: 1rem;
 }
 
 .warning-container {
     border: 2px solid #cc0;
-    margin: 1em 0;
-    padding: 0 1em;
+    margin: 1rem 0;
+    padding: 0 1rem;
     background-color: #ffc;
+}
+
+.warning-title {
+    font-size: 1.2rem;
+}
+
+.warning-message {
+    margin: 1rem 0;
 }
 
 .external-link-block {

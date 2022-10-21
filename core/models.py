@@ -4,6 +4,9 @@ from django.utils import timezone
 from django.core.validators import RegexValidator
 from django_editorjs_fields import EditorJsTextField
 from django.conf import settings
+import json
+import textwrap  # html整形のため
+import re # パラグラフやリストの中にhtml要素を記述するため
 
 alphanumeric = RegexValidator(r'^[0-9a-zA-Z_]*$', '半角英数字とアンダースコアのみ使用可能です。')  # 内部カテゴリ名として半角英数字とアンダースコアしか使えないようにする
 
@@ -42,9 +45,140 @@ class Article(models.Model):
     lead = models.TextField('リード文', max_length=2000, blank=True, default='', help_text='投稿日や作者の直後で目次（表示する場合）の直前に挿入される文章です。リード文は記事のリンクにも使われます。')
     has_table_of_contents = models.BooleanField('目次を表示するかどうか', default=False)
     is_published = models.BooleanField('公開するかどうか', default=True)
-    content = EditorJsTextField()
+    # contentとcontent_as_htmlを分けることで、記事の読み込み時にいちいちjsonからパースする必要がなくなる
+    # 通常はcontentを編集し、その内容を自動的にcontent_as_htmlに書き出す
+    content = EditorJsTextField(verbose_name='内容',blank=True)
+    content_as_html = models.TextField('内容のHTML', max_length=1000000, null=False, blank=True, default='', help_text='html要素からは編集しないでください。このフィールドの変更は自動制御されているので、上書きされます。htmlを編集したい場合、editor.jsのraw要素を使ってください。')
 
     def __str__(self):
         return self.title
 
+    def compose_html(self):
+        """EditorJsTextFieldをHTMLにする"""
+        content = json.loads(self.content)
+        result = ''
 
+        def list_to_html(depth, dict_list):
+            if dict_list:
+                result = '\t' * (2 * depth - 3) + f'<ol class="toc-ol level{depth}">\n'
+                index = 0
+                n = len(dict_list)
+                while index < n:
+                    result += '\t' * (2 * depth - 2) + '<li class="toc-li">\n'
+                    result += '\t' * (2 * depth - 1) + f'<a href="#{dict_list[index]["id"]}" class="toc-a">{dict_list[index]["data"]["text"]}</a>' + '\n'
+                    index += 1
+                    sub_list = []
+                    while index < n and dict_list[index]['data']['level'] != depth:
+                        sub_list += [dict_list[index]]
+                        index += 1
+                    result += list_to_html(depth + 1, sub_list)
+                    result += '\t' * (2 * depth - 2) + '</li>\n'
+                result += "\t" * (2 * depth - 3) + f'</ol>\n'
+                return result
+            return ''
+        
+        if self.has_table_of_contents:
+            headers = list(filter(lambda block: block['type'] == 'Header', content['blocks']))
+            toc = list_to_html(2, headers)
+            result += f'<div class="toc-container">\n\t<p class="toc-title">Contents</p>\n{toc}</div>\n'
+        for block in content['blocks']:
+            element = ''
+            match block['type']:
+                case 'Header':
+                    element = f"""
+                    <h{block['data']['level']} id="{block['id']}">
+                        {block['data']['text']}
+                    </h{block['data']['level']}>
+                    """
+                case 'Image':
+                    element = f"""
+                    <figure>
+                        <img class="content-image" src="{block['data']['file']['url']}">
+                        <figcaption class="content-image-caption">
+                            {block['data']['caption']}
+                        </figcaption>
+                    </figure>
+                    """
+                case 'Math':
+                    element = f"""
+                    <div class="equation-container">
+                        \\[{block['data']['text']}\\]
+                    </div>
+                    """
+                case 'paragraph':
+                    element = f"""
+                    <p>{block['data']['text']}</p>
+                    """
+                case 'List':
+                    class_name = 'ol' if block['data']['style'] == 'ordered' else 'ul'
+                    element = f'\n<{class_name}>\n'
+                    for item in block['data']['items']:
+                        element += f'\t<li>{item}</li>\n'
+                    element += f'</{class_name}>\n'
+                case 'Code':
+                    # pre要素の内部なので整形困難
+                    element = f'\n<blockquote><pre><code class="code">{block["data"]["code"]}</code></pre></blockquote>\n'
+                case 'Raw':
+                    element = '\n<div class="raw-html-container">\n'
+                    for line in block['data']['html'].splitlines():
+                        element += f'\t{line}\n'
+                    element += '</div>\n'
+                case 'Table':
+                    data = block['data']['content']
+                    element = '\n<table class="article-table">\n'
+                    for row in range(len(data)):
+                        element += f'\t<tr>\n'
+                        for column in range(len(data[row])):
+                            element += f'\t\t<td>{data[row][column]}</td>\n'
+                        element += f'\t</tr>\n'
+                    element += '</table>\n'
+                case 'Checklist':
+                    element = '\n<ul class="checklist">\n'
+                    for item in block['data']['items']:
+                        element += f'\t<li checked="{item["checked"]}">{item["text"]}</li>\n'
+                    element += '</ul>\n'
+                case 'Delimiter':
+                    element = f"""
+                    <hr class="delimiter">
+                    """
+                case 'Quote':
+                    element = f"""
+                    <div>
+                        <blockquote class="quote">{block['data']['text']}</blockquote>
+                        <p class="quote-caption">{block['data']['caption']}</p>
+                    </div>
+                    """
+                case 'Warning':
+                    element = f"""
+                    <div class="warning-container">
+                        <p class="warning-title">
+                            <i class="fa-solid fa-triangle-exclamation"></i>
+                            {block['data']['title']}</p>
+                        <div class="warning-message">
+                            {block['data']['message']}
+                        </div>
+                    </div>
+                    """
+                case 'LinkTool':
+                    element = f"""
+                    <a class="external-link-block" href="{block['data']['link']}">
+                        <div class="external-link-title">
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                            {block['data']['meta']['title']}
+                        </div>
+                        <p class="external-link-description">
+                            {block['data']['meta']['description']}
+                        </p>
+                        <span class="external-link-url">
+                            {block['data']['link']}
+                        </span>
+                    </a>
+                    """
+                case _ as str:
+                    element = f"""
+                    <p style="color: red;">規定のタイプ以外の要素が検出されました：{str}</p>
+                    """
+            result += textwrap.dedent(element)[:-1]  # 一番浅いインデントを0にして、最後の改行を削除
+        exp = r'&lt;(.{1,5})&gt;'
+        self.content_as_html = re.sub(exp, r'<\1>', result)
+        # セーブは行わないので、compose_htmlを実行した後セーブする必要がある

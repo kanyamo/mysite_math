@@ -31,33 +31,27 @@
             <img class="thumbnail-image" src="{{article.thumbnail.url}}" alt="{{article.title}}">
         </figure>
         {% if article.lead %}
-        <p class="lead_sentence">{{article.lead}}</p>
-        {% endif %}
-        {% if article.has_table_of_contents %}
-        <div class="toc-container" id="toc-container">
-            <p class="toc-title">Contents</p>
-            <ol class="toc-ol" id="toc-ol">
-            </ol>
-        </div>
+            <p class="lead_sentence">{{article.lead}}</p>
         {% endif %}
         <div id="article-content" class="article-content">
-        </div> <!-- このidはjsで使う -->
+            {{ article.content_as_html|safe }}
+        </div>
     </article>
     {% if user.id == article.author.id %}
-    <hr class="delimiter">
-    <p style="text-align: center;">※以下の内容は作者としてログイン中のため表示されています。</p>
-    <details>
-        <summary>
-            <h2>このページのJSONデータ</h2>
-        </summary>
-        <pre class="article-json-data" id="article-json-data"></pre>
-    </details>
-    <br>
-    <div class="article-edit-button-container">
-        <a href="{% url 'core:article-edit' article.pk %}" class="article-edit-link">
-            この記事を編集する
-        </a>
-    </div>
+        <hr class="delimiter">
+        <p style="text-align: center;">※以下の内容は作者としてログイン中のため表示されています。</p>
+        <details>
+            <summary>
+                <h2>このページのJSONデータ</h2>
+            </summary>
+            <pre class="article-json-data" id="article-json-data"></pre>
+        </details>
+        <br>
+        <div class="article-edit-button-container">
+            <a href="{% url 'core:article-edit' article.pk %}" class="article-edit-link">
+                この記事を編集する
+            </a>
+        </div>
     {% endif %}
     {% endblock %}
 {% block scripts %}
@@ -65,8 +59,6 @@
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/katex.min.js" integrity="sha384-Qsn9KnoKISj6dI8g7p1HBlNpVx0I8p1SvlwOldgi3IorMle61nQy4zEahWYtljaz" crossorigin="anonymous"></script>
 <!-- To automatically render math in text elements, include the auto-render extension: -->
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
-<!-- jsにデータを渡すためにjson_scriptを指定する -->
-<script type="application/json" id="article-content-data">{{ article.content|escapejs }}</script>
 <script type="text/javascript" src="{% static 'core/js/article_compose.js' %}"></script>
 {{ block.super }}
 {% endblock %}
