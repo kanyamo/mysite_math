@@ -28,12 +28,6 @@ nav {
     background-image: linear-gradient(to left, #2af598 0%, #009efd 100%);
 }
 
-.navbar-list li:hover {
-    background-color: rgba(255, 255, 255, 0.2);
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
-}
-
 .navbar-list {
     margin: 0;
     padding: 0;
@@ -45,11 +39,30 @@ nav {
     height: 72px;
     visibility: visible;
     transition: all 0.4s ease;
-}
-
-li.navbar-list-item {
     display: block;
     list-style: none;
+    position: relative;
+}
+
+.navbar-list li:hover , .footer-list li:hover{
+    background-color: rgba(255, 255, 255, 0.2);
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}
+
+.navbar-list li::after, .footer-list li::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 3px;
+    background-color: white;
+    transition: width 0.4s ease;
+}
+
+.navbar-list li:hover::after, .footer-list li:hover::after {
+    width: 100%;
 }
 
 .navbar-nav {
@@ -404,11 +417,15 @@ footer {
 .footer-list {
     margin: 0;
     padding: 0;
+    justify-content: center;
+    display: flex;
 }
 
 .footer-list-item {
-    display: inline-block;
+    display: block;
     list-style: none;
+    position: relative;
+    transition: all 0.4s ease;
 }
 
 .footer-list-item a {

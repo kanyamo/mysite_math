@@ -60,7 +60,7 @@ class Article(models.Model):
 
         def list_to_html(depth, dict_list):
             if dict_list:
-                result = '\t' * (2 * depth - 3) + f'<ol class="toc-ol level{depth}">\n'
+                result = '\t' * (2 * depth - 3) + f'<{"ol" if depth == 2 else "ul"} class="toc-{"ol" if depth == 2 else "ul"} level{depth}">\n'
                 index = 0
                 n = len(dict_list)
                 while index < n:
@@ -73,7 +73,7 @@ class Article(models.Model):
                         index += 1
                     result += list_to_html(depth + 1, sub_list)
                     result += '\t' * (2 * depth - 2) + '</li>\n'
-                result += "\t" * (2 * depth - 3) + f'</ol>\n'
+                result += "\t" * (2 * depth - 3) + f'</{"ol" if depth == 2 else "ul"}>\n'
                 return result
             return ''
         

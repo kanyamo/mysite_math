@@ -48,6 +48,10 @@
     /* color: black; */
 }
 
+.toc-ul {
+    list-style-type: disc;
+}
+
 .article-edit-button-container {
     text-align: center;  /* ボタンそのものをインライン要素にして、それを中央寄せ */
 }
