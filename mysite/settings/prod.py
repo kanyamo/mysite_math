@@ -1,6 +1,7 @@
 from .base import *
 
 DEBUG = False
+
 # 本番環境のデータベース設定
 
 DATABASES = {
@@ -13,6 +14,7 @@ DATABASES = {
         'PORT': '5432',
     }
 }
+
 # 本番環境のロギング設定
 LOGGING = {
     'version': 1,  # 1固定
