@@ -5,68 +5,68 @@
 <link rel="stylesheet" href="{% static 'core/css/user_detail.css' %}">
 {% endblock %}
 {% block column2-1 %}
-    {% include 'core/breadcrumb_list.html' with title='マイページ' is_published=True %}
-    <h1>{{ user.display_name }}のマイページ</h1>
-    <div class="user-info">
-        <div class="user-info-left">
-            <img class="user-icon" src="{{ user.icon.url }}">
-        </div>
-        <div class="user-info-right">
-            <div class="info-label">表示名：</div>
-            <div class="info-data">{{ user.display_name }}</div>
-            <div class="info-label">ユーザー名：</div>
-            <div class="info-data">{{ user.username }}</div>
-            <div class="info-label">登録日：</div>
-            <div class="info-data">{{ user.pub_date }}</div>
-            <div class="info-label">自己紹介文：</div>
-            <div class="info-data">{{ user.description }}</div>
-        </div>
+{% include 'core/breadcrumb_list.html' with title='マイページ' is_published=True %}
+<h1>{{ user.display_name }}のマイページ</h1>
+<div class="user-info">
+    <div class="user-info-left">
+        <img class="user-icon" src="{{ user.icon.url }}">
     </div>
-    <div class="user-edit-button-container">
-        <a href="{% url 'core:user-edit' %}" class="user-edit-link">
-            プロフィール編集
-        </a>
-        <a href="{% url 'account_change_password' %}" class="user-edit-link">
-            パスワード変更
-        </a>
+    <div class="user-info-right">
+        <div class="info-label">表示名：</div>
+        <div class="info-data">{{ user.display_name }}</div>
+        <div class="info-label">ユーザー名：</div>
+        <div class="info-data">{{ user.username }}</div>
+        <div class="info-label">登録日：</div>
+        <div class="info-data">{{ user.pub_date }}</div>
+        <div class="info-label">自己紹介文：</div>
+        <div class="info-data">{{ user.description }}</div>
     </div>
-    {% if articles %}
-    <h2>{{ user.display_name }}の記事一覧</h2>
-    <div class="articles">
-        <table class="articles-table">
-            <tr>
-                <th>
-                    タイトル
-                </th>
-                <th>
-                    更新日
-                </th>
-                <th>
-                    PV数
-                </th>
-                <th>
-                    公開状況
-                </th>
-            </tr>
-            {% for article in articles %}
-            <tr>
-                <td>
-                    <a href="{% url 'core:detail' article.pk %}">
-                        {{ article.title }}
-                    </a>
-                </td>
-                <td>
-                    {{ article.renew_date }}
-                </td>
-                <td>
-                    {{ article.view_count }}
-                </td>
-                <td>
-                    {% if article.is_published %}公開中{% else %}未公開{% endif %}
-                </td>
-            </tr>
-            {% endfor %}
-        </table>
-    </div>
-    {% endif %}
+</div>
+<div class="user-edit-button-container">
+    <a href="{% url 'core:user-edit' %}" class="user-edit-link">
+        プロフィール編集
+    </a>
+    <a href="{% url 'account_change_password' %}" class="user-edit-link">
+        パスワード変更
+    </a>
+</div>
+{% if articles %}
+<h2>{{ user.display_name }}の記事一覧</h2>
+<div class="articles">
+    <table class="articles-table">
+        <tr>
+            <th>
+                タイトル
+            </th>
+            <th>
+                更新日
+            </th>
+            <th>
+                PV数
+            </th>
+            <th>
+                公開状況
+            </th>
+        </tr>
+        {% for article in articles %}
+        <tr>
+            <td>
+                <a href="{% url 'core:detail' article.pk %}">
+                    {{ article.title }}
+                </a>
+            </td>
+            <td>
+                {{ article.renew_date }}
+            </td>
+            <td>
+                {{ article.view_count }}
+            </td>
+            <td>
+                {% if article.is_published %}公開中{% else %}未公開{% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endif %}
 {% endblock %}

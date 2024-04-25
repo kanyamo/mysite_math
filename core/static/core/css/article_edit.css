@@ -11,6 +11,7 @@ body .codex-editor h2.ce-header {
     padding-bottom: 0.5em;
 }
 
-.hidden { /*JSONデータのテキストエリアを表示させないため */
+.hidden {
+    /*JSONデータのテキストエリアを表示させないため */
     display: none;
 }

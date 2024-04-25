@@ -2,49 +2,49 @@
 {% load static %}
 {% block title %}カテゴリ{% if creating_new %}新規作成{% else %}編集{% endif %}{% endblock %}
 {% block extra-styles %}
-    {{ block.super }}
-    <link rel="stylesheet" href="{% static 'core/css/edit_base.css' %}">
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'core/css/edit_base.css' %}">
 {% endblock %}
 {% block column1-1 %}
-    {% include 'core/breadcrumb_list.html' with title='カテゴリ新規作成・編集' is_published=True %}
-    <h1>カテゴリ{% if creating_new %}新規作成{% else %}編集{% endif %}</h1>
-    {% if user.is_staff %}
-        {% if form.errors %}
-        <p class="error-notification">以下のエラー箇所を修正してください。</p>
-        {{ form.errors }}
-        {% endif %}
-        {% if creating_new %}
-        <form method="post" action="{% url 'core:category-create' %}">
-        {% else %}
-        <form method="post" action="{% url 'core:category-edit' inner_name=inner_name %}">
-        {% endif %}
-            {% csrf_token %}
-            <h2>基本情報</h2>
-            <table>
-                <tr>
-                    <td><label for="id_upper">上位カテゴリ：</label></td>
-                    <td>{{ form.upper }}</td>
-                </tr>
-                <tr>
-                    <td><label for="id_name">カテゴリ名：</label></td>
-                    <td>{{ form.name }}</td>
-                </tr>
-                <tr>
-                    <td><label for="id_inner_name">内部カテゴリ名：</label></td>
-                    <td>{{ form.inner_name }}</td>
-                </tr>
-                <tr>
-                    <td><label for="id_description">説明文：</label></td>
-                    <td>{{ form.description }}</td>
-                </tr>
-                <tr>
-                    <td><label for="id_is_root">ルートカテゴリかどうか：</label></td>
-                    <td>{{ form.is_root }}</td>
-                </tr>
-            </table>
-            <button type="submit" class="post-button">{% if creating_new %}この内容で作成{% else %}変更を適用する{% endif %}</button>
-        </form>
+{% include 'core/breadcrumb_list.html' with title='カテゴリ新規作成・編集' is_published=True %}
+<h1>カテゴリ{% if creating_new %}新規作成{% else %}編集{% endif %}</h1>
+{% if user.is_staff %}
+{% if form.errors %}
+<p class="error-notification">以下のエラー箇所を修正してください。</p>
+{{ form.errors }}
+{% endif %}
+{% if creating_new %}
+<form method="post" action="{% url 'core:category-create' %}">
     {% else %}
-        <p>現在スタッフユーザーでログイン中でないので、ここに表示する内容はありません。</p>
+    <form method="post" action="{% url 'core:category-edit' inner_name=inner_name %}">
+        {% endif %}
+        {% csrf_token %}
+        <h2>基本情報</h2>
+        <table>
+            <tr>
+                <td><label for="id_upper">上位カテゴリ：</label></td>
+                <td>{{ form.upper }}</td>
+            </tr>
+            <tr>
+                <td><label for="id_name">カテゴリ名：</label></td>
+                <td>{{ form.name }}</td>
+            </tr>
+            <tr>
+                <td><label for="id_inner_name">内部カテゴリ名：</label></td>
+                <td>{{ form.inner_name }}</td>
+            </tr>
+            <tr>
+                <td><label for="id_description">説明文：</label></td>
+                <td>{{ form.description }}</td>
+            </tr>
+            <tr>
+                <td><label for="id_is_root">ルートカテゴリかどうか：</label></td>
+                <td>{{ form.is_root }}</td>
+            </tr>
+        </table>
+        <button type="submit" class="post-button">{% if creating_new %}この内容で作成{% else %}変更を適用する{% endif %}</button>
+    </form>
+    {% else %}
+    <p>現在スタッフユーザーでログイン中でないので、ここに表示する内容はありません。</p>
     {% endif %}
-{% endblock %}
+    {% endblock %}

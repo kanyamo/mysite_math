@@ -44,11 +44,13 @@ nav {
     position: relative;
 }
 
-.navbar-list li:hover , .footer-list li:hover{
+.navbar-list li:hover,
+.footer-list li:hover {
     background-color: rgba(255, 255, 255, 0.2);
 }
 
-.navbar-list li::after, .footer-list li::after {
+.navbar-list li::after,
+.footer-list li::after {
     content: '';
     position: absolute;
     bottom: 0;
@@ -59,7 +61,8 @@ nav {
     transition: width 0.4s ease;
 }
 
-.navbar-list li:hover::after, .footer-list li:hover::after {
+.navbar-list li:hover::after,
+.footer-list li:hover::after {
     width: 100%;
 }
 
@@ -109,6 +112,7 @@ nav {
     right: 20px;
     transform: translate(0, -50%);
 }
+
 .open-button {
     position: relative;
     width: 100%;
@@ -190,7 +194,7 @@ img {
 .column1-1 {
     background-color: #fff;
     width: calc(100% - 1em);
-    margin:1em 0.5em;
+    margin: 1em 0.5em;
     padding: 1em;
     border-radius: 6px;
 }
@@ -198,7 +202,7 @@ img {
 .column2-1 {
     background-color: #fff;
     width: calc(70% - 2em);
-    margin:1em 0.5em;
+    margin: 1em 0.5em;
     padding: 1em;
     border-radius: 6px;
 }
@@ -207,17 +211,17 @@ img {
     background-color: #fff;
     width: 30%;
     padding: 1em;
-    margin:1em 0.5em;
+    margin: 1em 0.5em;
     border-radius: 6px;
 }
 
-@media (min-width: 701px){
+@media (min-width: 701px) {
     .open-button-container {
         display: none;
     }
 }
 
-@media (max-width: 700px){
+@media (max-width: 700px) {
     .navbar-list-hidden li {
         height: 0;
         opacity: 0;
@@ -230,7 +234,7 @@ img {
 }
 
 
-@media (max-width: 1000px){
+@media (max-width: 1000px) {
     body {
         background-color: #fff;
     }
@@ -243,7 +247,8 @@ img {
         flex-direction: column;
     }
 
-    .column2-1 , .column2-2 {
+    .column2-1,
+    .column2-2 {
         width: 100%;
         margin: 0;
         border-radius: 0;
@@ -341,7 +346,9 @@ a.article-link:nth-of-type(n+2)::before {
     -webkit-line-clamp: 2;
 }
 
-.article-link-thumbnail, .content-image, .thumbnail-image {
+.article-link-thumbnail,
+.content-image,
+.thumbnail-image {
     width: 100%;
     border-radius: 6px;
 }
@@ -371,18 +378,18 @@ h2::after {
 }
 
 /* detailsの三角マークを消す */
-details > summary:has(> h2) {
+details>summary:has(> h2) {
     list-style: none;
 }
 
-summary > h2::before {
+summary>h2::before {
     font-family: "Font Awesome 6 Free";
     content: '\f0da';
     font-weight: 900;
     padding-right: 0.3em;
 }
 
-details[open] > summary > h2::before {
+details[open]>summary>h2::before {
     content: '\f0d7';
 }
 
@@ -397,7 +404,7 @@ p {
 }
 
 mark {
-    background:linear-gradient(to bottom, transparent 50%, #8df6ff 0%);
+    background: linear-gradient(to bottom, transparent 50%, #8df6ff 0%);
     background-size: 0% 100%;
     background-repeat: no-repeat;
     transition: background-size 2s ease-in-out;
@@ -441,7 +448,8 @@ footer {
     margin-bottom: 0.5em;
 }
 
-.breadcrumb-list, .crumb-list-item {
+.breadcrumb-list,
+.crumb-list-item {
     color: black;
 }
 

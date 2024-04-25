@@ -9,57 +9,62 @@
 <link rel="stylesheet" type="text/css" href="https://tikzjax.com/v1/fonts.css">
 {% endblock %}
 {% block column2-1 %}
-    {% include 'core/breadcrumb_list.html' with category_list=category_list title=article.title is_published=article.is_published %}
-    <article>
-        <h1 class="title">{{article.title}}</h1>
-        <div class="article-info">
-            <div class="row1">
-                <div class="article-view-count">{{article.view_count}} views</div>
-                <div class="article-dates">
-                    <time class="article-pub-date" datetime="{{ article.pub_date|date:'c' }}">
-                        <i class="fa-regular fa-clock"></i>&nbsp;{{ article.pub_date|date:'Y/m/d' }}
-                    </time>
-                    <time class="article-renew-date" datetime="{{ article.renew_date|date:'c' }}">
-                        <i class="fa-solid fa-clock-rotate-left"></i>&nbsp;{{ article.renew_date|date:'Y/m/d' }}
-                    </time>
-                </div>
-            </div>
-            <div class="row2">
-                <div class="article-author"><i class="fa-solid fa-pen-nib"></i>&nbsp;{{ article.author.display_name }}</div>
+{% include 'core/breadcrumb_list.html' with category_list=category_list title=article.title
+is_published=article.is_published %}
+<article>
+    <h1 class="title">{{article.title}}</h1>
+    <div class="article-info">
+        <div class="row1">
+            <div class="article-view-count">{{article.view_count}} views</div>
+            <div class="article-dates">
+                <time class="article-pub-date" datetime="{{ article.pub_date|date:'c' }}">
+                    <i class="fa-regular fa-clock"></i>&nbsp;{{ article.pub_date|date:'Y/m/d' }}
+                </time>
+                <time class="article-renew-date" datetime="{{ article.renew_date|date:'c' }}">
+                    <i class="fa-solid fa-clock-rotate-left"></i>&nbsp;{{ article.renew_date|date:'Y/m/d' }}
+                </time>
             </div>
         </div>
-        <figure>
-            <img class="thumbnail-image" src="{{article.thumbnail.url}}" alt="{{article.title}}">
-        </figure>
-        {% if article.lead %}
-            <p class="lead_sentence">{{article.lead}}</p>
-        {% endif %}
-        <div id="article-content" class="article-content">
-            {{ article.content_as_html|safe }}
+        <div class="row2">
+            <div class="article-author"><i class="fa-solid fa-pen-nib"></i>&nbsp;{{ article.author.display_name }}</div>
         </div>
-    </article>
-    {% if user.id == article.author.id %}
-        <hr class="delimiter">
-        <p style="text-align: center;">※以下の内容は作者としてログイン中のため表示されています。</p>
-        <details>
-            <summary>
-                <h2>このページのJSONデータ</h2>
-            </summary>
-            <pre class="article-json-data" id="article-json-data">{{ article.content|make_indent:2 }}</pre>
-        </details>
-        <br>
-        <div class="article-edit-button-container">
-            <a href="{% url 'core:article-edit' article.pk %}" class="article-edit-link">
-                この記事を編集する
-            </a>
-        </div>
+    </div>
+    <figure>
+        <img class="thumbnail-image" src="{{article.thumbnail.url}}" alt="{{article.title}}">
+    </figure>
+    {% if article.lead %}
+    <p class="lead_sentence">{{article.lead}}</p>
     {% endif %}
-    {% endblock %}
+    <div id="article-content" class="article-content">
+        {{ article.content_as_html|safe }}
+    </div>
+</article>
+{% if user.id == article.author.id %}
+<hr class="delimiter">
+<p style="text-align: center;">※以下の内容は作者としてログイン中のため表示されています。</p>
+<details>
+    <summary>
+        <h2>このページのJSONデータ</h2>
+    </summary>
+    <pre class="article-json-data" id="article-json-data">{{ article.content|make_indent:2 }}</pre>
+</details>
+<br>
+<div class="article-edit-button-container">
+    <a href="{% url 'core:article-edit' article.pk %}" class="article-edit-link">
+        この記事を編集する
+    </a>
+</div>
+{% endif %}
+{% endblock %}
 {% block scripts %}
 <!-- The loading of KaTeX is deferred to speed up page rendering -->
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/katex.min.js" integrity="sha384-Qsn9KnoKISj6dI8g7p1HBlNpVx0I8p1SvlwOldgi3IorMle61nQy4zEahWYtljaz" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/katex.min.js"
+    integrity="sha384-Qsn9KnoKISj6dI8g7p1HBlNpVx0I8p1SvlwOldgi3IorMle61nQy4zEahWYtljaz"
+    crossorigin="anonymous"></script>
 <!-- To automatically render math in text elements, include the auto-render extension: -->
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/contrib/auto-render.min.js"
+    integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"
+    onload="renderMathInElement(document.body);"></script>
 <script type="text/javascript" src="{% static 'core/js/article_compose.js' %}"></script>
 {{ block.super }}
 {% endblock %}

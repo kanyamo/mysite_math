@@ -1,9 +1,9 @@
-function isHeightViewable(element){
-    const {top, bottom} = element.getBoundingClientRect();
+function isHeightViewable(element) {
+    const { top, bottom } = element.getBoundingClientRect();
     return top >= 0 && bottom <= window.innerHeight;
 }
 
-function activateViewableElement(element){
+function activateViewableElement(element) {
     if (isHeightViewable(element) && !element.classList.contains('active')) {
         element.classList.add('active');
     }

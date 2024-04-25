@@ -1,6 +1,6 @@
-{% extends "core/base/base.html" %}  <!-- カラムを2段組にしたいページに適用する -->
+{% extends "core/base/base.html" %} <!-- カラムを2段組にしたいページに適用する -->
 {% block contents %}
-<div class="column2-1">  <!-- 2つあるカラムの1つめ -->
+<div class="column2-1"> <!-- 2つあるカラムの1つめ -->
     <main>
         {% block column2-1 %}
         {% endblock %}
@@ -11,13 +11,13 @@
         <h2>人気記事</h2>
         <div class="article-links">
             {% for article in popular_articles %}
-                {% include "core/article_link.html" with article=article %}
+            {% include "core/article_link.html" with article=article %}
             {% endfor %}
         </div>
         <h2>新着記事</h2>
         <div class="article-links">
             {% for article in new_articles %}
-                {% include "core/article_link.html" with article=article %}
+            {% include "core/article_link.html" with article=article %}
             {% endfor %}
         </div>
     </aside>

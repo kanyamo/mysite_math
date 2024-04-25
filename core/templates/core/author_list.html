@@ -5,24 +5,24 @@
 <link rel="stylesheet" href="{% static 'core/css/author_list.css' %}">
 {% endblock %}
 {% block column2-1 %}
-    {% include 'core/breadcrumb_list.html' with title='作者一覧' is_published=True %}
-    <h1>作者一覧</h1>
-    {% for author in authors %}
-    <div class="author-info">
-        <div class="author-info-left">
-            <img class="author-icon" src="{{ author.icon.url }}">
-        </div>
-        <div class="author-info-right">
-            <b>{{ author.display_name }}</b>
-            <p>{{ author.description }}</p>
-        </div>
+{% include 'core/breadcrumb_list.html' with title='作者一覧' is_published=True %}
+<h1>作者一覧</h1>
+{% for author in authors %}
+<div class="author-info">
+    <div class="author-info-left">
+        <img class="author-icon" src="{{ author.icon.url }}">
     </div>
-    {% endfor %}
-    {% if DEBUG %}
-    <div class="login-button-container">
-        <a href="{% url 'account_login' %}" class="login-link">
-            管理者用ログイン
-        </a>
+    <div class="author-info-right">
+        <b>{{ author.display_name }}</b>
+        <p>{{ author.description }}</p>
     </div>
-    {% endif %}
+</div>
+{% endfor %}
+{% if DEBUG %}
+<div class="login-button-container">
+    <a href="{% url 'account_login' %}" class="login-link">
+        管理者用ログイン
+    </a>
+</div>
+{% endif %}
 {% endblock %}

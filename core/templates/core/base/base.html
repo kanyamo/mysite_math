@@ -1,6 +1,7 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,7 +11,8 @@
     <meta name="author" content="kanyamo">
     <meta name="theme-color" content="#fff">
     <link rel="stylesheet" href="{% static 'core/css/base.css' %}">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/katex.min.css" integrity="sha384-bYdxxUwYipFNohQlHt0bjN/LCpueqWz13HufFEV1SUatKs1cm4L6fFgCi1jT643X" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/katex.min.css"
+        integrity="sha384-bYdxxUwYipFNohQlHt0bjN/LCpueqWz13HufFEV1SUatKs1cm4L6fFgCi1jT643X" crossorigin="anonymous">
     <link href="{% static 'fontawesomefree/css/fontawesome.css' %}" rel="stylesheet" type="text/css">
     <link href="{% static 'fontawesomefree/css/brands.css' %}" rel="stylesheet" type="text/css">
     <link href="{% static 'fontawesomefree/css/solid.css' %}" rel="stylesheet" type="text/css">
@@ -21,6 +23,7 @@
     {% block structured-data %}{% endblock %}
     <title>{% block title %}{% endblock %}&nbsp;|&nbsp;感覚の数学</title>
 </head>
+
 <body class="preload" id="body">
     <header>
         <nav>
@@ -40,7 +43,8 @@
             <ul class="navbar-list navbar-list-hidden" id="navbar-list">
                 {% for category in root_categories %}
                 <li class="navbar-list-item">
-                    <a class="navbar-nav category" href="{% url 'core:category-detail' category.inner_name %}" accesskey="{{ forloop.counter }}" title="{{ category.name }}: Alt+{{ forloop.counter }}">
+                    <a class="navbar-nav category" href="{% url 'core:category-detail' category.inner_name %}"
+                        accesskey="{{ forloop.counter }}" title="{{ category.name }}: Alt+{{ forloop.counter }}">
                         <p class="navbar-nav-title">{{ category.name }}</p>
                     </a>
                 </li>
@@ -89,7 +93,7 @@
             </li>
             {% endif %}
             <li class="footer-list-item">
-                <a href="{% url 'core:author-list' %}" >
+                <a href="{% url 'core:author-list' %}">
                     <p>作者一覧</p>
                 </a>
             </li>
@@ -106,4 +110,5 @@
     <script type="text/javascript" src="{% static 'core/js/preload.js' %}"></script>
     {% endblock %}
 </body>
+
 </html>

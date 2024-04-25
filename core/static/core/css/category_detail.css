@@ -6,7 +6,8 @@
 }
 
 .category-edit-button-container {
-    text-align: center;  /* ボタンそのものをインライン要素にして、それを中央寄せ */
+    text-align: center;
+    /* ボタンそのものをインライン要素にして、それを中央寄せ */
 }
 
 .category-edit-link {

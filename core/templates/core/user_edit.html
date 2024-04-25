@@ -2,42 +2,42 @@
 {% load static %}
 {% block title %}アカウント編集{% endblock %}
 {% block extra-styles %}
-    {{ block.super }}
-    <link rel="stylesheet" href="{% static 'core/css/edit_base.css' %}">
-    <link rel="stylesheet" href="{% static 'core/css/user_edit.css' %}">
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'core/css/edit_base.css' %}">
+<link rel="stylesheet" href="{% static 'core/css/user_edit.css' %}">
 {% endblock %}
 {% block column1-1 %}
-    {% include 'core/breadcrumb_list.html' with title='アカウント プロフィール編集' is_published=True %}
-    <h1>アカウント プロフィール編集</h1>
-    {% if user.is_authenticated %}
-        {% if form.errors %}
-        <p class="error-notification">以下のエラー箇所を修正してください。</p>
-        {{ form.errors }}
-        {% endif %}
-        <form method="post" action="{% url 'core:user-edit' %}" enctype="multipart/form-data">
-            {% csrf_token %}
-            <h2>基本情報</h2>
-            <table>
-                <tr>
-                    <td><label for="icon">アイコン画像：</label></td>
-                    <td>{{ form.icon }}</td>
-                </tr>
-                <tr>
-                    <td><label for="username">ユーザー名：</label></td>
-                    <td>{{ form.username }}</td>
-                </tr>
-                <tr>
-                    <td><label for="display_name">表示名：</label></td>
-                    <td>{{ form.display_name }}</td>
-                </tr>
-                <tr>
-                    <td><label for="description">自己紹介文：</label></td>
-                    <td>{{ form.description }}</td>
-                </tr>
-            </table>
-            <button type="submit" class="post-button">変更を適用する</button>
-        </form>
-    {% else %}
-        <p>現在ログイン中でないので、ここに表示する内容はありません。</p>
-    {% endif %}
+{% include 'core/breadcrumb_list.html' with title='アカウント プロフィール編集' is_published=True %}
+<h1>アカウント プロフィール編集</h1>
+{% if user.is_authenticated %}
+{% if form.errors %}
+<p class="error-notification">以下のエラー箇所を修正してください。</p>
+{{ form.errors }}
+{% endif %}
+<form method="post" action="{% url 'core:user-edit' %}" enctype="multipart/form-data">
+    {% csrf_token %}
+    <h2>基本情報</h2>
+    <table>
+        <tr>
+            <td><label for="icon">アイコン画像：</label></td>
+            <td>{{ form.icon }}</td>
+        </tr>
+        <tr>
+            <td><label for="username">ユーザー名：</label></td>
+            <td>{{ form.username }}</td>
+        </tr>
+        <tr>
+            <td><label for="display_name">表示名：</label></td>
+            <td>{{ form.display_name }}</td>
+        </tr>
+        <tr>
+            <td><label for="description">自己紹介文：</label></td>
+            <td>{{ form.description }}</td>
+        </tr>
+    </table>
+    <button type="submit" class="post-button">変更を適用する</button>
+</form>
+{% else %}
+<p>現在ログイン中でないので、ここに表示する内容はありません。</p>
+{% endif %}
 {% endblock %}

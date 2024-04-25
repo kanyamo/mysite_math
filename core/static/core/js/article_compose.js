@@ -1,10 +1,12 @@
 document.addEventListener('DOMContentLoaded', () => {
     // KaTeX読み込み
     // preの中はレンダリングされない（多分）
-    renderMathInElement(document.body, {delimiters: [
-        {left: "\\[", right: "\\]", display: true},
-        {left: "$", right: "$", display: false}
-    ]});
+    renderMathInElement(document.body, {
+        delimiters: [
+            { left: "\\[", right: "\\]", display: true },
+            { left: "$", right: "$", display: false }
+        ]
+    });
 
     // tikzJax遅延読み込み
     var tz = document.createElement('script');
