@@ -12,3 +12,5 @@ staticfiles/
 db.sqlite3
 migrations/
 !media/default/
+
+.DS_Store
