@@ -1,5 +1,6 @@
 .env
 venv_mysite/
+.venv
 *.log
 *.pot
 *.pyc
